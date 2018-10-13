@@ -1,0 +1,989 @@
+<!doctype html>
+
+
+
+  
+
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Neucha:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="系统优化," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "21f1e91b"
+    });
+  daovoice('update');
+  </script>
+
+
+
+<meta name="description" content="系统优化要根据需求修改（1：zabbix.conf| 2:iptables| 3:snmp.conf|4: ssh_port| 5:ntpserver| 6:yum repo）等配置脚本中需要的软件可以到下面地址下载链接：https://pan.baidu.com/s/1i5u3ZVJ 密码：nytn软件默认安装到/opt下面软件包放在/tmp/inbag/下面即可 123456789101112">
+<meta name="keywords" content="系统优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux服务安装脚本">
+<meta property="og:url" content="http://www.suixin788.top/blog/2017/12/linux服务一键安装脚本.html">
+<meta property="og:site_name" content="随心_博客">
+<meta property="og:description" content="系统优化要根据需求修改（1：zabbix.conf| 2:iptables| 3:snmp.conf|4: ssh_port| 5:ntpserver| 6:yum repo）等配置脚本中需要的软件可以到下面地址下载链接：https://pan.baidu.com/s/1i5u3ZVJ 密码：nytn软件默认安装到/opt下面软件包放在/tmp/inbag/下面即可 123456789101112">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-09T06:28:52.650Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux服务安装脚本">
+<meta name="twitter:description" content="系统优化要根据需求修改（1：zabbix.conf| 2:iptables| 3:snmp.conf|4: ssh_port| 5:ntpserver| 6:yum repo）等配置脚本中需要的软件可以到下面地址下载链接：https://pan.baidu.com/s/1i5u3ZVJ 密码：nytn软件默认安装到/opt下面软件包放在/tmp/inbag/下面即可 123456789101112">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.suixin788.top/blog/2017/12/linux服务一键安装脚本.html"/>
+
+
+
+
+
+  <title> linux服务安装脚本 | 随心_博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2d05d0eadc098f6bab0bc704b74c9285";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">随心_博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://www.suixin788.top/blog/2017/12/linux服务一键安装脚本.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="随心">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="随心_博客">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="随心_博客" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                linux服务安装脚本
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-21T17:10:00+08:00">
+                2017-12-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux服务安装脚本/" itemprop="url" rel="index">
+                    <span itemprop="name">linux服务安装脚本</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>系统优化要根据需求修改（1：zabbix.conf| 2:iptables| 3:snmp.conf|4: ssh_port| 5:ntpserver| 6:yum repo）等配置</strong><br>脚本中需要的软件可以到下面地址下载<br>链接：<a href="https://pan.baidu.com/s/1i5u3ZVJ" target="_blank" rel="external">https://pan.baidu.com/s/1i5u3ZVJ</a> 密码：nytn<br>软件默认安装到/opt下面<br>软件包放在/tmp/inbag/下面即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div><div class="line">271</div><div class="line">272</div><div class="line">273</div><div class="line">274</div><div class="line">275</div><div class="line">276</div><div class="line">277</div><div class="line">278</div><div class="line">279</div><div class="line">280</div><div class="line">281</div><div class="line">282</div><div class="line">283</div><div class="line">284</div><div class="line">285</div><div class="line">286</div><div class="line">287</div><div class="line">288</div><div class="line">289</div><div class="line">290</div><div class="line">291</div><div class="line">292</div><div class="line">293</div><div class="line">294</div><div class="line">295</div><div class="line">296</div><div class="line">297</div><div class="line">298</div><div class="line">299</div><div class="line">300</div><div class="line">301</div><div class="line">302</div><div class="line">303</div><div class="line">304</div><div class="line">305</div><div class="line">306</div><div class="line">307</div><div class="line">308</div><div class="line">309</div><div class="line">310</div><div class="line">311</div><div class="line">312</div><div class="line">313</div><div class="line">314</div><div class="line">315</div><div class="line">316</div><div class="line">317</div><div class="line">318</div><div class="line">319</div><div class="line">320</div><div class="line">321</div><div class="line">322</div><div class="line">323</div><div class="line">324</div><div class="line">325</div><div class="line">326</div><div class="line">327</div><div class="line">328</div><div class="line">329</div><div class="line">330</div><div class="line">331</div><div class="line">332</div><div class="line">333</div><div class="line">334</div><div class="line">335</div><div class="line">336</div><div class="line">337</div><div class="line">338</div><div class="line">339</div><div class="line">340</div><div class="line">341</div><div class="line">342</div><div class="line">343</div><div class="line">344</div><div class="line">345</div><div class="line">346</div><div class="line">347</div><div class="line">348</div><div class="line">349</div><div class="line">350</div><div class="line">351</div><div class="line">352</div><div class="line">353</div><div class="line">354</div><div class="line">355</div><div class="line">356</div><div class="line">357</div><div class="line">358</div><div class="line">359</div><div class="line">360</div><div class="line">361</div><div class="line">362</div><div class="line">363</div><div class="line">364</div><div class="line">365</div><div class="line">366</div><div class="line">367</div><div class="line">368</div><div class="line">369</div><div class="line">370</div><div class="line">371</div><div class="line">372</div><div class="line">373</div><div class="line">374</div><div class="line">375</div><div class="line">376</div><div class="line">377</div><div class="line">378</div><div class="line">379</div><div class="line">380</div><div class="line">381</div><div class="line">382</div><div class="line">383</div><div class="line">384</div><div class="line">385</div><div class="line">386</div><div class="line">387</div><div class="line">388</div><div class="line">389</div><div class="line">390</div><div class="line">391</div><div class="line">392</div><div class="line">393</div><div class="line">394</div><div class="line">395</div><div class="line">396</div><div class="line">397</div><div class="line">398</div><div class="line">399</div><div class="line">400</div><div class="line">401</div><div class="line">402</div><div class="line">403</div><div class="line">404</div><div class="line">405</div><div class="line">406</div><div class="line">407</div><div class="line">408</div><div class="line">409</div><div class="line">410</div><div class="line">411</div><div class="line">412</div><div class="line">413</div><div class="line">414</div><div class="line">415</div><div class="line">416</div><div class="line">417</div><div class="line">418</div><div class="line">419</div><div class="line">420</div><div class="line">421</div><div class="line">422</div><div class="line">423</div><div class="line">424</div><div class="line">425</div><div class="line">426</div><div class="line">427</div><div class="line">428</div><div class="line">429</div><div class="line">430</div><div class="line">431</div><div class="line">432</div><div class="line">433</div><div class="line">434</div><div class="line">435</div><div class="line">436</div><div class="line">437</div><div class="line">438</div><div class="line">439</div><div class="line">440</div><div class="line">441</div><div class="line">442</div><div class="line">443</div><div class="line">444</div><div class="line">445</div><div class="line">446</div><div class="line">447</div><div class="line">448</div><div class="line">449</div><div class="line">450</div><div class="line">451</div><div class="line">452</div><div class="line">453</div><div class="line">454</div><div class="line">455</div><div class="line">456</div><div class="line">457</div><div class="line">458</div><div class="line">459</div><div class="line">460</div><div class="line">461</div><div class="line">462</div><div class="line">463</div><div class="line">464</div><div class="line">465</div><div class="line">466</div><div class="line">467</div><div class="line">468</div><div class="line">469</div><div class="line">470</div><div class="line">471</div><div class="line">472</div><div class="line">473</div><div class="line">474</div><div class="line">475</div><div class="line">476</div><div class="line">477</div><div class="line">478</div><div class="line">479</div><div class="line">480</div><div class="line">481</div><div class="line">482</div><div class="line">483</div><div class="line">484</div><div class="line">485</div><div class="line">486</div><div class="line">487</div><div class="line">488</div><div class="line">489</div><div class="line">490</div><div class="line">491</div><div class="line">492</div><div class="line">493</div><div class="line">494</div><div class="line">495</div><div class="line">496</div><div class="line">497</div><div class="line">498</div><div class="line">499</div><div class="line">500</div><div class="line">501</div><div class="line">502</div><div class="line">503</div><div class="line">504</div><div class="line">505</div><div class="line">506</div><div class="line">507</div><div class="line">508</div><div class="line">509</div><div class="line">510</div><div class="line">511</div><div class="line">512</div><div class="line">513</div><div class="line">514</div><div class="line">515</div><div class="line">516</div><div class="line">517</div><div class="line">518</div><div class="line">519</div><div class="line">520</div><div class="line">521</div><div class="line">522</div><div class="line">523</div><div class="line">524</div><div class="line">525</div><div class="line">526</div><div class="line">527</div><div class="line">528</div><div class="line">529</div><div class="line">530</div><div class="line">531</div><div class="line">532</div><div class="line">533</div><div class="line">534</div><div class="line">535</div><div class="line">536</div><div class="line">537</div><div class="line">538</div><div class="line">539</div><div class="line">540</div><div class="line">541</div><div class="line">542</div><div class="line">543</div><div class="line">544</div><div class="line">545</div><div class="line">546</div><div class="line">547</div><div class="line">548</div><div class="line">549</div><div class="line">550</div><div class="line">551</div><div class="line">552</div><div class="line">553</div><div class="line">554</div><div class="line">555</div><div class="line">556</div><div class="line">557</div><div class="line">558</div><div class="line">559</div><div class="line">560</div><div class="line">561</div><div class="line">562</div><div class="line">563</div><div class="line">564</div><div class="line">565</div><div class="line">566</div><div class="line">567</div><div class="line">568</div><div class="line">569</div><div class="line">570</div><div class="line">571</div><div class="line">572</div><div class="line">573</div><div class="line">574</div><div class="line">575</div><div class="line">576</div><div class="line">577</div><div class="line">578</div><div class="line">579</div><div class="line">580</div><div class="line">581</div><div class="line">582</div><div class="line">583</div><div class="line">584</div><div class="line">585</div><div class="line">586</div><div class="line">587</div><div class="line">588</div><div class="line">589</div><div class="line">590</div><div class="line">591</div><div class="line">592</div><div class="line">593</div><div class="line">594</div><div class="line">595</div><div class="line">596</div><div class="line">597</div><div class="line">598</div><div class="line">599</div><div class="line">600</div><div class="line">601</div><div class="line">602</div><div class="line">603</div><div class="line">604</div><div class="line">605</div><div class="line">606</div><div class="line">607</div><div class="line">608</div><div class="line">609</div><div class="line">610</div><div class="line">611</div><div class="line">612</div><div class="line">613</div><div class="line">614</div><div class="line">615</div><div class="line">616</div><div class="line">617</div><div class="line">618</div><div class="line">619</div><div class="line">620</div><div class="line">621</div><div class="line">622</div><div class="line">623</div><div class="line">624</div><div class="line">625</div><div class="line">626</div><div class="line">627</div><div class="line">628</div><div class="line">629</div><div class="line">630</div><div class="line">631</div><div class="line">632</div><div class="line">633</div><div class="line">634</div><div class="line">635</div><div class="line">636</div><div class="line">637</div><div class="line">638</div><div class="line">639</div><div class="line">640</div><div class="line">641</div><div class="line">642</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"><span class="comment">#This script is for auto install app</span></div><div class="line"><span class="comment">#Auth:luobin</span></div><div class="line"><span class="comment">#Date:2017/12/18</span></div><div class="line"><span class="comment">#各种安装包放在$&#123;downdir&#125;下面，安装路径为/opt</span></div><div class="line">RED_COLOR=<span class="string">'\E[1;31m'</span></div><div class="line">GREEN_COLOR=<span class="string">'\E[1;32m'</span></div><div class="line">YELLOW_COLOR=<span class="string">'\E[1;33m'</span></div><div class="line">BLUE_COLOR=<span class="string">'\E[1;34m'</span></div><div class="line">RES=<span class="string">'\E[0m'</span></div><div class="line"></div><div class="line"><span class="comment">###################################################修改变量区############################################################################</span></div><div class="line"></div><div class="line"><span class="comment">#安装路径</span></div><div class="line">insdir=<span class="string">'/opt/'</span></div><div class="line"><span class="comment">#软件包下载路径</span></div><div class="line">ftpdir=<span class="string">'ftp://10.1.1.1/pub/inbag/'</span></div><div class="line"><span class="comment">#软件包存放本地路径</span></div><div class="line">downdir=<span class="string">'/tmp/inbag'</span></div><div class="line"></div><div class="line"><span class="comment">############################################################################################################################################</span></div><div class="line"><span class="function"><span class="title">init</span></span>()&#123;</div><div class="line"><span class="built_in">read</span> -p <span class="string">"是否要配置yum源(y|n): "</span> yn</div><div class="line"><span class="built_in">read</span> -p <span class="string">"请输入要设置的主机名: "</span> host</div><div class="line"><span class="built_in">read</span> -p <span class="string">"请输入你要添加路由的网关: "</span> gateway1 </div><div class="line"><span class="comment">####################IP######################################</span></div><div class="line">IPADDR=`ifconfig|grep -Po <span class="string">'(\d+\.)&#123;3&#125;\d+'</span>|awk <span class="string">'/10\./'</span>|awk <span class="string">'NR==1'</span>`</div><div class="line"><span class="comment">####################ssh port###############################</span></div><div class="line">sed -i <span class="string">'s/\#Port 22/Port 2202/g'</span> /etc/ssh/sshd_config</div><div class="line">sed -i <span class="string">'s/\#ListenAddress 0.0.0.0/ListenAddress '</span><span class="string">"<span class="variable">$IPADDR</span>"</span><span class="string">'/g'</span> /etc/ssh/sshd_config</div><div class="line">sed -i <span class="string">'s/\#PermitRootLogin yes/PermitRootLogin no/g'</span> /etc/ssh/sshd_config</div><div class="line">sed -i <span class="string">'s/GSSAPIAuthentication yes/GSSAPIAuthentication no/g'</span> /etc/ssh/sshd_config</div><div class="line">sed -i <span class="string">'s/X11Forwarding yes/X11Forwarding no/g'</span> /etc/ssh/sshd_config</div><div class="line">sed -i <span class="string">'s/\#UseDNS yes/UseDNS no/g'</span> /etc/ssh/sshd_config</div><div class="line"><span class="comment">####################selinux off###########################</span></div><div class="line">sed -i <span class="string">'s/SELINUX=enforcing/SELINUX=disabled/g'</span> /etc/selinux/config </div><div class="line">setenforce 0</div><div class="line"><span class="comment">#######################history format####################</span></div><div class="line">hfm=`grep HISTTIMEFORMAT  ~/.bashrc |wc -l`</div><div class="line">[ <span class="variable">$hfm</span> -eq 0 ] &amp;&amp; <span class="built_in">echo</span> <span class="string">'HISTTIMEFORMAT="`whoami`: %F %T :"'</span> &gt;&gt; ~/.bashrc</div><div class="line"><span class="comment">####################route-auto##########################</span></div><div class="line"><span class="keyword">if</span> [ `uname -r | awk -F<span class="string">'.'</span> <span class="string">'&#123;print $4&#125;'</span>` = <span class="string">'el7'</span> ]; <span class="keyword">then</span></div><div class="line">    hostnamectl <span class="built_in">set</span>-hostname <span class="variable">$host</span></div><div class="line">    systemctl stop firewalld &amp;&amp; systemctl <span class="built_in">disable</span> firewalld</div><div class="line">    netname=`ifconfig | egrep -w <span class="string">'eth1|br2'</span>|awk <span class="string">'&#123;print $1&#125;'</span>`</div><div class="line">    route add -net 10.0.0.0/8 gw <span class="variable">$gateway1</span></div><div class="line">    route add -net 192.168.1.0/24 gw <span class="variable">$gateway1</span></div><div class="line">    [ -f /etc/sysconfig/network-scripts/route-<span class="variable">$netname</span> ]||<span class="built_in">echo</span> -e <span class="string">"10.0.0.0/8 via <span class="variable">$gateway1</span> dev <span class="variable">$&#123;netname&#125;</span>\n192.168.8.0/24 via <span class="variable">$gateway1</span> dev <span class="variable">$netname</span>"</span> &gt;/etc/sysconfig/network-scripts/route-<span class="variable">$netname</span></div><div class="line"><span class="keyword">else</span></div><div class="line">    hostname <span class="variable">$host</span></div><div class="line">    sed -i <span class="string">"2c HOSTNAME=<span class="variable">$host</span>"</span> /etc/sysconfig/network</div><div class="line">    route add -net 10.0.0.0/8 gw <span class="variable">$gateway1</span></div><div class="line">    route add -net 192.168.1.0/24 gw <span class="variable">$gateway1</span></div><div class="line">    [ -f /etc/sysconfig/static-routes ] || <span class="built_in">echo</span> -e <span class="string">"any net 10.0.0.0/8 gw <span class="variable">$&#123;gateway1&#125;</span>\nany net 192.168.8.0/24 gw <span class="variable">$gateway1</span>"</span> &gt;/etc/sysconfig/static-routes</div><div class="line"><span class="keyword">fi</span></div><div class="line"><span class="comment">####################IPTABLES##########################</span></div><div class="line">cat &gt;/etc/sysconfig/iptables &lt;&lt;EOF</div><div class="line"><span class="comment"># Firewall configuration written by system-config-securitylevel</span></div><div class="line"><span class="comment"># Manual customization of this file is not recommended.</span></div><div class="line">*filter</div><div class="line">:INPUT ACCEPT [0:0]</div><div class="line">:FORWARD ACCEPT [0:0]</div><div class="line">:OUTPUT ACCEPT [0:0]</div><div class="line">:RH-Firewall-1-INPUT - [0:0]</div><div class="line">-A INPUT -j RH-Firewall-1-INPUT</div><div class="line">-A FORWARD -j RH-Firewall-1-INPUT</div><div class="line">-A RH-Firewall-1-INPUT -i lo -j ACCEPT</div><div class="line"><span class="comment">#######company IP####公司外网IP</span></div><div class="line">-A RH-Firewall-1-INPUT -s 101.100.100.100 -j ACCEPT</div><div class="line"><span class="comment">#######Intranet IP####</span></div><div class="line">-A RH-Firewall-1-INPUT -s 10.0.0.0/8 -j ACCEPT</div><div class="line">-A RH-Firewall-1-INPUT -s 192.168.1.0/24 -j ACCEPT</div><div class="line">-A RH-Firewall-1-INPUT -p tcp --dport 80 -j ACCEPT</div><div class="line">-A RH-Firewall-1-INPUT -p udp --sport 53 -j ACCEPT</div><div class="line"><span class="comment">##########Application port#######</span></div><div class="line"></div><div class="line"><span class="comment">###################################</span></div><div class="line">-A RH-Firewall-1-INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT</div><div class="line">-A RH-Firewall-1-INPUT -j REJECT --reject-with icmp-host-prohibited</div><div class="line">COMMIT</div><div class="line">EOF</div><div class="line"></div><div class="line">cat &gt;/etc/sysctl.conf &lt;&lt;EOF</div><div class="line">net.ipv4.ip_forward = 0</div><div class="line">net.ipv4.conf.default.rp_filter = 1</div><div class="line">net.ipv4.conf.default.accept_source_route = 0</div><div class="line">kernel.sysrq = 0</div><div class="line">kernel.core_uses_pid = 1</div><div class="line">net.ipv4.tcp_syncookies = 1</div><div class="line">net.bridge.bridge-nf-call-ip6tables = 0</div><div class="line">net.bridge.bridge-nf-call-iptables = 0</div><div class="line">net.bridge.bridge-nf-call-arptables = 0</div><div class="line">kernel.msgmnb = 65536</div><div class="line">kernel.msgmax = 65536</div><div class="line">kernel.shmmax = 68719476736</div><div class="line">kernel.shmall = 4294967296</div><div class="line">net.ipv4.tcp_syncookies = 1</div><div class="line">net.ipv4.tcp_tw_reuse = 1</div><div class="line">net.ipv4.tcp_tw_recycle = 1</div><div class="line">net.ipv4.tcp_max_tw_buckets = 5000</div><div class="line">net.ipv4.tcp_max_syn_backlog = 4096</div><div class="line">net.core.netdev_max_backlog =  10240</div><div class="line">net.core.somaxconn = 2048</div><div class="line">net.core.wmem_default = 8388608</div><div class="line">net.core.rmem_default = 8388608</div><div class="line">net.core.rmem_max = 16777216</div><div class="line">net.core.wmem_max = 16777216</div><div class="line">net.ipv4.tcp_synack_retries = 2</div><div class="line">net.ipv4.tcp_syn_retries = 2</div><div class="line">net.ipv4.tcp_tw_recycle = 1</div><div class="line">net.ipv4.tcp_max_orphans = 3276800</div><div class="line">net.ipv4.tcp_mem = 94500000 915000000 927000000</div><div class="line">EOF</div><div class="line"></div><div class="line">sysctl -p</div><div class="line"></div><div class="line">mv /etc/security/limits.conf /etc/security/limits.confbak</div><div class="line">cat &gt;/etc/security/limits.conf&lt;&lt;EOF</div><div class="line">  *   -   nproc   102400</div><div class="line">  *   -   nofile  102400</div><div class="line">EOF</div><div class="line"></div><div class="line"><span class="comment">################yum repo################################</span></div><div class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$yn</span>"</span> = y ];<span class="keyword">then</span></div><div class="line">[ -d /etc/yum.repos.d/bak ] || mkdir /etc/yum.repos.d/bak</div><div class="line">mv /etc/yum.repos.d/CentOS-* /etc/yum.repos.d/bak</div><div class="line">cat &gt;/etc/yum.repos.d/iso.repo &lt;&lt;EOF</div><div class="line">[iso]</div><div class="line">name=centos</div><div class="line">baseurl=ftp://10.1.1.1/pub/centos6.5</div><div class="line">gpgcheck=0</div><div class="line">enabled=1</div><div class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS6</div><div class="line">EOF</div><div class="line"><span class="keyword">else</span> [ <span class="string">"<span class="variable">$yn</span>"</span> = n ]</div><div class="line">	<span class="built_in">echo</span> <span class="string">"Not setting yum repo"</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line">yum clean all</div><div class="line"></div><div class="line">yum install  -y ntp \</div><div class="line">            net-snmp.x86_64 \</div><div class="line">            net-snmp-python.x86_64 \</div><div class="line">			net-snmp-devel.x86_64 \</div><div class="line">			net-snmp-utils.x86_64 \</div><div class="line">			gcc \</div><div class="line">			gcc-c++ \</div><div class="line">			cmake \</div><div class="line">			xmlto \</div><div class="line">			ncurses \</div><div class="line">			ncurses-libs.x86_64 \</div><div class="line">            ncurses-devel.x86_64 \</div><div class="line">            gdbm-devel.x86_64 \</div><div class="line">            sqlite-devel.x86_64  \</div><div class="line">            readline-devel.x86_64  \</div><div class="line">            python-setuptools.noarch \</div><div class="line">			zlib-devel.x86_64 \</div><div class="line">			libxml2-devel \</div><div class="line">			libxslt-devel \</div><div class="line">			libaio-devel \</div><div class="line">			zip \</div><div class="line">			unzip \</div><div class="line">            wget \</div><div class="line">            git	\</div><div class="line">            telnet</div><div class="line">check=`<span class="built_in">echo</span> $?`</div><div class="line"><span class="keyword">if</span> [ <span class="variable">$check</span> -ne 0 ];<span class="keyword">then</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"yum源有问题，请查看"</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line">ntpdate 10.1.1.1</div><div class="line"></div><div class="line"><span class="comment">##################Ƥ׃snmpƤ׃###################</span></div><div class="line">cat &gt;/etc/snmp/snmpd.conf&lt;&lt;EOF</div><div class="line">rocommunity snmp@iwgame.com 127.0.0.1/32</div><div class="line">rocommunity snmp@iwgame.com 10.1.0.0/16</div><div class="line">group notConfigGroup v1 notConfigUser</div><div class="line">group notConfigGroup v2c notConfigUser</div><div class="line">view systemview included .1.3.6.1.2.1.1</div><div class="line">view systemview included .1.3.6.1.2.1.25.1.1</div><div class="line">view systemview included .1.3.6.1.4.1.2208</div><div class="line">access notConfigGroup <span class="string">""</span> any noauth exact all none none</div><div class="line">view all included .1 80</div><div class="line">syslocation iwgame.com (edit /etc/snmp/snmpd.conf)</div><div class="line">syscontact Root &lt;snmp@iwgame.com&gt; (configure /etc/snmp/snmp.local.conf)</div><div class="line">EOF</div><div class="line"></div><div class="line"><span class="keyword">if</span> [ `uname -r | awk -F<span class="string">'.'</span> <span class="string">'&#123;print $4&#125;'</span>` = <span class="string">'el7'</span> ]; <span class="keyword">then</span></div><div class="line">    systemctl restart sshd.service</div><div class="line">    systemctl restart iptables.service</div><div class="line"><span class="keyword">else</span></div><div class="line">    /etc/init.d/sshd restart</div><div class="line">    /etc/init.d/iptables restart</div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line">useradd master</div><div class="line"><span class="built_in">echo</span> iwgame |passwd master --stdin</div><div class="line"></div><div class="line">[ -f /var/spool/cron/root ] || touch /var/spool/cron/root</div><div class="line">cront=`grep -Ec <span class="string">"ntpdate|tables"</span> /var/spool/cron/root`</div><div class="line"><span class="keyword">if</span> [ <span class="variable">$cront</span> -ne 2 ];<span class="keyword">then</span></div><div class="line"><span class="built_in">echo</span> <span class="string">'*/10 * * * * /etc/init.d/iptables status 2&gt;&amp;1&gt;/dev/null || /etc/init.d/iptables start 2&gt;&amp;1&gt;/dev/null'</span> &gt;&gt; /var/spool/cron/root</div><div class="line"><span class="built_in">echo</span> <span class="string">'*/5 * * * * /usr/sbin/ntpdate 10.1.1.1'</span> &gt;&gt; /var/spool/cron/root</div><div class="line"><span class="keyword">fi</span></div><div class="line"><span class="built_in">echo</span> <span class="string">'nameserver 114.114.114.114'</span> &gt;/etc/resolv.conf</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="title">download</span></span>()&#123;</div><div class="line">  <span class="built_in">read</span> -p <span class="string">"是否要限速(y|n)："</span> netspeed</div><div class="line">	[ -d <span class="variable">$&#123;downdir&#125;</span> ] || mkdir <span class="variable">$&#123;downdir&#125;</span></div><div class="line">	<span class="built_in">cd</span> <span class="variable">$&#123;downdir&#125;</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="title">zabbix_install</span></span>()&#123;</div><div class="line"><span class="comment">############download#############################</span></div><div class="line"><span class="built_in">read</span> -p <span class="string">"是否要下载软件包(y|n):"</span> package</div><div class="line"><span class="keyword">if</span> [ <span class="variable">$package</span> = <span class="string">"y"</span> ];<span class="keyword">then</span></div><div class="line">    <span class="keyword">if</span> [ <span class="variable">$netspeed</span> = <span class="string">"y"</span> ];<span class="keyword">then</span></div><div class="line">        wget -c --<span class="built_in">limit</span>-rate=1800k <span class="variable">$&#123;ftpdir&#125;</span>zabbix.tar.gz</div><div class="line">    <span class="keyword">else</span> [ <span class="variable">$netspeed</span> = <span class="string">"n"</span> ]</div><div class="line">        wget -c <span class="variable">$&#123;ftpdir&#125;</span>zabbix.tar.gz</div><div class="line">    <span class="keyword">fi</span></div><div class="line"><span class="keyword">else</span> [ <span class="variable">$package</span> = <span class="string">"n"</span> ]</div><div class="line">    <span class="built_in">echo</span> <span class="string">"跳过下载软件包"</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"><span class="comment">############dinstall#############################</span></div><div class="line"><span class="built_in">cd</span> <span class="variable">$&#123;downdir&#125;</span></div><div class="line">tar -xf <span class="variable">$&#123;downdir&#125;</span>/zabbix.tar.gz</div><div class="line">dir=<span class="variable">$&#123;downdir&#125;</span>/zabbix</div><div class="line"><span class="built_in">cd</span> <span class="variable">$dir</span></div><div class="line">rpm -ivh *.rpm --force --nodeps</div><div class="line">iptables -I INPUT -s 10.1.1.10 -p tcp --dport 10050 -j ACCEPT</div><div class="line">groupadd zabbix</div><div class="line">useradd -r -s /sbin/nologin -g zabbix zabbix</div><div class="line">mkdir /var/<span class="built_in">log</span>/zabbix</div><div class="line">chown -R zabbix.zabbix /var/<span class="built_in">log</span>/zabbix</div><div class="line">mkdir /var/run/zabbix</div><div class="line">chown -R zabbix.zabbix /var/run/zabbix</div><div class="line">self=`hostname`</div><div class="line"></div><div class="line">cat &gt;/etc/zabbix/zabbix_agentd.conf&lt;&lt;EOF</div><div class="line">PidFile=/var/run/zabbix/zabbix_agentd.pid</div><div class="line">LogFile=/var/<span class="built_in">log</span>/zabbix/zabbix_agentd.log</div><div class="line">LogFileSize=0</div><div class="line">Server=10.1.1.10</div><div class="line">ServerActive=10.1.1.10</div><div class="line">Hostname=<span class="variable">$self</span></div><div class="line">Include=/etc/zabbix/zabbix_agentd.d/</div><div class="line"><span class="comment">#UserParameter=</span></div><div class="line">EOF</div><div class="line"></div><div class="line">/etc/init.d/zabbix-agent restart</div><div class="line">chkconfig zabbix-agent on</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">jdk_ins()</div><div class="line">&#123;</div><div class="line"><span class="comment">############download#############################</span></div><div class="line"><span class="built_in">read</span> -p <span class="string">"是否要下载软件包(y|n):"</span> package</div><div class="line"><span class="keyword">if</span> [ <span class="variable">$package</span> = <span class="string">"y"</span> ];<span class="keyword">then</span></div><div class="line">    <span class="keyword">if</span> [ <span class="variable">$netspeed</span> = <span class="string">"y"</span> ];<span class="keyword">then</span></div><div class="line">        wget -c --<span class="built_in">limit</span>-rate=1800k <span class="variable">$&#123;ftpdir&#125;</span>jdk-6u37-linux-x64.bin</div><div class="line">    <span class="keyword">else</span> [ <span class="variable">$netspeed</span> = <span class="string">"n"</span> ]</div><div class="line">        wget -c <span class="variable">$&#123;ftpdir&#125;</span>jdk-6u37-linux-x64.bin</div><div class="line">        chmod 777 <span class="variable">$&#123;downdir&#125;</span>/jdk-6u37-linux-x64.bin</div><div class="line">    <span class="keyword">fi</span></div><div class="line"><span class="keyword">else</span> [ <span class="variable">$package</span> = <span class="string">"n"</span> ]</div><div class="line">    <span class="built_in">echo</span> <span class="string">"跳过下载软件包"</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"><span class="comment">############install#############################</span></div><div class="line"><span class="built_in">cd</span> <span class="variable">$&#123;insdir&#125;</span></div><div class="line">cp <span class="variable">$&#123;downdir&#125;</span>/jdk-6u37-linux-x64.bin .</div><div class="line">./jdk-6u37-linux-x64.bin</div><div class="line">mv jdk1.6.0_37 jdk</div><div class="line">rm -f jdk-6u37-linux-x64.bin</div><div class="line"><span class="built_in">echo</span> <span class="string">"export JAVA_HOME=<span class="variable">$&#123;insdir&#125;</span>jdk"</span> &gt;&gt; /etc/profile</div><div class="line"><span class="built_in">echo</span> <span class="string">"export JRE_HOME=<span class="variable">$&#123;insdir&#125;</span>jdk/jre"</span> &gt;&gt; /etc/profile</div><div class="line"><span class="built_in">echo</span> <span class="string">'export PATH=$PATH:'</span><span class="variable">$&#123;insdir&#125;</span><span class="string">'jdk/bin'</span>  &gt;&gt; /etc/profile</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="title">jdk7_ins</span></span>()&#123;</div><div class="line"><span class="comment">############download#############################</span></div><div class="line"><span class="built_in">read</span> -p <span class="string">"是否要下载软件包(y|n):"</span> package</div><div class="line"><span class="keyword">if</span> [ <span class="variable">$package</span> = <span class="string">"y"</span> ];<span class="keyword">then</span></div><div class="line">    <span class="keyword">if</span> [ <span class="variable">$netspeed</span> = <span class="string">"y"</span> ];<span class="keyword">then</span></div><div class="line">        wget -c --<span class="built_in">limit</span>-rate=1800k <span class="variable">$&#123;ftpdir&#125;</span>jdk-7u79-linux-x64.tar.gz</div><div class="line">    <span class="keyword">else</span> [ <span class="variable">$netspeed</span> = <span class="string">"n"</span> ]</div><div class="line">        wget -c <span class="variable">$&#123;ftpdir&#125;</span>jdk-7u79-linux-x64.tar.gz	</div><div class="line">    <span class="keyword">fi</span></div><div class="line"><span class="keyword">else</span> [ <span class="variable">$package</span> = <span class="string">"n"</span> ]</div><div class="line">    <span class="built_in">echo</span> <span class="string">"跳过下载软件包"</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"><span class="comment">############dinstall#############################</span></div><div class="line"><span class="built_in">cd</span> <span class="variable">$&#123;insdir&#125;</span></div><div class="line">cp <span class="variable">$&#123;downdir&#125;</span>/jdk-7u79-linux-x64.tar.gz .</div><div class="line">tar xf jdk-7u79-linux-x64.tar.gz</div><div class="line">mv jdk1.7.0_79 jdk1.7</div><div class="line">rm -f jdk-7u79-linux-x64.tar.gz</div><div class="line"><span class="comment">#echo "export JAVA_HOME=$&#123;insdir&#125;jdk" &gt;&gt; /etc/profile</span></div><div class="line"><span class="comment">#echo "export JRE_HOME=$&#123;insdir&#125;jdk/jre" &gt;&gt; /etc/profile</span></div><div class="line"><span class="comment">#echo 'export PATH=$PATH:'$&#123;insdir&#125;'jdk/bin'  &gt;&gt; /etc/profile</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">rabbitmq_ins()</div><div class="line">&#123;</div><div class="line"><span class="comment">############download#############################</span></div><div class="line"><span class="built_in">read</span> -p <span class="string">"是否要下载软件包(y|n):"</span> package</div><div class="line"><span class="keyword">if</span> [ <span class="variable">$package</span> = <span class="string">"y"</span> ];<span class="keyword">then</span></div><div class="line">    <span class="keyword">if</span> [ <span class="variable">$netspeed</span> = <span class="string">"y"</span> ];<span class="keyword">then</span></div><div class="line">		wget -c --<span class="built_in">limit</span>-rate=1800k <span class="variable">$&#123;ftpdir&#125;</span>otp_src_R15B.tar.gz</div><div class="line">		wget -c --<span class="built_in">limit</span>-rate=1800k <span class="variable">$&#123;ftpdir&#125;</span>rabbitmq-server-3.2.4.tar.gz</div><div class="line">	<span class="keyword">else</span> [ <span class="variable">$netspeed</span> = <span class="string">"n"</span> ]</div><div class="line">		wget -c <span class="variable">$&#123;ftpdir&#125;</span>otp_src_R15B.tar.gz</div><div class="line">		wget -c <span class="variable">$&#123;ftpdir&#125;</span>rabbitmq-server-3.2.4.tar.gz	</div><div class="line">	<span class="keyword">fi</span></div><div class="line"><span class="keyword">else</span> [ <span class="variable">$package</span> = <span class="string">"n"</span> ]</div><div class="line">    <span class="built_in">echo</span> <span class="string">"跳过下载软件包"</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"><span class="comment">############install#############################</span></div><div class="line">	<span class="built_in">cd</span> <span class="variable">$&#123;downdir&#125;</span>/</div><div class="line">	tar xf otp_src_R15B.tar.gz </div><div class="line">	<span class="built_in">cd</span> <span class="variable">$&#123;downdir&#125;</span>/otp_src_R15B</div><div class="line">./configure </div><div class="line"><span class="keyword">if</span> [ $? -eq 0 ];<span class="keyword">then</span></div><div class="line">   make &amp;&amp; make install</div><div class="line"><span class="keyword">fi</span>  </div><div class="line">	<span class="built_in">cd</span> <span class="variable">$&#123;downdir&#125;</span>/</div><div class="line">	tar xf rabbitmq-server-3.2.4.tar.gz                      </div><div class="line">	<span class="built_in">cd</span> <span class="variable">$&#123;downdir&#125;</span>/rabbitmq-server-3.2.4</div><div class="line">	make TARGET_DIR=<span class="variable">$&#123;insdir&#125;</span>rabbitmq SBIN_DIR=<span class="variable">$&#123;insdir&#125;</span>rabbitmq/sbin MAN_DIR=<span class="variable">$&#123;insdir&#125;</span>rabbitmq/man DOC_INSTALL_DIR=<span class="variable">$&#123;insdir&#125;</span>rabbitmq/doc install</div><div class="line">    mkdir -p /etc/rabbitmq/</div><div class="line">   	<span class="built_in">cd</span> <span class="variable">$&#123;insdir&#125;</span>rabbitmq/sbin/</div><div class="line">   	./rabbitmq-plugins <span class="built_in">enable</span> rabbitmq_management</div><div class="line">&#125;</div><div class="line"></div><div class="line">mysql_ins()</div><div class="line">&#123;</div><div class="line">	MYSQL_PATH=<span class="variable">$&#123;downdir&#125;</span>/mariadb-5.5.34</div><div class="line">	useradd	-s /sbin/nologin mysql</div><div class="line">	<span class="built_in">cd</span> <span class="variable">$&#123;downdir&#125;</span></div><div class="line">	tar zvxf mariadb-5.5.34.tar.gz</div><div class="line">	<span class="built_in">cd</span> mariadb-5.5.34</div><div class="line">cmake . -DCMAKE_INSTALL_PREFIX=<span class="variable">$&#123;insdir&#125;</span>mysql\</div><div class="line">		-DWITH_INNOBASE_STORAGE_ENGINE=1\</div><div class="line">		-DWITH_FEDERATED_STORAGE_ENGINE=1\</div><div class="line">		-DENABLED_LOCAL_INFILE=1\</div><div class="line">		-DEXTRA_CHARSETS=all\</div><div class="line">		-DDEFAULT_CHARSET=utf8\</div><div class="line">		-DDEFAULT_COLLATION=utf8_general_ci\</div><div class="line">		-DWITH_DEBUG=0\</div><div class="line">		-DBUILD_CONFIG=mysql_release\</div><div class="line">		-DFEATURE_SET=community\</div><div class="line">		-DWITH_EMBEDDED_SERVER=OFF</div><div class="line"><span class="keyword">if</span> [ $? -eq 0 ];<span class="keyword">then</span></div><div class="line">	make &amp;&amp; make install</div><div class="line"><span class="keyword">fi</span></div><div class="line">chown -R mysql.mysql <span class="variable">$&#123;insdir&#125;</span>mysql</div><div class="line">ln -s <span class="variable">$&#123;insdir&#125;</span>mysql/bin/* /usr/bin/</div><div class="line"><span class="variable">$&#123;insdir&#125;</span>mysql/scripts/mysql_install_db --basedir=<span class="variable">$&#123;insdir&#125;</span>mysql/ --datadir=<span class="variable">$&#123;insdir&#125;</span>mysql/data/ --user=mysql</div><div class="line"><span class="comment">####################Start file##########################################</span></div><div class="line">   /bin/cp <span class="variable">$&#123;MYSQL_PATH&#125;</span>/support-files/my-large.cnf /etc/my.cnf</div><div class="line">   /bin/cp <span class="variable">$&#123;MYSQL_PATH&#125;</span>/support-files/mysql.server /etc/init.d/mysqld</div><div class="line">   sed -i <span class="string">'/skip-locking/a\datadir=$&#123;insdir&#125;mysql'</span> /etc/my.cnf</div><div class="line">   chmod 755 /etc/init.d/mysqld </div><div class="line">   chkconfig --add mysqld</div><div class="line">   chkconfig mysqld on</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="title">mysql_new_ins</span></span>()&#123;</div><div class="line"><span class="comment">############download#############################</span></div><div class="line"><span class="built_in">read</span> -p <span class="string">"是否要下载软件包(y|n):"</span> package</div><div class="line"><span class="keyword">if</span> [ <span class="variable">$package</span> = <span class="string">"y"</span> ];<span class="keyword">then</span></div><div class="line">    <span class="keyword">if</span> [ <span class="variable">$netspeed</span> = <span class="string">"y"</span> ];<span class="keyword">then</span></div><div class="line">        wget -c --<span class="built_in">limit</span>-rate=1800k <span class="variable">$&#123;ftpdir&#125;</span>mariadb-5.5.58-linux-x86_64.tar.gz</div><div class="line"></div><div class="line">    <span class="keyword">else</span> [ <span class="variable">$netspeed</span> = <span class="string">"n"</span> ]</div><div class="line">        wget -c <span class="variable">$&#123;ftpdir&#125;</span>mariadb-5.5.58-linux-x86_64.tar.gz	</div><div class="line">    <span class="keyword">fi</span></div><div class="line"><span class="keyword">else</span> [ <span class="variable">$package</span> = <span class="string">"n"</span> ]</div><div class="line">    <span class="built_in">echo</span> <span class="string">"跳过下载软件包"</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"><span class="comment">############install#############################</span></div><div class="line">useradd -s /sbin/nologin mysql</div><div class="line"><span class="built_in">cd</span> <span class="variable">$&#123;downdir&#125;</span></div><div class="line">tar -xf mariadb-5.5.58-linux-x86_64.tar.gz -C <span class="variable">$&#123;insdir&#125;</span></div><div class="line"><span class="built_in">cd</span> /opt</div><div class="line">mv mariadb-5.5.58-linux-x86_64 mariadb</div><div class="line"><span class="built_in">cd</span> <span class="variable">$&#123;insdir&#125;</span>mariadb/scripts</div><div class="line">./mysql_install_db --basedir=<span class="variable">$&#123;insdir&#125;</span>mariadb/ --datadir=<span class="variable">$&#123;insdir&#125;</span>mariadb/data/ --user=mysql</div><div class="line"><span class="built_in">cd</span> ..</div><div class="line">cp support-files/my-large.cnf /etc/my.cnf</div><div class="line">cp support-files/mysql.server /etc/init.d/mysqld</div><div class="line">sed -i <span class="string">'/skip-external-locking/a\datadir=$&#123;insdir&#125;mariadb/data'</span> /etc/my.cnf</div><div class="line">sed -i <span class="string">'/skip-external-locking/a\basedir=$&#123;insdir&#125;mariadb'</span> /etc/my.cnf</div><div class="line">cp support-files/mysql.server /etc/init.d/mysqld</div><div class="line">chmod 755 /etc/init.d/mysqld</div><div class="line">chown -R mysql.mysql <span class="variable">$&#123;insdir&#125;</span>mariadb</div><div class="line">sed -i <span class="string">'47s#datadir=#datadir=$&#123;insdir&#125;mariadb/data#'</span> /etc/init.d/mysqld</div><div class="line">sed -i <span class="string">'46s#basedir=#basedir=$&#123;insdir&#125;mariadb#'</span> /etc/init.d/mysqld</div><div class="line">ln -s <span class="variable">$&#123;insdir&#125;</span>mariadb/bin/* /usr/bin/</div><div class="line">chkconfig --add mysqld</div><div class="line">chkconfig mysqld on</div><div class="line">&#125;</div><div class="line"></div><div class="line">nginx_ins()</div><div class="line">&#123;</div><div class="line"><span class="comment">############download#############################</span></div><div class="line"><span class="built_in">read</span> -p <span class="string">"是否要下载软件包(y|n):"</span> package</div><div class="line"><span class="keyword">if</span> [ <span class="variable">$package</span> = <span class="string">"y"</span> ];<span class="keyword">then</span></div><div class="line">    <span class="keyword">if</span> [ <span class="variable">$netspeed</span> = <span class="string">"y"</span> ];<span class="keyword">then</span></div><div class="line">        wget -c --<span class="built_in">limit</span>-rate=1800k <span class="variable">$&#123;ftpdir&#125;</span>libunwind-1.1.tar.gz</div><div class="line">        wget -c --<span class="built_in">limit</span>-rate=1800k <span class="variable">$&#123;ftpdir&#125;</span>gperftools-2.1.tar.gz</div><div class="line">        wget -c --<span class="built_in">limit</span>-rate=1800k <span class="variable">$&#123;ftpdir&#125;</span>pcre-8.34.zip</div><div class="line">        wget -c --<span class="built_in">limit</span>-rate=1800k <span class="variable">$&#123;ftpdir&#125;</span>nginx-1.13.3.tar.gz</div><div class="line">    <span class="keyword">else</span> [ <span class="variable">$netspeed</span> = <span class="string">"n"</span> ]</div><div class="line">        wget -c <span class="variable">$&#123;ftpdir&#125;</span>libunwind-1.1.tar.gz</div><div class="line">        wget -c <span class="variable">$&#123;ftpdir&#125;</span>gperftools-2.1.tar.gz</div><div class="line">        wget -c <span class="variable">$&#123;ftpdir&#125;</span>pcre-8.34.zip</div><div class="line">        wget -c <span class="variable">$&#123;ftpdir&#125;</span>nginx-1.13.3.tar.gz</div><div class="line">    <span class="keyword">fi</span></div><div class="line"><span class="keyword">else</span> [ <span class="variable">$package</span> = <span class="string">"n"</span> ]</div><div class="line">    <span class="built_in">echo</span> <span class="string">"跳过下载软件包"</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line"><span class="comment">############install libunwind#####################</span></div><div class="line">	<span class="built_in">cd</span> <span class="variable">$&#123;downdir&#125;</span></div><div class="line">	tar zxvf libunwind-1.1.tar.gz</div><div class="line">	<span class="built_in">cd</span> libunwind-1.1</div><div class="line">   ./configure </div><div class="line"><span class="keyword">if</span> [ $? -eq 0 ];<span class="keyword">then</span></div><div class="line">	make &amp;&amp; make install</div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line"><span class="comment">############install gperftools####################</span></div><div class="line">   <span class="built_in">cd</span> <span class="variable">$&#123;downdir&#125;</span></div><div class="line">   tar xvzf gperftools-2.1.tar.gz </div><div class="line">   <span class="built_in">cd</span> gperftools-2.1</div><div class="line">   ./configure --<span class="built_in">disable</span>-heap-checker --<span class="built_in">disable</span>-debugalloc --<span class="built_in">enable</span>-frame-pointers</div><div class="line"><span class="keyword">if</span> [ $? -eq 0 ];<span class="keyword">then</span></div><div class="line">	make &amp;&amp; make install</div><div class="line"><span class="keyword">fi</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"/usr/local/lib"</span> &gt; /etc/ld.so.conf.d/usr_local_lib.conf</div><div class="line"><span class="built_in">echo</span> <span class="string">"/usr/lib"</span> &gt;&gt; /etc/ld.so.conf.d/usr_local_lib.conf</div><div class="line"><span class="built_in">echo</span> <span class="string">"/usr/lib64"</span> &gt;&gt; /etc/ld.so.conf.d/usr_local_lib.conf</div><div class="line"><span class="built_in">echo</span> <span class="string">"/usr/local/lib64"</span> &gt;&gt; /etc/ld.so.conf.d/usr_local_lib.conf</div><div class="line">/sbin/ldconfig</div><div class="line"></div><div class="line"><span class="comment">############install pcre##########################</span></div><div class="line">	<span class="built_in">cd</span> <span class="variable">$&#123;downdir&#125;</span></div><div class="line">	unzip pcre-8.34.zip</div><div class="line">	<span class="built_in">cd</span> pcre-8.34</div><div class="line">	./configure --<span class="built_in">enable</span>-utf8</div><div class="line"><span class="keyword">if</span> [ $? -eq 0 ];<span class="keyword">then</span></div><div class="line">	make &amp;&amp; make install</div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line"><span class="comment">############install nginx#########################</span></div><div class="line"><span class="built_in">cd</span> <span class="variable">$&#123;downdir&#125;</span></div><div class="line">tar xf nginx-1.13.3.tar.gz</div><div class="line"><span class="built_in">cd</span> nginx-1.13.3</div><div class="line">./configure \</div><div class="line">--user=www \</div><div class="line">--group=www \</div><div class="line">--prefix=<span class="variable">$&#123;insdir&#125;</span>nginx \</div><div class="line">--with-poll_module \</div><div class="line">--with-file-aio \</div><div class="line">--with-http_gzip_static_module \</div><div class="line">--with-http_stub_status_module \</div><div class="line">--with-google_perftools_module \</div><div class="line">--with-cpu-opt=opteron \</div><div class="line">--with-pcre \</div><div class="line">--with-select_module \</div><div class="line">--with-http_xslt_module \</div><div class="line">--without-http-cache \</div><div class="line">--without-mail_pop3_module \</div><div class="line">--without-mail_imap_module \</div><div class="line">--without-mail_smtp_module \</div><div class="line">--with-http_ssl_module \</div><div class="line">--with-http_realip_module </div><div class="line"><span class="keyword">if</span> [ $? -eq 0 ];<span class="keyword">then</span></div><div class="line">	make &amp;&amp; make install</div><div class="line"><span class="keyword">fi</span></div><div class="line">mkdir <span class="variable">$&#123;insdir&#125;</span>nginx/conf/vhost</div><div class="line">cp /usr/<span class="built_in">local</span>/lib/libpcre.so.1 /lib64/</div><div class="line"><span class="comment">#cp $&#123;downdir&#125;/nginx /etc/init.d/</span></div><div class="line">useradd -s /sbin/nologin www</div><div class="line">sed -i <span class="string">'79 a\include vhost/*.conf\;'</span> <span class="variable">$&#123;insdir&#125;</span>nginx/conf/nginx.conf</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="title">redis_ins</span></span>()&#123;</div><div class="line"><span class="comment">############download#############################</span></div><div class="line"><span class="built_in">read</span> -p <span class="string">"是否要下载软件包(y|n):"</span> package</div><div class="line"><span class="keyword">if</span> [ <span class="variable">$package</span> = <span class="string">"y"</span> ];<span class="keyword">then</span></div><div class="line">    <span class="keyword">if</span> [ <span class="variable">$netspeed</span> = <span class="string">"y"</span> ];<span class="keyword">then</span></div><div class="line">		wget -c --<span class="built_in">limit</span>-rate=1800k <span class="variable">$&#123;ftpdir&#125;</span>redis-2.8.3.tar.gz</div><div class="line">	<span class="keyword">else</span> [ <span class="variable">$netspeed</span> = <span class="string">"n"</span> ]</div><div class="line">		wget -c <span class="variable">$&#123;ftpdir&#125;</span>redis-2.8.3.tar.gz</div><div class="line">	<span class="keyword">fi</span></div><div class="line"><span class="keyword">else</span> [ <span class="variable">$package</span> = <span class="string">"n"</span> ]</div><div class="line">    <span class="built_in">echo</span> <span class="string">"跳过下载软件包"</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"><span class="comment">############install#############################</span></div><div class="line">	<span class="built_in">cd</span> <span class="variable">$&#123;downdir&#125;</span></div><div class="line">	tar zxvf redis-2.8.3.tar.gz</div><div class="line">	<span class="built_in">cd</span> redis-2.8.3</div><div class="line">	make</div><div class="line">	<span class="built_in">cd</span> src/</div><div class="line">	make install PREFIX=<span class="variable">$&#123;insdir&#125;</span>redis</div><div class="line">	rm -rf redis-2.8.3</div><div class="line">	<span class="built_in">cd</span> <span class="variable">$&#123;insdir&#125;</span>redis &amp;&amp; mkdir &#123;etc,<span class="built_in">log</span>,run&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="title">zeromq_ins</span></span>()&#123;</div><div class="line"><span class="comment">############download#############################</span></div><div class="line"><span class="built_in">read</span> -p <span class="string">"是否要下载软件包(y|n):"</span> package</div><div class="line"><span class="keyword">if</span> [ <span class="variable">$package</span> = <span class="string">"y"</span> ];<span class="keyword">then</span></div><div class="line">    <span class="keyword">if</span> [ <span class="variable">$netspeed</span> = <span class="string">"y"</span> ];<span class="keyword">then</span></div><div class="line">        wget -c --<span class="built_in">limit</span>-rate=1800k <span class="variable">$&#123;ftpdir&#125;</span>zeromqbag.tar.gz</div><div class="line">    <span class="keyword">else</span> [ <span class="variable">$netspeed</span> = <span class="string">"n"</span> ]</div><div class="line">        wget -c <span class="variable">$&#123;ftpdir&#125;</span>zeromqbag.tar.gz</div><div class="line">    <span class="keyword">fi</span></div><div class="line"><span class="keyword">else</span> [ <span class="variable">$package</span> = <span class="string">"n"</span> ]</div><div class="line">    <span class="built_in">echo</span> <span class="string">"跳过下载软件包"</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"><span class="comment">############install#############################</span></div><div class="line">yum install -y curl-devel \</div><div class="line">               expat-devel \</div><div class="line">               gettext-devel \</div><div class="line">               openssl-devel \</div><div class="line">               zlib-devel \</div><div class="line">               perl-devel \</div><div class="line">               libtool \ </div><div class="line">               automake \</div><div class="line">               libsodium-devel \</div><div class="line">               openpgm-devel</div><div class="line">dir=<span class="string">'$&#123;downdir&#125;/zeromqinbag'</span></div><div class="line"><span class="built_in">cd</span> <span class="variable">$&#123;downdir&#125;</span></div><div class="line">tar xf zeromqbag.tar.gz</div><div class="line"></div><div class="line"><span class="built_in">cd</span> <span class="variable">$dir</span></div><div class="line">rpm -ivh *.rpm</div><div class="line">tar xf zeromq-4.1.3.tar </div><div class="line"><span class="built_in">cd</span> zeromq-4.1.3</div><div class="line"></div><div class="line">bash autogen.sh</div><div class="line">./configure -with-pgm=libpgm-5.2.122~dfsg</div><div class="line">make</div><div class="line">make install</div><div class="line"><span class="keyword">if</span> [ $? -eq 0 ];<span class="keyword">then</span></div><div class="line"><span class="comment">#envir</span></div><div class="line"><span class="built_in">echo</span> /usr/<span class="built_in">local</span>/lib &gt;/etc/ld.so.conf.d/local.conf</div><div class="line">ldconfig</div><div class="line"><span class="built_in">echo</span> CLASSPATH=/usr/<span class="built_in">local</span>/share/java/zmq.jar:. &gt;&gt; /etc/environment </div><div class="line"><span class="built_in">source</span> /etc/environment</div><div class="line"><span class="built_in">echo</span> <span class="built_in">export</span> LD_LIBRARY_PATH=/usr/<span class="built_in">local</span>/lib &gt;/etc/profile.d/ldlibrarypath.sh </div><div class="line"><span class="built_in">source</span> /etc/profile.d/ldlibrarypath.sh</div><div class="line"></div><div class="line"><span class="built_in">echo</span> <span class="string">"LD_LIBRARY_PATH=/usr/local/lib"</span> &gt;&gt; ~/.bash_profile </div><div class="line"><span class="built_in">echo</span> <span class="string">"export LD_LIBRARY_PATH"</span> &gt;&gt; ~/.bash_profile </div><div class="line"></div><div class="line"><span class="built_in">source</span>  ~/.bash_profile</div><div class="line"><span class="comment">#jzmq</span></div><div class="line"><span class="built_in">cd</span> <span class="variable">$dir</span></div><div class="line">tar xf jzmq.tar.gz</div><div class="line"><span class="built_in">cd</span> jzmq</div><div class="line">bash autogen.sh</div><div class="line">./configure</div><div class="line">make</div><div class="line">make install</div><div class="line"></div><div class="line"><span class="comment">#check install is/no success</span></div><div class="line">    <span class="keyword">if</span> [ `ls /usr/<span class="built_in">local</span>/lib | grep zmq | wc -l` -eq 10 ]; <span class="keyword">then</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">'all is ok!! 安装zeromq成功'</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">'something faild!! 安装zeromq失败!!!'</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"><span class="keyword">fi</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="title">menu</span></span>()&#123;</div><div class="line">        <span class="built_in">echo</span> <span class="string">"-------------------------------------"</span></div><div class="line">		<span class="built_in">echo</span> -e <span class="string">"<span class="variable">$&#123;RED_COLOR&#125;</span>1.系统优化<span class="variable">$&#123;RES&#125;</span>"</span></div><div class="line">		<span class="built_in">echo</span> -e <span class="string">"<span class="variable">$&#123;GREEN_COLOR&#125;</span>2.zabbix客户端安装<span class="variable">$&#123;RES&#125;</span>"</span></div><div class="line">        <span class="built_in">echo</span> -e <span class="string">"<span class="variable">$&#123;RED_COLOR&#125;</span>3.nginx一键安装<span class="variable">$&#123;RES&#125;</span>"</span></div><div class="line">        <span class="built_in">echo</span> -e <span class="string">"<span class="variable">$&#123;GREEN_COLOR&#125;</span>4.mysql一键安装<span class="variable">$&#123;RES&#125;</span>"</span></div><div class="line">        <span class="built_in">echo</span> -e <span class="string">"<span class="variable">$&#123;YELLOW_COLOR&#125;</span>5.rabbitmq一键安装<span class="variable">$&#123;RES&#125;</span>"</span></div><div class="line">        <span class="built_in">echo</span> -e <span class="string">"<span class="variable">$&#123;BLUE_COLOR&#125;</span>6.jdk一键安装<span class="variable">$&#123;RES&#125;</span>"</span></div><div class="line">        <span class="built_in">echo</span> -e <span class="string">"<span class="variable">$&#123;BLUE_COLOR&#125;</span>7.jdk1.7一键安装<span class="variable">$&#123;RES&#125;</span>"</span></div><div class="line">		<span class="built_in">echo</span> -e <span class="string">"<span class="variable">$&#123;RED_COLOR&#125;</span>8.redis一键安装<span class="variable">$&#123;RES&#125;</span>"</span></div><div class="line">		<span class="built_in">echo</span> -e <span class="string">"<span class="variable">$&#123;GREEN_COLOR&#125;</span>9.zeromq一键安装<span class="variable">$&#123;RES&#125;</span>"</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"-------------------------------------"</span></div><div class="line">&#125;</div><div class="line"><span class="function"><span class="title">install</span></span>()&#123;</div><div class="line"><span class="built_in">read</span> -p <span class="string">"Please enter the serial number:"</span> name</div><div class="line"><span class="keyword">case</span> <span class="variable">$name</span> <span class="keyword">in</span></div><div class="line">	1)</div><div class="line">		init</div><div class="line">		<span class="built_in">echo</span> </div><div class="line">		<span class="built_in">echo</span> <span class="string">"系统优化完成"</span>;;</div><div class="line">	2)</div><div class="line">        download</div><div class="line">   		zabbix_install</div><div class="line">		<span class="built_in">echo</span> <span class="string">"zabbix_agent 安装完成"</span>;;</div><div class="line">	3)</div><div class="line">        download</div><div class="line">		nginx_ins</div><div class="line">		<span class="built_in">echo</span> <span class="string">"run <span class="variable">$&#123;insdir&#125;</span>nginx/sbin/nginx  to start nginx."</span>;;</div><div class="line">	4)</div><div class="line">        download</div><div class="line">		mysql_new_ins</div><div class="line">		<span class="built_in">echo</span> <span class="string">"run /etc/init.d/mysqld start to start mysql."</span>;;</div><div class="line">	5)</div><div class="line">        download</div><div class="line">		rabbitmq_ins</div><div class="line">		<span class="built_in">echo</span> <span class="string">"run <span class="variable">$&#123;insdir&#125;</span>rabbitmq/sbin/rabbitmq-server -detached to start rabbitmq."</span>;;</div><div class="line">	6)</div><div class="line">        download</div><div class="line">		jdk_ins</div><div class="line">		<span class="built_in">echo</span> <span class="string">"remember run source /etc/profile."</span>;;</div><div class="line">	7)</div><div class="line">        download</div><div class="line">		jdk7_ins</div><div class="line">		<span class="built_in">echo</span> <span class="string">"remember run source /etc/profile."</span>;;</div><div class="line">	8)</div><div class="line">        download</div><div class="line">		redis_ins</div><div class="line">		<span class="built_in">echo</span> <span class="string">"redis安装完成，请手动修改配置文件"</span>;;</div><div class="line">	9)</div><div class="line">        download</div><div class="line">		zeromq_ins</div><div class="line">		<span class="built_in">echo</span> <span class="string">"zaromq安装完成"</span>;;</div><div class="line">	*)</div><div class="line">		<span class="built_in">echo</span> $<span class="string">"Usage:<span class="variable">$0</span> &#123;1:init|2:zabbix_agent|3:nginx|4:mysql|5:rabbitmq|6:jdk1.6|7:jdk1.7|8:redis|9:zeromq&#125;"</span>;;</div><div class="line"><span class="keyword">esac</span></div><div class="line">&#125;</div><div class="line"><span class="function"><span class="title">main</span></span>()&#123;</div><div class="line">        menu</div><div class="line">        install</div><div class="line">&#125;</div><div class="line">main</div><div class="line"><span class="built_in">exit</span> 0</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/系统优化/" rel="tag"># 系统优化</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赞赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-img.png" alt="随心 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-img.png" alt="随心 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+         
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2017/12/网卡流量操作笔记.html" rel="next" title="show流量&限速">
+                <i class="fa fa-chevron-left"></i> show流量&限速
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2017/12/nginx笔记.html" rel="prev" title="nginx笔记">
+                nginx笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="随心" />
+          <p class="site-author-name" itemprop="name">随心</p>
+          <p class="site-description motion-element" itemprop="description">面对攻击你的人，the best revenge is massive success!</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/suixin7888" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/3935189017" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.suixin7888.top" target="_blank" title="Gitbook">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Gitbook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://shenzekun.cn/" title="Morrez" target="_blank">Morrez</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ezlippi.com" title="EZLippi" target="_blank">EZLippi</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.zhihu.com/people/sui-xin-78-59" title="友链出租" target="_blank">友链出租</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+<div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">随心</span>
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+<div class="powered-by">
+  Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+
+</div>
+
+
+<!--div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+-->
+
+
+
+
+
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</html>

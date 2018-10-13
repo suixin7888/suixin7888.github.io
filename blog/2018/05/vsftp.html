@@ -1,0 +1,1030 @@
+<!doctype html>
+
+
+
+  
+
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Neucha:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ftp," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "21f1e91b"
+    });
+  daovoice('update');
+  </script>
+
+
+
+<meta name="description" content="ftp的认证方法1.虚拟用户：仅用于访问某特定服务中的资源123456nsswitch: network server switch, 名称解析框架    配置文件：/etc/nsswitch.conf    模块：/lib64/libnss*, /usr/lib64/libnss*pam: pluggable authentication module, 用户认证框架    模块：/lib64/">
+<meta name="keywords" content="ftp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vsftp笔记">
+<meta property="og:url" content="http://www.suixin788.top/blog/2018/05/vsftp.html">
+<meta property="og:site_name" content="随心_博客">
+<meta property="og:description" content="ftp的认证方法1.虚拟用户：仅用于访问某特定服务中的资源123456nsswitch: network server switch, 名称解析框架    配置文件：/etc/nsswitch.conf    模块：/lib64/libnss*, /usr/lib64/libnss*pam: pluggable authentication module, 用户认证框架    模块：/lib64/">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-23T13:00:20.419Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vsftp笔记">
+<meta name="twitter:description" content="ftp的认证方法1.虚拟用户：仅用于访问某特定服务中的资源123456nsswitch: network server switch, 名称解析框架    配置文件：/etc/nsswitch.conf    模块：/lib64/libnss*, /usr/lib64/libnss*pam: pluggable authentication module, 用户认证框架    模块：/lib64/">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.suixin788.top/blog/2018/05/vsftp.html"/>
+
+
+
+
+
+  <title> vsftp笔记 | 随心_博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2d05d0eadc098f6bab0bc704b74c9285";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">随心_博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://www.suixin788.top/blog/2018/05/vsftp.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="随心">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="随心_博客">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="随心_博客" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                vsftp笔记
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-23T20:01:00+08:00">
+                2018-05-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ftp/" itemprop="url" rel="index">
+                    <span itemprop="name">ftp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="ftp的认证方法"><a href="#ftp的认证方法" class="headerlink" title="ftp的认证方法"></a>ftp的认证方法</h3><p>1.虚拟用户：仅用于访问某特定服务中的资源<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">nsswitch:<span class="built_in"> network server </span>switch, 名称解析框架</div><div class="line">    配置文件：/etc/nsswitch.conf</div><div class="line">    模块：/lib64/libnss*, /usr/lib64/libnss*</div><div class="line">pam: pluggable authentication module, 用户认证框架</div><div class="line">    模块：/lib64/security/</div><div class="line">    配置文件：/etc/pam.conf, /etc/pam.d/*</div></pre></td></tr></table></figure></p>
+<p>2.系统用户</p>
+<p>3.匿名用户</p>
+<h3 id="vsftpd配置文件"><a href="#vsftpd配置文件" class="headerlink" title="vsftpd配置文件"></a>vsftpd配置文件</h3><p>用户认证配置文件：/etc/pam.d/vsftpd<br>服务脚本：/etc/rc.d/init.d/vsftpd<br>配置文件目录：/etc/vsftpd<br>    主配置文件：vsftpd.conf<br>匿名用户（映射为ftp用户）共享资源位置：/var/ftp<br>系统用户通过ftp访问的资源的位置：用户自己的家目录<br>虚拟用户通过ftp访问的资源的位置：给虚拟用户指定的映射成为的系统用户的家目录</p>
+<h3 id="匿名用户访问"><a href="#匿名用户访问" class="headerlink" title="匿名用户访问"></a>匿名用户访问</h3><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">~]<span class="comment"># cat &gt;/etc/vsftpd/vsftpd.conf&lt;&lt;EOF</span></div><div class="line">anonymous_enable=YES            <span class="comment">#是否开启匿名用户登录</span></div><div class="line">anon_mkdir_write_enable=YES     <span class="comment">#匿名用户是否可以创建目录</span></div><div class="line">anon_upload_enable=YES          <span class="comment">#匿名用户是否可以上传文件</span></div><div class="line">anon_other_write_enable=YES     <span class="comment">#具有除了写入之外的权限，包括删除和改名，anonymous 写入的目录亦需要调整权限，让 vsftpd 的 PID 拥有者可以写入才行！</span></div><div class="line">local_enable=YES				<span class="comment">#是否开启系统用户访问ftp</span></div><div class="line">write_enable=YES				<span class="comment">#全局是否有写的权限</span></div><div class="line">local_umask=022					<span class="comment">#写入的文件权限的umask值</span></div><div class="line">dirmessage_enable=YES           <span class="comment">#当用户进入某个目录时，会显示该目录需要注意的内容，显示的档案默认</span></div><div class="line">xferlog_enable=YES  			<span class="comment">#开启上传下载的日志记录</span></div><div class="line">connect_from_port_20=YES		<span class="comment">#端口号</span></div><div class="line">xferlog_std_format=YES			<span class="comment">#登录格式</span></div><div class="line">listen=YES					    <span class="comment">#监听端口</span></div><div class="line">pam_service_name=vsftpd			<span class="comment">#这个是 pam 模块的名称，我们放置在 /etc/pam.d/vsftpd 即是这个</span></div><div class="line">userlist_enable=YES			    <span class="comment">#是否启用userlist控制</span></div><div class="line">tcp_wrappers=YES		        <span class="comment">#支持 TCP Wrappers 的</span></div><div class="line"><span class="comment">#以下是可选项</span></div><div class="line">anon_max_rate＝0                      <span class="comment">#匿名用户速度限制 </span></div><div class="line">anon_world_readable_only=（yes/no）； <span class="comment">#控制匿名用户对文件的下载权限 </span></div><div class="line">anon_umask＝ 077           <span class="comment">#匿名用户上传文件时有掩码(若想让匿名用户上传的文件能直接被匿名下载，就这设置这里为073)</span></div><div class="line">chown_uploads=YES          <span class="comment">#所有匿名上传的文件的所属用户将会被更改成chown_username </span></div><div class="line">chown_username=whoever     <span class="comment">#匿名上传文件所属用户名</span></div><div class="line">EOF</div></pre></td></tr></table></figure>
+<h3 id="系统用户访问"><a href="#系统用户访问" class="headerlink" title="系统用户访问"></a>系统用户访问</h3><p>实现严格的权限控制<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">~]<span class="comment"># cat &gt;/etc/vsftpd/vsftpd.conf&lt;&lt;EOF</span></div><div class="line">anonymous_enable=YES</div><div class="line">anon_upload_enable=YES</div><div class="line">anon_mkdir_write_enable=YES</div><div class="line">xferlog_enable=YES</div><div class="line">xferlog_file=/var/log/vsftpd.log</div><div class="line">xferlog_std_format=YES</div><div class="line">xferlog_enable=YES</div><div class="line">local_enable=YES         <span class="comment">#启用系统用户登录</span></div><div class="line">write_enable=YES   		 <span class="comment">#全局是否可写</span></div><div class="line">local_umask=022			 <span class="comment">#控制用户写的权限</span></div><div class="line">download_enable=yes      <span class="comment">#是否允许下载</span></div><div class="line">cmds_allowed=FEAT,REST,CWD,LIST,MDTM,MKD,NLST,PASS,PASV,PORT,PWD,QUIT,RMD,SIZE,STOR,TYPE,USER,ACCT,APPE,CDUP,HELP,MODE,NOOP,REIN,STAT,STOU,STRU,SYST,DELE,RNTO,RNFR,RETR   <span class="comment">#严格的权限控制</span></div><div class="line">dirmessage_enable=YES     </div><div class="line">connect_from_port_20=YES</div><div class="line">chroot_list_enable=YES       <span class="comment">#启用 chroot_list_file项的控制</span></div><div class="line">chroot_list_file=/etc/vsftpd/chroot_list     <span class="comment">#必须把系统用户放在此文件中</span></div><div class="line">userlist_enable=YES                          <span class="comment">#启用userlist_file项的控制，阻挡这些账号登入</span></div><div class="line">userlist_file=/etc/vsftpd/user_list</div><div class="line">chroot_local_user=YES        <span class="comment">#是否把用户限制在家目录，不可以访问其他</span></div><div class="line">listen=YES</div><div class="line">local_max_rate=8000000       <span class="comment">#系统用户限速，单位为bytes</span></div><div class="line">pam_service_name=vsftpd</div><div class="line">tcp_wrappers=YES</div><div class="line">pasv_min_port=30001          <span class="comment">#ftp建立数据传输所用的端口范围</span></div><div class="line">pasv_max_port=31000</div><div class="line">EOF</div></pre></td></tr></table></figure></p>
+<h3 id="权限控制"><a href="#权限控制" class="headerlink" title="权限控制"></a>权限控制</h3><p><strong>常用权限：</strong><br>CWD：更改目录<br>LIST：列目录<br>MDTM：返回文件的更新时间<br>MKD：新建文件夹<br>NLST：远程目录的名称列表<br>DELE：删除文件<br>RNTO：重命名<br>RETR：下载文件<br>STOR：上传文件</p>
+<p><strong>具体一些参数：</strong></p>
+<p>PASS - send password<br>PASV - enter passive mode<br>PORT - open a data port 打开一个传输端口<br>PWD - print working directory 显示当前工作目录<br>QUIT - terminate the connection 退出<br>RMD - remove a remote directory<br>SIZE - return the size of a file 返回文件大小<br>STOR - store a file on the remote host 上传文件<br>TYPE - set transfer type<br>USER - send username<br>ACCT<em> - send account information<br>APPE - append to a remote file<br>CDUP - CWD to the parent of the current directory<br>HELP - return help on using the server<br>MODE - set transfer mode<br>NOOP - do nothing<br>REIN</em> - reinitialize the connection<br>STAT - return server status<br>STOU - store a file uniquely<br>STRU - set file transfer structure<br>SYST - return system type</p>
+<h3 id="常用选项"><a href="#常用选项" class="headerlink" title="常用选项"></a>常用选项</h3><p>1、只能上传。不能下载、删除、重命名<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cmds_allowed＝FEAT,REST,CWD,<span class="keyword">LIST</span>,MDTM,MKD,NLST,PASS,PASV,PORT,<span class="keyword">PWD</span>,QUIT,RMD,SIZE,STOR,<span class="keyword">TYPE</span>,USER,ACCT,<span class="keyword">APPE</span>,CDUP,<span class="keyword">HELP</span>,MODE,NOOP,REIN,STAT,STOU,STRU,SYST</div></pre></td></tr></table></figure></p>
+<p>2、只能下载。不能上传、删除、重命名</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">write_enable</span>=<span class="literal">NO</span></div></pre></td></tr></table></figure>
+<p>3、只能上传、删除、重命名。不能下载</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">download_enable＝<span class="keyword">NO</span></div></pre></td></tr></table></figure>
+<p>4、只能下载、删除、重命名。不能上传</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cmds_allowed=FEAT,REST,CWD,<span class="keyword">LIST</span>,MDTM,MKD,NLST,PASS,PASV,PORT,<span class="keyword">PWD</span>,QUIT,RMD,RNFR,RNTO,RETR,DELE,SIZE,<span class="keyword">TYPE</span>,USER,ACCT,<span class="keyword">APPE</span>,CDUP,<span class="keyword">HELP</span>,MODE,NOOP,REIN,STAT,STOU,STRU,SYST</div></pre></td></tr></table></figure>
+<p>5、可以上传、下载、删除、重命名</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cmds_allowed=FEAT,REST,CWD,<span class="keyword">LIST</span>,MDTM,MKD,NLST,PASS,PASV,PORT,<span class="keyword">PWD</span>,QUIT,RMD,SIZE,STOR,<span class="keyword">TYPE</span>,USER,ACCT,<span class="keyword">APPE</span>,CDUP,<span class="keyword">HELP</span>,MODE,NOOP,REIN,STAT,STOU,STRU,SYST,DELE,RNTO,RNFR,RETR</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/ftp/" rel="tag"># ftp</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赞赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-img.png" alt="随心 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-img.png" alt="随心 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+         
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2018/03/ansible笔记.html" rel="next" title="ansible浅析">
+                <i class="fa fa-chevron-left"></i> ansible浅析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2018/05/iptables.html" rel="prev" title="iptables">
+                iptables <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="随心" />
+          <p class="site-author-name" itemprop="name">随心</p>
+          <p class="site-description motion-element" itemprop="description">面对攻击你的人，the best revenge is massive success!</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/suixin7888" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/3935189017" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.suixin7888.top" target="_blank" title="Gitbook">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Gitbook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://shenzekun.cn/" title="Morrez" target="_blank">Morrez</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ezlippi.com" title="EZLippi" target="_blank">EZLippi</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.zhihu.com/people/sui-xin-78-59" title="友链出租" target="_blank">友链出租</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ftp的认证方法"><span class="nav-number">1.</span> <span class="nav-text">ftp的认证方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vsftpd配置文件"><span class="nav-number">2.</span> <span class="nav-text">vsftpd配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匿名用户访问"><span class="nav-number">3.</span> <span class="nav-text">匿名用户访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统用户访问"><span class="nav-number">4.</span> <span class="nav-text">系统用户访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权限控制"><span class="nav-number">5.</span> <span class="nav-text">权限控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用选项"><span class="nav-number">6.</span> <span class="nav-text">常用选项</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+<div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">随心</span>
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+<div class="powered-by">
+  Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+
+</div>
+
+
+<!--div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+-->
+
+
+
+
+
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</html>

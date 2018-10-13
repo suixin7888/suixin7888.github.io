@@ -1,0 +1,1018 @@
+<!doctype html>
+
+
+
+  
+
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Neucha:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="awk," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "21f1e91b"
+    });
+  daovoice('update');
+  </script>
+
+
+
+<meta name="description" content="1.指定awk的分隔符，默认awk取列的时候，会用空格隔开每一列，这个空格是awk的默认输出分隔符我们可以使用awk的内置变量OFS来设定awk的输出分隔符，配合-v参数，实例如下： 123456[root@centos tmp]# awk &apos;&amp;#123;print $1,$2&amp;#125;&apos; test abc 1238ua 456[root@centos tmp]# awk -v OFS=&quot;+++">
+<meta name="keywords" content="awk">
+<meta property="og:type" content="article">
+<meta property="og:title" content="awk笔记">
+<meta property="og:url" content="http://www.suixin788.top/blog/2018/01/awk.html">
+<meta property="og:site_name" content="随心_博客">
+<meta property="og:description" content="1.指定awk的分隔符，默认awk取列的时候，会用空格隔开每一列，这个空格是awk的默认输出分隔符我们可以使用awk的内置变量OFS来设定awk的输出分隔符，配合-v参数，实例如下： 123456[root@centos tmp]# awk &apos;&amp;#123;print $1,$2&amp;#125;&apos; test abc 1238ua 456[root@centos tmp]# awk -v OFS=&quot;+++">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-04T09:56:13.860Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="awk笔记">
+<meta name="twitter:description" content="1.指定awk的分隔符，默认awk取列的时候，会用空格隔开每一列，这个空格是awk的默认输出分隔符我们可以使用awk的内置变量OFS来设定awk的输出分隔符，配合-v参数，实例如下： 123456[root@centos tmp]# awk &apos;&amp;#123;print $1,$2&amp;#125;&apos; test abc 1238ua 456[root@centos tmp]# awk -v OFS=&quot;+++">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.suixin788.top/blog/2018/01/awk.html"/>
+
+
+
+
+
+  <title> awk笔记 | 随心_博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2d05d0eadc098f6bab0bc704b74c9285";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">随心_博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://www.suixin788.top/blog/2018/01/awk.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="随心">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="随心_博客">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="随心_博客" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                awk笔记
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-04T18:10:00+08:00">
+                2018-01-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/awk/" itemprop="url" rel="index">
+                    <span itemprop="name">awk</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>1.指定awk的分隔符，默认awk取列的时候，会用空格隔开每一列，这个空格是awk的默认输出分隔符<br>我们可以使用awk的内置变量OFS来设定awk的输出分隔符，配合-v参数，实例如下：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@centos tmp]# awk '&#123;print $<span class="number">1</span>,$<span class="number">2</span>&#125;' test </div><div class="line">abc <span class="number">123</span></div><div class="line"><span class="number">8</span>ua <span class="number">456</span></div><div class="line">[root@centos tmp]# awk -v OFS=<span class="string">"+++"</span> '&#123;print $<span class="number">1</span>,$<span class="number">2</span>&#125;' test </div><div class="line">abc+++<span class="number">123</span></div><div class="line"><span class="number">8</span>ua+++<span class="number">456</span></div></pre></td></tr></table></figure>
+<p>2.两列想合并在一起显示，可以用下面实现</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@centos tmp]# awk '&#123;<span class="keyword">print</span> <span class="variable">$1</span> <span class="variable">$2&#125;</span>' <span class="keyword">test</span> </div><div class="line">abc123</div><div class="line">8ua456</div></pre></td></tr></table></figure>
+<p>3.利用NR内置变量，显示每行有多少列</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@centos tmp]# cat test </div><div class="line">abc	<span class="number">123</span>	iuy	ddd</div><div class="line"><span class="number">8</span>ua	<span class="number">456</span>	auv	ppp	<span class="number">7</span>y7</div><div class="line">[root@centos tmp]# awk '&#123;print NR,NF&#125;' test </div><div class="line"><span class="number">1</span> <span class="number">4</span></div><div class="line"><span class="number">2</span> <span class="number">5</span></div></pre></td></tr></table></figure>
+<p>4.利用NR内置变量，先打印行号，在打印整行内容<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@centos tmp]# awk '&#123;print NR $<span class="number">0</span>&#125;' test </div><div class="line"><span class="number">1</span>abc	<span class="number">123</span>	iuy	ddd</div><div class="line"><span class="number">28</span>ua	<span class="number">456</span>	auv	ppp	<span class="number">7</span>y7</div></pre></td></tr></table></figure></p>
+<p>5.FNR内置变量<br>使用awk处理多个文件，并且使用NR显示行号，效果如下<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[root@centos tmp]# cat test </div><div class="line">abc	<span class="number">123</span>	iuy	ddd</div><div class="line"><span class="number">8</span>ua	<span class="number">456</span>	auv	ppp	<span class="number">7</span>y7</div><div class="line">[root@centos tmp]# cat qtest </div><div class="line">abc#<span class="number">123</span>#iuy#ddd</div><div class="line"><span class="number">8</span>ua#<span class="number">456</span>#auv#ppp#<span class="number">7</span>y7</div><div class="line">[root@centos tmp]# awk '&#123;print NR,$<span class="number">0</span>&#125;' test qtest </div><div class="line"><span class="number">1</span> abc	<span class="number">123</span>	iuy	ddd</div><div class="line"><span class="number">2</span> <span class="number">8</span>ua	<span class="number">456</span>	auv	ppp	<span class="number">7</span>y7</div><div class="line"><span class="number">3</span> abc#<span class="number">123</span>#iuy#ddd</div><div class="line"><span class="number">4</span> <span class="number">8</span>ua#<span class="number">456</span>#auv#ppp#<span class="number">7</span>y7</div></pre></td></tr></table></figure></p>
+<p>如果我们想分别显示两个文件的行号，就要用到FNR内置变量<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@centos tmp]# awk '&#123;print FNR,$<span class="number">0</span>&#125;' test qtest </div><div class="line"><span class="number">1</span> abc	<span class="number">123</span>	iuy	ddd</div><div class="line"><span class="number">2</span> <span class="number">8</span>ua	<span class="number">456</span>	auv	ppp	<span class="number">7</span>y7</div><div class="line"><span class="number">1</span> abc#<span class="number">123</span>#iuy#ddd</div><div class="line"><span class="number">2</span> <span class="number">8</span>ua#<span class="number">456</span>#auv#ppp#<span class="number">7</span>y7</div></pre></td></tr></table></figure></p>
+<p>6.内置变量RS<br>RS是输入行分隔符，不指定，默认的行分隔符就好似我们所理解的回车换行<br>这里如何让awk遇到一个空格，就换行，示列如下：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">[root@centos tmp]# cat test </div><div class="line">abc <span class="number">123</span>	iuy ddd</div><div class="line"><span class="number">8</span>ua <span class="number">456</span>	auv ppp <span class="number">7</span>y7</div><div class="line">[root@centos tmp]# awk '&#123;print NR,$<span class="number">0</span>&#125;' test </div><div class="line"><span class="number">1</span> abc <span class="number">123</span>	iuy ddd</div><div class="line"><span class="number">2</span> <span class="number">8</span>ua <span class="number">456</span>	auv ppp <span class="number">7</span>y7</div><div class="line">[root@centos tmp]# awk -v RS=<span class="string">" "</span> '&#123;print NR,$<span class="number">0</span>&#125;' test </div><div class="line"><span class="number">1</span> abc</div><div class="line"><span class="number">2</span> <span class="number">123</span>	iuy</div><div class="line"><span class="number">3</span> ddd</div><div class="line"><span class="number">8</span>ua</div><div class="line"><span class="number">4</span> <span class="number">456</span>	auv</div><div class="line"><span class="number">5</span> ppp</div><div class="line"><span class="number">6</span> <span class="number">7</span>y7</div></pre></td></tr></table></figure></p>
+<p>7.内置变量ORS<br>设置”+++”为真正的输出行分隔符，默认输出行分隔符是回车换行，就是把换行变成+++<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@centos tmp]# cat test </div><div class="line">abc <span class="number">123</span>	iuy ddd</div><div class="line"><span class="number">8</span>ua <span class="number">456</span>	auv ppp <span class="number">7</span>y7</div><div class="line">[root@centos tmp]# awk -v ORS=<span class="string">"+++"</span> '&#123;print NR,$<span class="number">0</span>&#125;' test </div><div class="line"><span class="number">1</span> abc <span class="number">123</span>	iuy ddd+++<span class="number">2</span> <span class="number">8</span>ua <span class="number">456</span>	auv ppp <span class="number">7</span>y7+++[root@centos tmp]#</div></pre></td></tr></table></figure></p>
+<p>8.内置变量FILENAME<br>内置变量FILENAME意思是显示文件名<br><figure class="highlight subunit"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@centos tmp]# awk '&#123;print FILENAME,FNR,$0&#125;' test qtest </div><div class="line"><span class="keyword">test </span>1 abc 123	iuy ddd</div><div class="line"><span class="keyword">test </span>2 8ua 456	auv ppp 7y7</div><div class="line">qtest 1 abc#123#iuy#ddd</div><div class="line">qtest 2 8ua#456#auv#ppp#7y7</div></pre></td></tr></table></figure></p>
+<p>9.内置变量ARGC与ARGV<br>ARGV变量是一个数组，下标1对应是后面第一个文件的名字<br><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="string">[root@centos tmp]</span># awk 'BEGIN&#123;print <span class="string">"AA"</span>,ARGV<span class="string">[0]</span>,ARGV<span class="string">[1]</span>&#125;' test </div><div class="line">AA awk test</div><div class="line">内置变量ARGC表示参数的数量，也可以理解ARGV数组的长度</div><div class="line"><span class="string">[root@centos tmp]</span># awk 'BEGIN&#123;print <span class="string">"AA"</span>,ARGV<span class="string">[0]</span>,ARGV<span class="string">[1]</span>,ARGC&#125;' test </div><div class="line">AA awk test <span class="number">2</span></div></pre></td></tr></table></figure></p>
+<p>10.自定义变量</p>
+<p>方法1：-v varname=value 变量名区分字符大小写<br>方法2：在prigram中直接定义<br><figure class="highlight autoit"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root<span class="symbol">@centos</span> tmp]<span class="meta"># awk -v myVar=<span class="string">"testVar"</span> <span class="string">'BEGIN&#123;print myVar&#125;'</span></span></div><div class="line">testVar</div><div class="line"></div><div class="line">[root<span class="symbol">@centos</span> tmp]<span class="meta"># awk <span class="string">'BEGIN&#123;myVar="ttt" ; print myVar&#125;'</span></span></div><div class="line">ttt</div></pre></td></tr></table></figure></p>
+<p>11.printf<br><figure class="highlight flix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@centos tmp]# printf <span class="string">"%s\n"</span> abc <span class="function"><span class="keyword">def</span> <span class="title">ghi</span> <span class="title">jkl</span></span></div><div class="line"><span class="function"><span class="title">abc</span></span></div><div class="line"><span class="function"><span class="title">def</span></span></div><div class="line"><span class="function"><span class="title">ghi</span></span></div><div class="line"><span class="function"><span class="title">jkl</span></span></div></pre></td></tr></table></figure></p>
+<p>多个格式替换符<br><figure class="highlight flix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">printf <span class="string">"%s %s\n"</span> abc <span class="function"><span class="keyword">def</span> <span class="title">ghi</span> <span class="title">jkl</span></span></div><div class="line"><span class="function"><span class="title">abc</span> <span class="title">def</span></span></div><div class="line"><span class="function"><span class="title">ghi</span> <span class="title">jkl</span></span></div></pre></td></tr></table></figure></p>
+<p>格式如下：<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">printf</span> <span class="keyword">format</span> item1 item2 ...</div><div class="line"><span class="keyword">printf</span> <span class="string">"%s\n"</span> abc def ...</div><div class="line">%s相当于每一个文本</div></pre></td></tr></table></figure></p>
+<p>12.awk的正则</p>
+<p>匹配g开头的账户名<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root<span class="variable">@server</span> ~]<span class="comment"># awk '/^g/&#123;print $0&#125;' /etc/passwd</span></div><div class="line"><span class="symbol">games:</span><span class="symbol">x:</span><span class="number">12</span><span class="symbol">:</span><span class="number">100</span><span class="symbol">:games</span><span class="symbol">:/usr/games</span><span class="symbol">:/sbin/nologin</span></div><div class="line"><span class="symbol">gopher:</span><span class="symbol">x:</span><span class="number">13</span><span class="symbol">:</span><span class="number">30</span><span class="symbol">:gopher</span><span class="symbol">:/var/gopher</span><span class="symbol">:/sbin/nologin</span></div><div class="line"><span class="symbol">gdm:</span><span class="symbol">x:</span><span class="number">42</span><span class="symbol">:</span><span class="number">42</span><span class="symbol">:</span><span class="symbol">:/var/lib/gdm</span><span class="symbol">:/sbin/nologin</span></div></pre></td></tr></table></figure></p>
+<p>匹配两正则中间的内容<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root<span class="variable">@server</span> ~]<span class="comment"># awk '/^g/,/^a/&#123;print $0&#125;' /etc/passwd</span></div><div class="line"><span class="symbol">games:</span><span class="symbol">x:</span><span class="number">12</span><span class="symbol">:</span><span class="number">100</span><span class="symbol">:games</span><span class="symbol">:/usr/games</span><span class="symbol">:/sbin/nologin</span></div><div class="line"><span class="symbol">gopher:</span><span class="symbol">x:</span><span class="number">13</span><span class="symbol">:</span><span class="number">30</span><span class="symbol">:gopher</span><span class="symbol">:/var/gopher</span><span class="symbol">:/sbin/nologin</span></div><div class="line"><span class="symbol">ftp:</span><span class="symbol">x:</span><span class="number">14</span><span class="symbol">:</span><span class="number">50</span><span class="symbol">:FTP</span> <span class="symbol">User:</span>/var/<span class="symbol">ftp:</span>/sbin/nologin</div><div class="line"><span class="symbol">nobody:</span><span class="symbol">x:</span><span class="number">99</span><span class="symbol">:</span><span class="number">99</span><span class="symbol">:Nobody</span><span class="symbol">:/</span><span class="symbol">:/sbin/nologin</span></div></pre></td></tr></table></figure></p>
+<p>匹配有重复字符时：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@server tmp]# <span class="keyword">cat</span> <span class="keyword">test</span> </div><div class="line">hey</div><div class="line">heey</div><div class="line">heeey</div><div class="line">heeeey</div><div class="line">[root@server tmp]# awk --posix '/<span class="keyword">he</span>&#123;2,3&#125;y/&#123;<span class="keyword">print</span> <span class="variable">$0&#125;</span>' <span class="keyword">test</span>   #表示<span class="keyword">e</span>可以出现最少2次，最多三次</div><div class="line">heey</div><div class="line">heeey</div></pre></td></tr></table></figure></p>
+<p>13.awk动作</p>
+<p>案例1：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@server tmp]# <span class="keyword">cat</span> <span class="keyword">test</span> </div><div class="line">f <span class="built_in">s</span></div><div class="line">1 2</div><div class="line">1 2</div><div class="line">[root@server tmp]# awk '&#123; <span class="keyword">if</span>(NR==1)&#123;<span class="keyword">print</span> <span class="variable">$0&#125;</span>&#125;' <span class="keyword">test</span> </div><div class="line">f <span class="built_in">s</span></div></pre></td></tr></table></figure></p>
+<p>案例2：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@server tmp]# <span class="keyword">cat</span> <span class="keyword">test</span> </div><div class="line">姓名 年龄</div><div class="line">郭心心 18</div><div class="line">蒋磊磊 66</div><div class="line">曲公公 36</div><div class="line">[root@server tmp]# awk 'NR!=1 &#123;<span class="keyword">if</span>(<span class="variable">$2</span>&lt;20)&#123;<span class="keyword">print</span> <span class="variable">$1</span>,<span class="string">"年轻人"</span>&#125; <span class="keyword">else</span> <span class="keyword">if</span>(<span class="variable">$2</span>&gt;20 &amp;&amp; <span class="variable">$2</span>&lt;40)&#123;<span class="keyword">print</span> <span class="variable">$1</span>,<span class="string">"中年人"</span>&#125;<span class="keyword">else</span>&#123;<span class="keyword">print</span> <span class="variable">$1</span>,<span class="string">"老年人"</span>&#125;&#125;' <span class="keyword">test</span> </div><div class="line">郭心心 年轻人</div><div class="line">蒋磊磊 老年人</div><div class="line">曲公公 中年人</div></pre></td></tr></table></figure>
+<p>14.awk数组统计<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">[root@server tmp]# cat test </div><div class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span></div><div class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span></div><div class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.2</span></div><div class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span></div><div class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.5</span></div><div class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.5</span></div><div class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.2</span></div><div class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.2</span></div><div class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.7</span></div><div class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.5</span></div><div class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.2</span></div><div class="line">[root@server tmp]# awk '&#123;count[$<span class="number">1</span>]++&#125; END&#123;for(i in count)&#123;print i,count[i]&#125;&#125;' test </div><div class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.4</span> <span class="number">1</span></div><div class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.5</span> <span class="number">3</span></div><div class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.7</span> <span class="number">1</span></div><div class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span> <span class="number">2</span></div><div class="line"><span class="number">192.168</span><span class="number">.1</span><span class="number">.2</span> <span class="number">4</span></div></pre></td></tr></table></figure></p>
+<p>15.split动态创建数组<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@server tmp]# awk -v <span class="string">"ts=suixin:xiaoxinzi:xiaojiangzi"</span> 'BEGIN&#123;<span class="keyword">split</span>(ts,huua,<span class="string">":"</span>);<span class="keyword">for</span>(i <span class="keyword">in</span> huua)&#123;<span class="keyword">print</span> huua[i]&#125;&#125;'</div><div class="line">suixin</div><div class="line">xiaoxinzi</div><div class="line">xiaojiangzi</div></pre></td></tr></table></figure></p>
+<p>16.打印奇偶行<br><figure class="highlight tap"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[root@server tmp]<span class="comment"># cat test </span></div><div class="line">第<span class="number"> 1 </span>行</div><div class="line">第<span class="number"> 2 </span>行</div><div class="line">第<span class="number"> 3 </span>行</div><div class="line">第<span class="number"> 4 </span>行</div><div class="line">第<span class="number"> 5 </span>行</div><div class="line">[root@server tmp]<span class="comment"># awk 'i=!i' test </span></div><div class="line">第<span class="number"> 1 </span>行</div><div class="line">第<span class="number"> 3 </span>行</div><div class="line">第<span class="number"> 5 </span>行</div><div class="line">[root@server tmp]<span class="comment"># awk '!(i=!i)' test </span></div><div class="line">第<span class="number"> 2 </span>行</div><div class="line">第<span class="number"> 4 </span>行</div></pre></td></tr></table></figure></p>
+<p>参考网址：<a href="http://www.zsythink.net/archives/tag/awk/" target="_blank" rel="external">http://www.zsythink.net/archives/tag/awk/</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/awk/" rel="tag"># awk</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赞赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-img.png" alt="随心 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-img.png" alt="随心 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+         
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2018/01/xtrabackup.html" rel="next" title="xtrabackup备份">
+                <i class="fa fa-chevron-left"></i> xtrabackup备份
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2018/03/ansible笔记.html" rel="prev" title="ansible浅析">
+                ansible浅析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="随心" />
+          <p class="site-author-name" itemprop="name">随心</p>
+          <p class="site-description motion-element" itemprop="description">面对攻击你的人，the best revenge is massive success!</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/suixin7888" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/3935189017" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.suixin7888.top" target="_blank" title="Gitbook">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Gitbook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://shenzekun.cn/" title="Morrez" target="_blank">Morrez</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ezlippi.com" title="EZLippi" target="_blank">EZLippi</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.zhihu.com/people/sui-xin-78-59" title="友链出租" target="_blank">友链出租</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+<div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">随心</span>
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+<div class="powered-by">
+  Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+
+</div>
+
+
+<!--div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+-->
+
+
+
+
+
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</html>

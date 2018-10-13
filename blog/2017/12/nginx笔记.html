@@ -1,0 +1,1170 @@
+<!doctype html>
+
+
+
+  
+
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Neucha:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="nginx," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "21f1e91b"
+    });
+  daovoice('update');
+  </script>
+
+
+
+<meta name="description" content="nginx状态信息模块状态信息模块由ngx_http_stub_status_module模块，记录基本访问状态信息。编译时候需要增加此模块 12345678910[root@centos vhost]# cat status.conf server&amp;#123;	listen 80;	server_name status.suixin.com;	location / &amp;#123;		stub_st">
+<meta name="keywords" content="nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx笔记">
+<meta property="og:url" content="http://www.suixin788.top/blog/2017/12/nginx笔记.html">
+<meta property="og:site_name" content="随心_博客">
+<meta property="og:description" content="nginx状态信息模块状态信息模块由ngx_http_stub_status_module模块，记录基本访问状态信息。编译时候需要增加此模块 12345678910[root@centos vhost]# cat status.conf server&amp;#123;	listen 80;	server_name status.suixin.com;	location / &amp;#123;		stub_st">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-17T03:11:03.891Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="nginx笔记">
+<meta name="twitter:description" content="nginx状态信息模块状态信息模块由ngx_http_stub_status_module模块，记录基本访问状态信息。编译时候需要增加此模块 12345678910[root@centos vhost]# cat status.conf server&amp;#123;	listen 80;	server_name status.suixin.com;	location / &amp;#123;		stub_st">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.suixin788.top/blog/2017/12/nginx笔记.html"/>
+
+
+
+
+
+  <title> nginx笔记 | 随心_博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2d05d0eadc098f6bab0bc704b74c9285";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">随心_博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://www.suixin788.top/blog/2017/12/nginx笔记.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="随心">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="随心_博客">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="随心_博客" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                nginx笔记
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-25T12:03:40+08:00">
+                2017-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/nginx/" itemprop="url" rel="index">
+                    <span itemprop="name">nginx</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="nginx状态信息模块"><a href="#nginx状态信息模块" class="headerlink" title="nginx状态信息模块"></a>nginx状态信息模块</h4><p>状态信息模块由ngx_http_stub_status_module模块，记录基本访问状态信息。编译时候需要增加此模块</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[root@centos vhost]<span class="comment"># cat status.conf </span></div><div class="line">server&#123;</div><div class="line">	listen 80;</div><div class="line">	server_name status.suixin.com;</div><div class="line">	location / &#123;</div><div class="line">		stub_status on;   <span class="comment">#打开状态信息开关</span></div><div class="line">		access_log	off;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>绑定hosts访问status.suixin.com，结果如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Active connections: 2   &lt;--表示正处理的活动链接有2个</div><div class="line">server accepts handled requests</div><div class="line"> 2 2 1 </div><div class="line">Reading: 0 Writing: 1 Waiting: 1 </div><div class="line"></div><div class="line">第一个server表示nginx启动到现在共处理了2个链接</div><div class="line">第二个accepts表示nginx启动到现在共成功创建了2次握手</div><div class="line">请求丢失数=（握手数-连接数），可以看出，本次显示没有丢失请求</div><div class="line">第三个为handled requests，表示总共处理了1次请求</div></pre></td></tr></table></figure>
+<h4 id="日志模块"><a href="#日志模块" class="headerlink" title="日志模块"></a>日志模块</h4><p>日志模块是由ngx_http_log_modeule模块负责</p>
+<p>nginx访问日志主要由两个参数控制</p>
+<pre><code>log_format:用来记录日志的格式
+access_log：用来指定日志文件的路径及使用何种日志格式记录日志
+</code></pre><p><strong>2.1 nginx日志格式中的参数配置</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">http&#123;</div><div class="line">    include mime.types;</div><div class="line">    default_type application/octet-stream;</div><div class="line">    log_format  main  <span class="string">'$remote_addr - $remote_user [$time_local] "$request" '</span></div><div class="line">                        <span class="string">'$status $body_bytes_sent "$http_referer" '</span></div><div class="line">                        <span class="string">'"$http_user_agent" "$http_x_forwarded_for"'</span></div><div class="line">    access_log on;</div><div class="line">    access_log logs/access_www.log main;    <span class="comment">#也可以选择写到server标签里面</span></div></pre></td></tr></table></figure></p>
+<p>$remote_addr：记录访问网站的客户端地址<br>$remote_user ：远程客户端的用户名称<br>$time_local：记录访问时间和时区<br>$request：用户的htto请求起始行信息<br>$status：http状态码，记录请求返回的状态<br>$body_bytes_sent：服务器发送给客户端的相应bode字节数<br>$http_referer：记录此次请求是从哪个链接访问过来的，根据referer进行防盗链设置<br>$http_user_agent：记录客户端访问信息，例如:浏览器、手机客户端等<br>$http_x_forwarded_for：当前端有代理服务器时，设置web节点记录客户端地址的配置，前提是代理服务器也进行了相关的x_forwarded_for设置</p>
+<p>没有特殊需求，采用默认的配置即可</p>
+<p>也可以在记录日志参数中加上buffer和flush选项，提高在高并发场景下提升网站的访问性能<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">access_log logs/access_www.log main gzip <span class="attribute">buffer</span>=32k <span class="attribute">flush</span>=5s;</div></pre></td></tr></table></figure></p>
+<p><strong>2.2 nginx访问日志切割-shell脚本方式</strong></p>
+<p>默认情况nginx会把所有访问日志生成到一个指定的访问日志文件acess.log里，时间长导致日志很大，不利于日志的分析和处理，因此，有必要对nginx日志按天或按小时进行切割，这里采取按天切割方法。</p>
+<p>具体切割脚本如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[root@centos logs]<span class="comment"># cat /shell/cut_nginx_log.sh </span></div><div class="line"><span class="meta">#!/bin/sh</span></div><div class="line">Dateformat=`date +%Y%m%d`</div><div class="line">Basedir=<span class="string">"/opt/nginx/logs"</span></div><div class="line">Logname=<span class="string">"access_www"</span></div><div class="line">[ -d <span class="variable">$Basedir</span> ] &amp;&amp; <span class="built_in">cd</span> <span class="variable">$Basedir</span> ||<span class="built_in">exit</span> 1</div><div class="line">[ -f <span class="variable">$Logname</span>.<span class="built_in">log</span> ] || <span class="built_in">exit</span> 1</div><div class="line">/bin/mv <span class="variable">$Logname</span>.<span class="built_in">log</span>	<span class="variable">$&#123;Dateformat&#125;</span>_<span class="variable">$&#123;Logname&#125;</span>.<span class="built_in">log</span></div><div class="line"><span class="built_in">kill</span> -USR1 `cat /opt/nginx/logs/nginx.pid`</div><div class="line"></div><div class="line"></div><div class="line">[root@centos logs]<span class="comment"># crontab -l</span></div><div class="line">00 00 * * *	/bin/sh /shell/cut_nginx_log.sh &gt;/dev/null 2&gt;&amp;1</div></pre></td></tr></table></figure></p>
+<p><strong>2.2 nginx访问日志切割-logrotate方式</strong></p>
+<p>linux自带的日志轮询工具logrotate</p>
+<p>logrotate的配置文件：/etc/logrotate.conf /etc/logrotate.d/*</p>
+<p>logrotate的默认计划任务：/etc/anacrontab</p>
+<p>logrotate的配置文件<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">~]<span class="meta"># cat /etc/logrotate.d/nginx</span></div><div class="line"><span class="meta-keyword">/opt/</span>nginx1<span class="number">.13</span><span class="meta-keyword">/logs/</span>*.<span class="class">log </span>&#123;</div><div class="line">        daily  指定转储周期为每天</div><div class="line">        rotate <span class="number">7</span>   保留<span class="number">7</span>个备份</div><div class="line">        create     由于日志文件被重命名，因此新建一个新的来继续存储</div><div class="line">        missingok    如果日志丢失，不报错继续滚动下一日志</div><div class="line">        notifempty    如果日志为空，不轮询</div><div class="line">        dateext                使用当期日期作为命名格式</div><div class="line">        sharedscripts    所有日志轮询后执行一次postrotate脚本</div><div class="line">        postrotate</div><div class="line">                <span class="meta-keyword">/bin/</span>kill -USR1 $(cat <span class="meta-keyword">/opt/</span>nginx<span class="meta-keyword">/run/</span>nginx.pid <span class="number">2</span>&gt;<span class="meta-keyword">/dev/</span>null) <span class="number">2</span>&gt;<span class="meta-keyword">/dev/</span>null || :</div><div class="line">        endscript</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>logrostate计划任务<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">~]<span class="comment"># cat /etc/anacrontab</span></div><div class="line"><span class="comment"># /etc/anacrontab: configuration file for anacron</span></div><div class="line"></div><div class="line"><span class="comment"># See anacron(8) and anacrontab(5) for details.</span></div><div class="line"></div><div class="line"><span class="keyword">SHELL</span><span class="bash">=/bin/sh</span></div><div class="line"><span class="bash">PATH=/sbin:/bin:/usr/sbin:/usr/bin</span></div><div class="line"><span class="bash">MAILTO=root</span></div><div class="line"><span class="bash"><span class="comment"># the maximal random delay added to the base delay of the jobs</span></span></div><div class="line"><span class="bash">RANDOM_DELAY=9      延迟时间</span></div><div class="line"><span class="bash"><span class="comment"># the jobs will be started during the following hours only</span></span></div><div class="line"><span class="bash">START_HOURS_RANGE=23-24    这里是日志切割时间，即在23-24点间执行</span></div><div class="line"><span class="bash"></span></div><div class="line"><span class="bash"><span class="comment">#period in days   delay in minutes   job-identifier   command</span></span></div><div class="line"><span class="bash">1	50	cron.daily		nice run-parts /etc/cron.daily   50也是延迟时间，即改任务在23点59分执行</span></div><div class="line"><span class="bash">7	25	cron.weekly		nice run-parts /etc/cron.weekly</span></div><div class="line"><span class="bash">@monthly 45	cron.monthly		nice run-parts /etc/cron.monthly</span></div></pre></td></tr></table></figure></p>
+<h4 id="nginx-location"><a href="#nginx-location" class="headerlink" title="nginx location"></a>nginx location</h4><p>location语法：<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">location</span> <span class="title">[ = | ~ | -* | ^~ ] uri</span> &#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<table>
+<thead>
+<tr>
+<th>location</th>
+<th>[ =丨~丨~*丨^~丨@ ]</th>
+<th>uri</th>
+<th>{…}</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>指令</td>
+<td>匹配标识</td>
+<td>匹配的网址</td>
+<td>配置uri后要执行的配置段</td>
+</tr>
+</tbody>
+</table>
+<p>匹配这两种特殊字符“~”或“~*”的区别为：“~”用于区分大小写的匹配；”~*“用于不区分大小写的匹配。</p>
+<p>还可以用逻辑操作符”!”对上面的匹配取反，即”!~” “!~*”</p>
+<p>“^~”的做用是在进行常规的字符串匹配检查后，不做正则表达式的检查，即如果最明确的那个字符串匹配的location匹配中location配置中有此前缀，那么不做正则表达式的检查</p>
+<h4 id="nginx-rewrite"><a href="#nginx-rewrite" class="headerlink" title="nginx rewrite"></a>nginx rewrite</h4><p>rewrite是实现URL重写的关键指令，根据regex（正则表达式）部分的内容，重定向到相关域名，结尾是flag标记<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">rewrite ^<span class="regexp">/(.*)  http:/</span><span class="regexp">/www.suixinl.top/</span><span class="variable">$1</span> permanent;</div><div class="line">域名中的<span class="variable">$1</span>是前面括号里面的内容，结尾permanent是永久<span class="number">301</span>重定向标记。</div></pre></td></tr></table></figure></p>
+<p>regex常用正则表达式字符</p>
+<style>
+table th:first-of-type {
+    width: 66px;
+}
+</style>
+
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\</td>
+<td>将后面接着的字符标记为一个特殊字符或一个原义字符或一个向后引用。例如,”\n”匹配一个换行符，序列”\“和”\$”则匹配”$”</td>
+</tr>
+<tr>
+<td>^</td>
+<td>匹配输入字符串的起始位置，如果设置RegExp对象的Multiline属性，^也匹配”\n”或”r”之后的位置</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配输入字符串的结束位置，如果设置了RegExp对象的Multilines属性，$也匹配”\n”或”\r”之前的位置</td>
+</tr>
+<tr>
+<td>*</td>
+<td>匹配前面的字符零次或多次，例如，ol<em>能匹配”o”及”olll”,</em>等价于{0,}</td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配前面的字符一次或多次，例如,”ol+”能匹配”ol” 及”oll”，但不能匹配”o”,.+等价于{1,}</td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配前面的字符零次或一次，例如, “do(es)?”可以匹配”do”或”does”中的”do”， .?等价于{0,1};当该字符紧跟任何一个其他限制符(*,+?,{n},{n,m})的后面，匹配的是非贪婪模式的，例如，对于字符串”oooo”,”0+?”将匹配单个”o”,而”o+”将匹配所有”o”</td>
+</tr>
+<tr>
+<td>.</td>
+<td>匹配除了”\n”之外的任何单个字符，要匹配包括”\n”在内的任何字符，请使用”[.\n]”这样的模式</td>
+</tr>
+<tr>
+<td>(pattern)</td>
+<td>匹配括号内的pattern，并可以在后面获取对应的匹配，常用$0…$9属性获取小括号中的匹配内容，要匹配圆括号字符，请使用”(“ 或 “)“</td>
+</tr>
+</tbody>
+</table>
+<p>rewrite指令最后一项参数flag标记说明</p>
+<style>
+table th:first-of-type {
+    width: 66px;
+}
+</style>
+
+<table>
+<thead>
+<tr>
+<th>flag标记符号</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>last</td>
+<td>本条规则匹配完成后，继续向下匹配新的locationURI规则</td>
+</tr>
+<tr>
+<td>break</td>
+<td>本条规则匹配完成即终止，不在匹配后面的任何规则</td>
+</tr>
+<tr>
+<td>redirect</td>
+<td>返回302临时重定向，浏览器会显示跳转后的URL地址</td>
+</tr>
+<tr>
+<td>permanent</td>
+<td>返回301永久重定向，浏览器地址栏会显示跳转后的URL地址</td>
+</tr>
+</tbody>
+</table>
+<p>注释：<br>1.在以上flag标记中，last和break用来实现URI重写，浏览器的URI地址不变</p>
+<p>2.redirect和permanent用来实现URL跳转，浏览器显示跳转后的URL地址</p>
+<p>3.last和break的差别：使用alias指令必须用last标记，使用proxy_pass指令时要使用break标记。</p>
+<p>4.在根location（即location/{…}）中或server{…}标签中编写的rewrite规则，建议使用last标记，而在普通的location(例location/oldboy/{……})或if{…}中编写rewrite规则，则建议使用break标记。</p>
+<h4 id="nginx访问认证"><a href="#nginx访问认证" class="headerlink" title="nginx访问认证"></a>nginx访问认证</h4><p>需求：为网站设置访问账号和密码权限，应用在企业内部人员访问的地址上，例如：企业网站后台、mysql客户端phpmyadmin、企业内部的CRM、WIKI网站平台等。<br>示例：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">location / &#123;</div><div class="line">    auth_basic      <span class="string">"closed site"</span>;   <span class="comment">#认证提示字符串</span></div><div class="line">    auth_basic_user_file    conf/htpasswd;    <span class="comment">#认证密码文件</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">[root@centos vhost]<span class="comment"># yum -y install httpd</span></div><div class="line">[root@centos vhost]<span class="comment"># htpasswd -bc /opt/nginx/conf/htpasswd suixin 123456</span></div><div class="line">[root@centos vhost]<span class="comment"># chmod 400 /opt/nginx/conf/htpasswd</span></div><div class="line">[root@centos vhost]<span class="comment"># chown www.www /opt/nginx/conf/htpasswd</span></div><div class="line">[root@centos vhost]<span class="comment"># cat /opt/nginx/conf/htpasswd </span></div><div class="line">suixin:Ot08TczOnIiXg    &lt;--加密过的</div><div class="line">[root@centos vhost]<span class="comment"># /opt/nginx/sbin/nginx -s reload</span></div></pre></td></tr></table></figure></p>
+<h4 id="限制用户上传部分文件"><a href="#限制用户上传部分文件" class="headerlink" title="限制用户上传部分文件"></a>限制用户上传部分文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">location ~ ^/images/.*\.(php|php5|sh|pl|py)$</div><div class="line">        &#123;</div><div class="line">            deny all;</div><div class="line">        &#125;</div><div class="line">location ~ ^/static/.*\.(php|php5|sh|pl|py)$</div><div class="line">        &#123;</div><div class="line">            deny all;</div><div class="line">        &#125;</div><div class="line">location ~* ^/data/(attachment|avatar)/.*\.(php|php5)$</div><div class="line">        &#123;</div><div class="line">            deny all;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<p>对于上述目录的限制必须卸载下面nginx处理PHP配置的前面<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">location ~ .*\.(php|php5)?$</div><div class="line">&#123;</div><div class="line">    fastcgi_pass    127.0.0.1:9000;</div><div class="line">    fastcgi_index   index.php;</div><div class="line">    include     fcgi.conf;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="配置nginx，禁止非法域名解析"><a href="#配置nginx，禁止非法域名解析" class="headerlink" title="配置nginx，禁止非法域名解析"></a>配置nginx，禁止非法域名解析</h4><p>问题:禁止用户IP访问网站</p>
+<p>方法1：让使用IP访问网站，或者恶意解析域名的用户，收到501错误<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">server&#123;</div><div class="line">    listen  80  default_server;</div><div class="line">    server_name _;</div><div class="line">    <span class="built_in">return</span> 501</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>方法2：通过301跳转到主页<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">server&#123;</div><div class="line">    listen 80 default_server;</div><div class="line">    server_name _;</div><div class="line">    rewrite ^(.*)   http://suixinl.top/<span class="variable">$1</span>   permanent;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>方法3：发现某域名恶意解析到公司服务器IP，在server标签添加以下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (<span class="variable">$host</span>   !~  ^www/.suixinl/.top$)&#123;</div><div class="line">    rewrite ^(.*)   http://suixinl.top<span class="variable">$1</span>    permanent;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="nginx防盗链实战-两种方法"><a href="#nginx防盗链实战-两种方法" class="headerlink" title="nginx防盗链实战(两种方法)"></a>nginx防盗链实战(两种方法)</h4><p>(1)利用referer，针对拓展名rewrite重定向(放到server标签中)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">location ~* \/(jpg|gif|png|swf|flv|wma|wmv|asf|mp3|mmf|zip|rar)$    &#123;</div><div class="line">    valid_referer   none    blocked *.suixinl.top   suixinl.top;</div><div class="line"><span class="keyword">if</span>  (<span class="variable">$invalid_referer</span>)  &#123;</div><div class="line">    rewrite ^/  http://www.suixinl.top/img/nolink.jpg</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>(2)利用referer，针对站点目录过滤返回错误码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">location /images    &#123;</div><div class="line">    root    html/www;</div><div class="line">    valid_referer   none    blocked *.suixinl.top   suixinl.top;</div><div class="line"><span class="keyword">if</span> (<span class="variable">$invalid_referer</span>) &#123;</div><div class="line">    <span class="built_in">return</span> 403;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="http-proxy-module模块"><a href="#http-proxy-module模块" class="headerlink" title="http_proxy_module模块"></a>http_proxy_module模块</h4><p>此模块可以将请求转发到另一台服务器<br>案例：<br>将配置URI为name的请求抛给<a href="http://127.0.0.1/remote/" target="_blank" rel="external">http://127.0.0.1/remote/</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">location /name/ &#123;</div><div class="line">    proxt_pass http://127.0.0.1/remote/;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>http proxy模块相关参数</strong></p>
+<p>proxy_set_header:设置http请求header项传给后端服务器节点，例如可实现让代理后端的服务器节点获取访问客户端用户的真实IP地址</p>
+<p>client_body_buffer_size：用于制定客户端请求主体缓冲区大小</p>
+<p>proxy_connect_timeout：表示反向代理与后端节点服务器链接的超时时间</p>
+<p>proxy_send_timeout：表示代理后端服务器数据回传时间</p>
+<p>proxy_read_timeout：nginx从代理的后端服务器获取信息的时间</p>
+<p>proxy_buffer_size：设置缓冲区大小</p>
+<p>proxy_buffers：设置缓冲区的数量和大小</p>
+<p>proxy_busy_buffers_size:设置系统很忙时可以使用的proxy_buffer大小</p>
+<p>proxy_temp_file_write_size：指定proxy缓存临时文件的大小</p>
+<p><strong>问题1：</strong>反向代理在节点机跳转到真实服务器时，真实服务器的nginx日志看到的是节点机的ip，此时，可在server标签的location下做如下添加<br><strong>解决方法：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">proxy_set_header X-Forwarded-For <span class="variable">$remote</span>-addr;</div><div class="line"><span class="comment">#这是反向代理时，节点服务器获取用户真实IP的必要功能</span></div><div class="line"><span class="comment">#这里虽然代理已经配好了，但是日志格式要加上$http_x_forwarded_for</span></div></pre></td></tr></table></figure>
+<p><strong>问题2：</strong>在代理向后端服务器发送请求头中没有host信息，后端服务器配置多个虚拟主机，代理识别不出，默认交给第一个虚拟主机，因此要在代理的发送那个请求头加入host字段信息，这是节点服务器多虚拟主机时的关键配置，此时，可在server标签的location下做如下添加</p>
+<p><strong>解决方法：</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">proxy_set_header Host   <span class="variable">$host</span>;</div></pre></td></tr></table></figure></p>
+<h4 id="nginx配置文件如下："><a href="#nginx配置文件如下：" class="headerlink" title="nginx配置文件如下："></a>nginx配置文件如下：</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">user  www www;</div><div class="line">worker_processes 4;</div><div class="line">error_log  /opt/nginx/logs/nginx_error.log  crit;</div><div class="line">pid   /opt/nginx/nginx.pid;</div><div class="line">worker_rlimit_nofile 65535;     <span class="comment">#worker最大打开文件数</span></div><div class="line"></div><div class="line">events</div><div class="line">&#123;</div><div class="line">    use epoll;</div><div class="line">    worker_connections 65535;    <span class="comment">#worker最大连接数</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">http&#123;</div><div class="line">    include mime.types;</div><div class="line">    default_type application/octet-stream;</div><div class="line">    log_format  main  <span class="string">'$remote_addr - $remote_user [$time_local] "$request" '</span></div><div class="line">                        <span class="string">'$status $body_bytes_sent "$http_referer" '</span></div><div class="line">                        <span class="string">'"$http_user_agent"'</span></div><div class="line">    access_log on;</div><div class="line">    access_log logs/access_www.log main gzip buffer=32k flush=5s;</div><div class="line">    error_log /opt/nginx/logs/error.log;</div><div class="line">    </div><div class="line">    server_names_hash_bucket_size 128;</div><div class="line">    client_header_buffer_size 32k;</div><div class="line">    large_client_header_buffers 4 32k;</div><div class="line">    client_max_body_size 8m;        <span class="comment">#上传文件的大小限制</span></div><div class="line">    open_file_cache max=102400 inactive=20s;</div><div class="line">    open_file_cache_valid 30s;</div><div class="line">    open_file_cache_min_uses 1;</div><div class="line">    sendfile on;            <span class="comment">#高效文件传输模式</span></div><div class="line">    tcp_nopush on;</div><div class="line">    keepalive_timeout 60;       <span class="comment">#客户端连接保持会话超时时间为60s</span></div><div class="line">    tcp_nodelay on;    <span class="comment">#提高I/O性能</span></div><div class="line"></div><div class="line">    fastcgi_connect_timeout 300;</div><div class="line">    fastcgi_send_timeout 300;</div><div class="line">    fastcgi_read_timeout 300;</div><div class="line">    fastcgi_buffer_size 64k;</div><div class="line">    fastcgi_buffers 4 64k;</div><div class="line">    fastcgi_busy_buffers_size 128k;</div><div class="line">    fastcgi_temp_file_write_size 128k;</div><div class="line">    </div><div class="line">    gzip on;</div><div class="line">    gzip_min_length 1k;</div><div class="line">    gzip_buffers 4 32k;</div><div class="line">    gzip_http_version 1.0;</div><div class="line">    gzip_comp_level 2;</div><div class="line">    gzip_types text/plain application/x-javascript text/css application/xhtml+xml text/xml application/xml application/xml+rss;</div><div class="line">    gzip_vary on;</div><div class="line"></div><div class="line">    include vhost/*.conf;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>fastcgi以下参数详细可以参考老男孩web集群一书的330页</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">fastcgi_connect_timeout</div><div class="line">表示nginx服务器和后端FastCGI服务器连接的超时时间，默认60s。</div><div class="line"></div><div class="line">fastcgi_send_timeout 300;</div><div class="line">nginx允许FastCGI服务端返回数据的超时时间</div><div class="line"></div><div class="line">fastcgi_read_timeout 300;</div><div class="line">nginx从FastCGI服务端读取响应时间的超时时间</div><div class="line"></div><div class="line">fastcgi_buffer_size 64k;</div><div class="line">nginx FastCGI的缓冲区大小参数</div><div class="line"></div><div class="line">fastcgi_buffers 4 64k;</div><div class="line">设定用来读取FastCGI服务端手段哦的响应时间的缓冲区大小和缓冲区数量。</div><div class="line"></div><div class="line">fastcgi_busy_buffers_size 128k;</div><div class="line">用于设置系统很忙时可以使用proxy_buffers大小</div><div class="line"></div><div class="line">fastcgi_temp_file_write_size 128k;</div><div class="line">FastCGI临时文件大小</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/nginx/" rel="tag"># nginx</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赞赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-img.png" alt="随心 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-img.png" alt="随心 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+         
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2017/12/linux服务一键安装脚本.html" rel="next" title="linux服务安装脚本">
+                <i class="fa fa-chevron-left"></i> linux服务安装脚本
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2018/01/xtrabackup.html" rel="prev" title="xtrabackup备份">
+                xtrabackup备份 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="随心" />
+          <p class="site-author-name" itemprop="name">随心</p>
+          <p class="site-description motion-element" itemprop="description">面对攻击你的人，the best revenge is massive success!</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/suixin7888" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/3935189017" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.suixin7888.top" target="_blank" title="Gitbook">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Gitbook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://shenzekun.cn/" title="Morrez" target="_blank">Morrez</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ezlippi.com" title="EZLippi" target="_blank">EZLippi</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.zhihu.com/people/sui-xin-78-59" title="友链出租" target="_blank">友链出租</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx状态信息模块"><span class="nav-number">1.</span> <span class="nav-text">nginx状态信息模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#日志模块"><span class="nav-number">2.</span> <span class="nav-text">日志模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx-location"><span class="nav-number">3.</span> <span class="nav-text">nginx location</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx-rewrite"><span class="nav-number">4.</span> <span class="nav-text">nginx rewrite</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx访问认证"><span class="nav-number">5.</span> <span class="nav-text">nginx访问认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#限制用户上传部分文件"><span class="nav-number">6.</span> <span class="nav-text">限制用户上传部分文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置nginx，禁止非法域名解析"><span class="nav-number">7.</span> <span class="nav-text">配置nginx，禁止非法域名解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx防盗链实战-两种方法"><span class="nav-number">8.</span> <span class="nav-text">nginx防盗链实战(两种方法)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#http-proxy-module模块"><span class="nav-number">9.</span> <span class="nav-text">http_proxy_module模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx配置文件如下："><span class="nav-number">10.</span> <span class="nav-text">nginx配置文件如下：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+<div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">随心</span>
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+<div class="powered-by">
+  Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+
+</div>
+
+
+<!--div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+-->
+
+
+
+
+
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</html>

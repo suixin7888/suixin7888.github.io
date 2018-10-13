@@ -1,0 +1,1059 @@
+<!doctype html>
+
+
+
+  
+
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Neucha:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="mysql命令," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "21f1e91b"
+    });
+  daovoice('update');
+  </script>
+
+
+
+<meta name="description" content="报错案例1--加索引报错对mysql的一个大于10G的表加索引，出现 repair with keycache原因如下123456789101112查询myisam_max_sort_file_size参数：mysql&amp;gt; show variables like &apos;%myisam_max_sort_file_size%&apos;;+---------------------------+-------">
+<meta name="keywords" content="mysql命令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql错误案例">
+<meta property="og:url" content="http://www.suixin788.top/blog/2017/12/mysql错误案例.html">
+<meta property="og:site_name" content="随心_博客">
+<meta property="og:description" content="报错案例1--加索引报错对mysql的一个大于10G的表加索引，出现 repair with keycache原因如下123456789101112查询myisam_max_sort_file_size参数：mysql&amp;gt; show variables like &apos;%myisam_max_sort_file_size%&apos;;+---------------------------+-------">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ox376n2jk.bkt.clouddn.com/mysql%E6%A1%88%E4%BE%8B.png">
+<meta property="og:updated_time" content="2018-01-24T01:45:55.161Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql错误案例">
+<meta name="twitter:description" content="报错案例1--加索引报错对mysql的一个大于10G的表加索引，出现 repair with keycache原因如下123456789101112查询myisam_max_sort_file_size参数：mysql&amp;gt; show variables like &apos;%myisam_max_sort_file_size%&apos;;+---------------------------+-------">
+<meta name="twitter:image" content="http://ox376n2jk.bkt.clouddn.com/mysql%E6%A1%88%E4%BE%8B.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.suixin788.top/blog/2017/12/mysql错误案例.html"/>
+
+
+
+
+
+  <title> mysql错误案例 | 随心_博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2d05d0eadc098f6bab0bc704b74c9285";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">随心_博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://www.suixin788.top/blog/2017/12/mysql错误案例.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="随心">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="随心_博客">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="随心_博客" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                mysql错误案例
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-15T10:01:00+08:00">
+                2017-12-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="报错案例1-加索引报错"><a href="#报错案例1-加索引报错" class="headerlink" title="报错案例1--加索引报错"></a>报错案例1--加索引报错</h3><p>对mysql的一个大于10G的表加索引，出现 repair with keycache<br>原因如下<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">查询myisam_max_sort_file_size参数：</div><div class="line">mysql&gt; show variables like <span class="string">'%myisam_max_sort_file_size%'</span>;</div><div class="line">+---------------------------+-------------+</div><div class="line">| Variable_name             | Value       |</div><div class="line">+---------------------------+-------------+</div><div class="line">| myisam_max_sort_file_size | 10737418240 |</div><div class="line">+---------------------------+-------------+</div><div class="line">发现设置的是10G，而表的大小已经是10G，这里只需要改为20G即可</div><div class="line">mysql&gt; <span class="built_in">set</span> SESSION myisam_max_sort_file_size = 20971520;    <span class="comment">#这里为当前会话生效</span></div><div class="line">Query OK, 0 rows affected (0.01 sec)</div><div class="line">mysql&gt; <span class="built_in">set</span> GLOBAL myisam_max_sort_file_size = 20971520;     <span class="comment">##这里为全局会话生效</span></div><div class="line">Query OK, 0 rows affected (0.01 sec)</div></pre></td></tr></table></figure></p>
+<h3 id="报错案例2"><a href="#报错案例2" class="headerlink" title="报错案例2"></a>报错案例2</h3><h4 id="MySQL从5-1升级到5-6中的报错"><a href="#MySQL从5-1升级到5-6中的报错" class="headerlink" title="MySQL从5.1升级到5.6中的报错"></a>MySQL从5.1升级到5.6中的报错</h4><p>在CentOS6.4中对MySQL从5.1升级到5.6的版本之后，</p>
+<p>建好表后，想保存备份一下表结构时，提示如下错误：</p>
+<p>Cannot load from mysql.proc. The table is probably corrupted</p>
+<p>MySQL导出数据库结构出现Cannot load from mysql.proc错误的解决方法</p>
+<p>在网上搜了下解决方法，所有的文章几乎都是这么说：</p>
+<p>执行以下命令：</p>
+<p>mysql_upgrade -uroot -p密码</p>
+<p>我试了无数次，在我这里无效，问题还是没有得到解决。</p>
+<p>最后让我找到了这篇文章：<a href="http://www.linuxidc.com/Linux/2013-12/93864.htm" target="_blank" rel="external">http://www.linuxidc.com/Linux/2013-12/93864.htm</a></p>
+<p>也就是从mysql5.5的版本开始，proc这张表中的comment字段的列属性已经由char(64)改为text类型，我们需要更改一下数据类型：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ALTER TABLE `proc`</div><div class="line"></div><div class="line">MODIFY COLUMN `comment`  text CHARACTER SET utf8 COLLATE utf8_bin NOT NULL AFTER `sql_mode`;</div></pre></td></tr></table></figure></p>
+<p>最后问题得到了解决。</p>
+<h4 id="从库报错-1548错误"><a href="#从库报错-1548错误" class="headerlink" title="从库报错--1548错误"></a>从库报错--1548错误</h4><p>mysql5.5 从库报错error caanot load from mysql.proc</p>
+<p><img src="http://ox376n2jk.bkt.clouddn.com/mysql%E6%A1%88%E4%BE%8B.png" alt="suixin"></p>
+<p>网上搜到资料</p>
+<p>执行以下命令：mysql_upgrade -uroot -p密码（没尝试）</p>
+<p>我是直接执行<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">stop slave;</div><div class="line"><span class="built_in">set</span> global sql_slave_skip_counter=1;</div><div class="line">start slave;</div></pre></td></tr></table></figure></p>
+<p>问题解决</p>
+<h3 id="报错案例3-1032错误"><a href="#报错案例3-1032错误" class="headerlink" title="报错案例3--1032错误"></a>报错案例3--1032错误</h3><p>1032错误—-现在生产库中好多数据，在从库误删了，生产库更新后找不到了，现在主从不同步了，再跳过错误也没用，因为没这条，再更新还会报错</p>
+<p>报错信息：在master上更新一条记录，而slave上找不到，丢失了数据。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Last_SQL_Error: Could not <span class="keyword">execute</span> Update_rows <span class="keyword">event</span> <span class="keyword">on</span> <span class="keyword">table</span> hcy.t1; </div><div class="line">Can't find record in 't1', </div><div class="line">Error_code: 1032; </div><div class="line"><span class="keyword">handler</span> <span class="keyword">error</span> HA_ERR_KEY_NOT_FOUND; </div><div class="line">the event's master log mysql-bin.000010, end_log_pos 794</div></pre></td></tr></table></figure>
+<p><strong>解决方案</strong></p>
+<p>Part1:临时方案<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">mysql&gt; stop slave;</div><div class="line">Query OK, 0 rows</div><div class="line">affected (0.00 sec)</div><div class="line">  </div><div class="line">mysql&gt; <span class="built_in">set</span> global sql_slave_skip_counter=1;</div><div class="line">Query OK, 0 rows</div><div class="line">affected (0.00 sec)</div><div class="line">  </div><div class="line">mysql&gt; start slave;</div><div class="line">Query OK, 0 rows</div><div class="line">affected (0.00 sec)</div></pre></td></tr></table></figure></p>
+<p>Part2:永久方案</p>
+<p>end_log_pos 有了它，根据pos值，直接就能找到，找到delete那条数据，反做（变成insert）</p>
+<p>1.分析master的binlog日志：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">[root@<span class="built_in">test</span> etc]<span class="comment"># /usr/local/mysql/bin/mysqlbinlog --no-defaults -v -v --base64-output=DECODE-ROWS mysql-bin.000010 | grep -A '10' 794</span></div><div class="line"></div><div class="line"><span class="comment">#120302 12:08:36 server id 22  end_log_pos 794  Update_rows: table id 33 flags: STMT_END_F</span></div><div class="line"><span class="comment">### UPDATE hcy.t1</span></div><div class="line"><span class="comment">### WHERE</span></div><div class="line"><span class="comment">###   @1=2 /* INT meta=0 nullable=0 is_null=0 */</span></div><div class="line"><span class="comment">###   @2='bbc' /* STRING(4) meta=65028 nullable=1 is_null=0 */</span></div><div class="line"><span class="comment">### SET</span></div><div class="line"><span class="comment">###   @1=2 /* INT meta=0 nullable=0 is_null=0 */</span></div><div class="line"><span class="comment">###   @2='BTV' /* STRING(4) meta=65028 nullable=1 is_null=0 */</span></div><div class="line"><span class="comment"># at 794</span></div><div class="line"><span class="comment">#120302 12:08:36 server id 22  end_log_pos 821  Xid = 60</span></div><div class="line">COMMIT/*!*/;</div><div class="line">DELIMITER ;</div><div class="line"><span class="comment"># End of log file</span></div><div class="line">ROLLBACK /* added by mysqlbinlog */;</div><div class="line">/*!50003 SET COMPLETION_TYPE=@OLD_COMPLETION_TYPE*/;</div></pre></td></tr></table></figure>
+<p>2.在slave上，查找下更新后的那条记录，应该是不存在的。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select * from t1 <span class="built_in">where</span> id=2;</div><div class="line">Empty <span class="built_in">set</span> (0.00 sec)</div></pre></td></tr></table></figure></p>
+<p>然后再到master查看<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select * from t1 <span class="built_in">where</span> id=2;</div><div class="line">+----+------+</div><div class="line">| id | name |</div><div class="line">+----+------+</div><div class="line">|  2 | BTV  | </div><div class="line">+----+------+</div><div class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</div></pre></td></tr></table></figure></p>
+<p>3.把丢失的数据在slave上填补，然后跳过报错即可。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">mysql&gt; insert into t1 values (2,<span class="string">'BTV'</span>);</div><div class="line">Query OK, 1 row affected (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; select * from t1 <span class="built_in">where</span> id=2;    </div><div class="line">+----+------+</div><div class="line">| id | name |</div><div class="line">+----+------+</div><div class="line">|  2 | BTV  | </div><div class="line">+----+------+</div><div class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span> (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; stop slave ;<span class="built_in">set</span> global sql_slave_skip_counter=1;start slave;</div><div class="line">Query OK, 0 rows affected (0.01 sec)</div><div class="line">Query OK, 0 rows affected (0.00 sec)</div><div class="line">Query OK, 0 rows affected (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; show slave status\G;</div><div class="line">……</div><div class="line">Slave_IO_Running: Yes</div><div class="line">Slave_SQL_Running: Yes</div></pre></td></tr></table></figure></p>
+<p>总结：从库删除一条数据，查看slave状态正常，当主库的这条数据进行更新时，从库就会报错，如果你临时跳过错误，当下次这条数据再进行更新时，从库会再次报错，所以不要轻易跳过从库报错</p>
+<p>案例3参考网址：<a href="http://xstarcd.github.io/wiki/MySQL/online_mysqlrepl_error.html" target="_blank" rel="external">http://xstarcd.github.io/wiki/MySQL/online_mysqlrepl_error.html</a></p>
+<h3 id="报错案例4-1050错误"><a href="#报错案例4-1050错误" class="headerlink" title="报错案例4--1050错误"></a>报错案例4--1050错误</h3><p>mysql从库报错，错误代码1050，查询app这个库并没有这个表，所以判断是临时表。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Last_Errno:1050</div><div class="line">Last_Error:Error <span class="string">'Table '</span>temp_report<span class="string">' already exists'</span> on query. Default database:<span class="string">'app'</span>.Query:<span class="string">'CREATE TABLE `temp_report`(</span></div><div class="line"><span class="string">`a0` varchar(1) NOT NULL DEFAULT'</span><span class="string">',</span></div><div class="line"><span class="string">`a1` varchar(5) NOT NULL DEFAULT'</span><span class="string">',</span></div><div class="line"><span class="string">`v1` varchar(33) DEFAULT NULL,</span></div><div class="line"><span class="string">`v1` varchar(33) DEFAULT NULL</span></div><div class="line"><span class="string">)'</span></div></pre></td></tr></table></figure></p>
+<p>解决办法：<br>在从库的配置文件中忽略这个临时表<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@server tmp] vi /etc/my.cnf</div><div class="line">replicate-ignore-table = app.temp_report</div><div class="line">[root@server tmp] /etc/init.d/mysqld restart</div></pre></td></tr></table></figure></p>
+<h3 id="报错案列5-1236错误"><a href="#报错案列5-1236错误" class="headerlink" title="报错案列5--1236错误"></a>报错案列5--1236错误</h3><p><strong>报错如下：</strong><br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Last_IO_Errno: <span class="number">1236</span></div><div class="line">Last_IO_Error: Got fatal <span class="keyword">error</span> <span class="number">1236</span> <span class="keyword">from</span> master when reading data <span class="keyword">from</span> binary <span class="built_in">log</span>: 'binlog truncated <span class="keyword">in</span> <span class="keyword">the</span> <span class="keyword">middle</span> <span class="keyword">of</span> event; consider <span class="keyword">out of</span> disk <span class="literal">space</span> <span class="keyword">on</span> master; <span class="keyword">the</span> <span class="keyword">first</span> event 'mysql-bin<span class="number">.001841</span>' <span class="keyword">at</span> <span class="number">826366537</span>, <span class="keyword">the</span> <span class="keyword">last</span> event <span class="built_in">read</span> <span class="keyword">from</span> './mysql-bin<span class="number">.002333</span>' <span class="keyword">at</span> <span class="number">2828282975</span>, <span class="keyword">the</span> <span class="keyword">last</span> byte <span class="built_in">read</span> <span class="keyword">from</span> './mysql-bin<span class="number">.002333</span>' <span class="keyword">at</span> <span class="number">2828283169.</span>'</div></pre></td></tr></table></figure></p>
+<p><strong>排查过程：</strong></p>
+<p>1.查看主节点binlog<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">[root@cn-mysql03 ~]<span class="comment"># /mysql/bin/mysqlbinlog /var/mysql/mysql-bin.002333 --start-position=2828266574 --stop-position=2828282975</span></div><div class="line"></div><div class="line"><span class="comment">/*!50530 SET @@SESSION.PSEUDO_SLAVE_MODE=1*/</span><span class="comment">;</span></div><div class="line"></div><div class="line"><span class="comment">/*!40019 SET @@session.max_insert_delayed_threads=0*/</span><span class="comment">;</span></div><div class="line"></div><div class="line"><span class="comment">/*!50003 SET @OLD_COMPLETION_TYPE=@@COMPLETION_TYPE,COMPLETION_TYPE=0*/</span><span class="comment">;</span></div><div class="line"></div><div class="line">DELIMITER <span class="comment">/*!*/</span><span class="comment">;</span></div><div class="line"></div><div class="line"><span class="comment"># at 4</span></div><div class="line"></div><div class="line"><span class="comment">#140123  1:46:33 server id 3  end_log_pos 107   Start: binlog v 4, server v 5.5.32-log created 140123  1:46:33</span></div><div class="line"></div><div class="line"><span class="keyword">BINLOG </span><span class="string">'</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">+QPgUg8DAAAAZwAAAGsAAAAAAAQANS41LjMyLWxvZwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">AAAAAAAAAAAAAAAAAAAAAAAAEzgNAAgAEgAEBAQEEgAAVAAEGggAAAAICAgCAA==</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">'/*!*/;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string"># at 2828266574</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string"># at 2828267161</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string"># at 2828279625</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string"># at 2828280668</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string"># at 2828281262</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string"># at 2828281779</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string"># at 2828282383</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">ERROR: Error in Log_event::read_log_event(): '</span>read error<span class="string">', data_len: 607, event_type: 23</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">ERROR: Could not read entry at offset 2828282975: Error in log format or read error.   #报错binlog位置2828282975，是mysql-bin.002333最后一个position位置</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">DELIMITER ;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string"># End of log file</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">ROLLBACK /* added by mysqlbinlog */;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">/*!50003 SET COMPLETION_TYPE=@OLD_COMPLETION_TYPE*/;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">/*!50530 SET @@SESSION.PSEUDO_SLAVE_MODE=0*/;</span></div></pre></td></tr></table></figure></p>
+<p>查看mysql官网的说明,当binlog最后遇到一个大事务时会将日志记录在这个日志,而不会跨binlog记录一个事务,于是我继续查看看mysql-bin.002334的日志头内容；</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">[root@cn-mysql03 ~]<span class="comment"># /mysql/bin/mysqlbinlog /data/3306/data/mysql-bin.002334 --start-position=107|more</span></div><div class="line"></div><div class="line"><span class="comment">/*!50530 SET @@SESSION.PSEUDO_SLAVE_MODE=1*/</span><span class="comment">;</span></div><div class="line"></div><div class="line"><span class="comment">/*!40019 SET @@session.max_insert_delayed_threads=0*/</span><span class="comment">;</span></div><div class="line"></div><div class="line"><span class="comment">/*!50003 SET @OLD_COMPLETION_TYPE=@@COMPLETION_TYPE,COMPLETION_TYPE=0*/</span><span class="comment">;</span></div><div class="line"></div><div class="line">DELIMITER <span class="comment">/*!*/</span><span class="comment">;</span></div><div class="line"></div><div class="line"><span class="comment"># at 4</span></div><div class="line"></div><div class="line"><span class="comment">#140123  1:33:21 server id 3  end_log_pos 107   Start: binlog v 4, server v 5.5.32-log created 140123  1:33:21</span></div><div class="line"></div><div class="line"><span class="keyword">BINLOG </span><span class="string">'</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">4QDgUg8DAAAAZwAAAGsAAAAAAAQANS41LjMyLWxvZwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">AAAAAAAAAAAAAAAAAAAAAAAAEzgNAAgAEgAEBAQEEgAAVAAEGggAAAAICAgCAA==</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">'/*!*/;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string"># at 107</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">#140123  2:04:59 server id 3  end_log_pos 267   Query   thread_id=5575071       exec_time=1     error_code=0</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">use `ptmind_56fbce4e`/*!*/;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">SET TIMESTAMP=1390413899/*!*/;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">SET @@session.pseudo_thread_id=5575071/*!*/;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">SET @@session.foreign_key_checks=1, @@session.sql_auto_is_null=0, @@session.unique_checks=1, @@session.autocommit=1/*!*/;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">SET @@session.sql_mode=0/*!*/;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">SET @@session.auto_increment_increment=2, @@session.auto_increment_offset=1/*!*/;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">/*!\C utf8 *//*!*/;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">SET @@session.character_set_client=33,@@session.collation_connection=33,@@session.collation_server=33/*!*/;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">SET @@session.lc_time_names=0/*!*/;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">SET @@session.collation_database=DEFAULT/*!*/;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">DROP TABLE IF EXISTS `sum_page_visits_stats_olap_m_tmp` /* generated by server */</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">/*!*/;</span></div></pre></td></tr></table></figure>
+<p>这个日志的开头也没有说明是继续上一个binlog的最后一个事务.</p>
+<p>确认以上问题后，重新从下一个日志开始启动主从同步；</p>
+<p>重新change master指定新binlog恢复主从同步<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">mysql&gt; change master <span class="keyword">to</span> </div><div class="line"><span class="attribute">master_host</span>=<span class="string">'192.168.16.x'</span>, </div><div class="line"><span class="attribute">master_port</span>=3306, <span class="attribute">master_user</span>=<span class="string">'xxx'</span>, </div><div class="line"><span class="attribute">master_password</span>=<span class="string">'xxxxx'</span>, </div><div class="line"><span class="attribute">master_log_file</span>=<span class="string">'mysql-bin.002334'</span>, </div><div class="line"><span class="attribute">master_log_pos</span>=0;</div><div class="line">mysql&gt;</div><div class="line">mysql&gt; slave start;</div></pre></td></tr></table></figure></p>
+<p>问题总结：</p>
+<p>经查询资料此现象可能是mysql binlog bug ，当一个binlog即将用完时，如果此时mysql开启一个新的事务，现在binlog不能够存放事务产生的日志就可能出现此问题。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/mysql命令/" rel="tag"># mysql命令</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赞赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-img.png" alt="随心 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-img.png" alt="随心 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+         
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2017/10/mysql命令.html" rel="next" title="mysql命令">
+                <i class="fa fa-chevron-left"></i> mysql命令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2017/12/redis操作笔记.html" rel="prev" title="redis操作笔记">
+                redis操作笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="随心" />
+          <p class="site-author-name" itemprop="name">随心</p>
+          <p class="site-description motion-element" itemprop="description">面对攻击你的人，the best revenge is massive success!</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/suixin7888" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/3935189017" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.suixin7888.top" target="_blank" title="Gitbook">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Gitbook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://shenzekun.cn/" title="Morrez" target="_blank">Morrez</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ezlippi.com" title="EZLippi" target="_blank">EZLippi</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.zhihu.com/people/sui-xin-78-59" title="友链出租" target="_blank">友链出租</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#报错案例1-加索引报错"><span class="nav-number">1.</span> <span class="nav-text">报错案例1--加索引报错</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#报错案例2"><span class="nav-number">2.</span> <span class="nav-text">报错案例2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL从5-1升级到5-6中的报错"><span class="nav-number">2.1.</span> <span class="nav-text">MySQL从5.1升级到5.6中的报错</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从库报错-1548错误"><span class="nav-number">2.2.</span> <span class="nav-text">从库报错--1548错误</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#报错案例3-1032错误"><span class="nav-number">3.</span> <span class="nav-text">报错案例3--1032错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#报错案例4-1050错误"><span class="nav-number">4.</span> <span class="nav-text">报错案例4--1050错误</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#报错案列5-1236错误"><span class="nav-number">5.</span> <span class="nav-text">报错案列5--1236错误</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+<div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">随心</span>
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+<div class="powered-by">
+  Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+
+</div>
+
+
+<!--div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+-->
+
+
+
+
+
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</html>

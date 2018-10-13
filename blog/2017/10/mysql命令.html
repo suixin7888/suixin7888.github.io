@@ -1,0 +1,1264 @@
+<!doctype html>
+
+
+
+  
+
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Neucha:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="mysql命令," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "21f1e91b"
+    });
+  daovoice('update');
+  </script>
+
+
+
+<meta name="description" content="权限操作1.创建用户，使之管理数据库1grant all (privileges) on *.* to root@localhost identified by ‘123456’; 说明:  grant 与 on 之间是各种权限，例如:insert,select,update 等 on 之后是数据库名和表名,第一个表示所有的数据库，第二个表示所有的表 root 可以改成你的用户名，@后可以跟域名或">
+<meta name="keywords" content="mysql命令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql命令">
+<meta property="og:url" content="http://www.suixin788.top/blog/2017/10/mysql命令.html">
+<meta property="og:site_name" content="随心_博客">
+<meta property="og:description" content="权限操作1.创建用户，使之管理数据库1grant all (privileges) on *.* to root@localhost identified by ‘123456’; 说明:  grant 与 on 之间是各种权限，例如:insert,select,update 等 on 之后是数据库名和表名,第一个表示所有的数据库，第二个表示所有的表 root 可以改成你的用户名，@后可以跟域名或">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-03T07:43:48.431Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql命令">
+<meta name="twitter:description" content="权限操作1.创建用户，使之管理数据库1grant all (privileges) on *.* to root@localhost identified by ‘123456’; 说明:  grant 与 on 之间是各种权限，例如:insert,select,update 等 on 之后是数据库名和表名,第一个表示所有的数据库，第二个表示所有的表 root 可以改成你的用户名，@后可以跟域名或">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.suixin788.top/blog/2017/10/mysql命令.html"/>
+
+
+
+
+
+  <title> mysql命令 | 随心_博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?2d05d0eadc098f6bab0bc704b74c9285";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">随心_博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://www.suixin788.top/blog/2017/10/mysql命令.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="随心">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="随心_博客">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="随心_博客" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                mysql命令
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-10T11:49:45+08:00">
+                2017-10-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="权限操作"><a href="#权限操作" class="headerlink" title="权限操作"></a>权限操作</h3><p>1.创建用户，使之管理数据库<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grant all (privileges) on *.* to root@localhost identified by ‘123456’;</div></pre></td></tr></table></figure></p>
+<p>说明:</p>
+<ul>
+<li>grant 与 on 之间是各种权限，例如:insert,select,update 等</li>
+<li>on 之后是数据库名和表名,第一个表示所有的数据库，第二个表示所有的表</li>
+<li>root 可以改成你的用户名，@后可以跟域名或 IP 地址，identified by 后面的是登录用的密码，可以省略，即缺省密码或者叫空密码</li>
+</ul>
+<p>方法2：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">user</span> <span class="string">'suixin'</span>@<span class="string">'10.%'</span> <span class="keyword">identified</span> <span class="keyword">by</span> <span class="string">'123123</span></div></pre></td></tr></table></figure>
+<p>2.查看已创建的用户有哪些权限<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">show grants <span class="keyword">for</span> suixin@<span class="string">'localhost'</span>\G</div></pre></td></tr></table></figure></p>
+<p>3.删除用户授权</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">revoke</span> <span class="string">"移除的权限"</span> <span class="keyword">on</span> 数据库.表 <span class="keyword">from</span> 用户@host;</div></pre></td></tr></table></figure>
+<p>4.添加/修改用户权限<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">grant</span> <span class="keyword">select</span>,<span class="keyword">insert</span>,<span class="keyword">update</span>,<span class="keyword">alter</span> <span class="keyword">on</span> suixin.* <span class="keyword">to</span> <span class="string">'suixin'</span>@<span class="string">'192.168.%'</span></div></pre></td></tr></table></figure></p>
+<p>5.更改用户密码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">方法一：mysqladmin –u 用户名 –p 旧密码 password 新密码</div><div class="line">方法二：update mysql.user <span class="built_in">set</span> password=password(<span class="string">'suixin'</span>) <span class="built_in">where</span> user=<span class="string">'root'</span>;</div></pre></td></tr></table></figure></p>
+<p>6.删除用户<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">方法一：deleted from user <span class="built_in">where</span> user=”root” and host=’localhost’;</div><div class="line">方法二：drop user <span class="string">''</span>@<span class="string">'localhost'</span>;</div></pre></td></tr></table></figure></p>
+<p>7.查看数据库有哪些用户<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select user,host from mysql.user;</div></pre></td></tr></table></figure></p>
+<p>8.创建一个用户 suixin 在特定客户端 it363.com 登录，可访问特定数据库fangchandb<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grant select, insert, update, delete, create,drop on fangchandb.* to suixin@it363.com identified by <span class="string">' passwd'</span>;</div></pre></td></tr></table></figure></p>
+<p>9.重命名用户<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">语法：rename<span class="built_in"> user </span>oldname <span class="keyword">to</span> newname；</div><div class="line">例子：rename<span class="built_in"> user </span>zsy@localhost <span class="keyword">to</span> suixin@localhost;</div></pre></td></tr></table></figure></p>
+<p>10.忘记mysql用户密码</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">a.停止mysql进程</div><div class="line"></div><div class="line">b.mysqld_safe <span class="comment">--skip-grant-tables &amp;</span></div><div class="line"></div><div class="line">c.mysql -uroot</div><div class="line"></div><div class="line">d.update mysql.user <span class="keyword">set</span> <span class="keyword">password</span>=<span class="keyword">password</span>(<span class="string">'newpassword'</span>) <span class="keyword">where</span> <span class="keyword">user</span>=<span class="string">'suixin'</span> <span class="keyword">and</span> host=<span class="string">"locahost"</span>;</div><div class="line"></div><div class="line">e.flush privileges;</div></pre></td></tr></table></figure>
+<h3 id="mysql-系统命令"><a href="#mysql-系统命令" class="headerlink" title="mysql 系统命令"></a>mysql 系统命令</h3><p>1.显示当前用户<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select user();</div></pre></td></tr></table></figure></p>
+<p>2.显示当前日期<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select now();</div></pre></td></tr></table></figure></p>
+<p>3.查看数据库版本<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select version();</div></pre></td></tr></table></figure></p>
+<p>4.查看 mysql 数据库字符集<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">show variables like <span class="string">'%char%'</span>;</div></pre></td></tr></table></figure></p>
+<p>5.设置默认字符集为 utf8<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">在配置文件找到[mysqld] 添加 default-character-set=utf8</div></pre></td></tr></table></figure></p>
+<p>6.查看可用字符集<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="built_in">character</span> <span class="keyword">set</span>;</div></pre></td></tr></table></figure></p>
+<p>7.修改字符集<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span> <span class="keyword">database</span> testdb <span class="built_in">character</span> <span class="keyword">set</span> utf8;</div></pre></td></tr></table></figure></p>
+<p>8.查看排序方式<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">collation</span>;</div></pre></td></tr></table></figure></p>
+<h3 id="库操作"><a href="#库操作" class="headerlink" title="库操作"></a>库操作</h3><p>1.显示数据库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">show databases;</div></pre></td></tr></table></figure>
+<p>2.创建数据库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">create database name;</div><div class="line"></div><div class="line">扩展：如果不存在数据库则创建数据库</div><div class="line">create database <span class="keyword">if</span> not exists testdb;</div></pre></td></tr></table></figure>
+<p>3.选择数据库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">use databasename;</div></pre></td></tr></table></figure>
+<p>4.查看当前使用的数据库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select database();</div></pre></td></tr></table></figure>
+<p>5.删除数据库前，有提示</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqladmin drop databasename;</div></pre></td></tr></table></figure>
+<p>6.直接删除数据库，不提醒</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">drop database databasename;</div></pre></td></tr></table></figure>
+<p>7.查看数据库版本和当前日期</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select version(),current_date;</div></pre></td></tr></table></figure>
+<p>8.查看已建库的完整语句</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">show create database databasename;</div></pre></td></tr></table></figure>
+<p>9.修改数据库字符集</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alter database name character <span class="built_in">set</span> utf8;</div></pre></td></tr></table></figure>
+<p>10.创建 GBK 字符集的数据库</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">create database databasename character <span class="built_in">set</span> gbk collate gbk_chinese_ci;</div></pre></td></tr></table></figure>
+<p>11.查看数据库的授权</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> mysql.db <span class="keyword">where</span> DB=<span class="string">'查看的数据库'</span></div></pre></td></tr></table></figure>
+<h3 id="表操作"><a href="#表操作" class="headerlink" title="表操作"></a>表操作</h3><h5 id="表的修改"><a href="#表的修改" class="headerlink" title="表的修改"></a>表的修改</h5><p>1.表创建的集中常见方式</p>
+<p>表一： 创建一个innodb引擎字符集为utf8的表suixin，并设置主键<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">create table suixin(</div><div class="line">id int(4) not null,</div><div class="line">name varchar(16) not null,</div><div class="line">primary key(id)</div><div class="line">) ENGINE=innodb default charset=utf8;</div></pre></td></tr></table></figure></p>
+<p>表二：创建联合主键<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> test1</div><div class="line">(</div><div class="line"><span class="keyword">id</span> <span class="built_in">int</span>(<span class="number">11</span>),</div><div class="line"><span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">45</span>) <span class="keyword">not</span> <span class="literal">null</span>,</div><div class="line">primary <span class="keyword">key</span>(<span class="keyword">id</span>,<span class="keyword">name</span>)</div><div class="line">);</div></pre></td></tr></table></figure></p>
+<p>表三：设置外键<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> test2(</div><div class="line"><span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span>,</div><div class="line"><span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">100</span>) <span class="keyword">not</span> <span class="literal">null</span>,</div><div class="line">tid <span class="built_in">int</span>,</div><div class="line">foreign <span class="keyword">key</span>(tid) <span class="keyword">references</span> test1(<span class="keyword">id</span>)</div><div class="line">);</div></pre></td></tr></table></figure></p>
+<p>表四：创建索引</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">mysql&gt; create table test3(</div><div class="line">    -<span class="ruby">&gt; id int(<span class="number">11</span>),</span></div><div class="line"><span class="ruby">    -&gt; name varchar(<span class="number">50</span>),</span></div><div class="line"><span class="ruby">    -&gt; primary key(id),</span></div><div class="line"><span class="ruby">    -&gt; index ind_name(name));</span></div><div class="line"><span class="ruby">或</span></div><div class="line"><span class="ruby">mysql&gt; create table test3(</span></div><div class="line"><span class="ruby">    -&gt; id int(<span class="number">11</span>),</span></div><div class="line"><span class="ruby">    -&gt; name varchar(<span class="number">50</span>),</span></div><div class="line"><span class="ruby">    -&gt; primary key(id),</span></div><div class="line"><span class="ruby">    -&gt; key ind_name(name));</span></div></pre></td></tr></table></figure>
+<p><strong>扩展</strong><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">字段类型</div><div class="line"></div><div class="line"><span class="number">1.</span>INT[(M)] 型： 正常大小整数类型</div><div class="line"></div><div class="line"><span class="number">2.</span>DOUBLE[(M,D)] [ZEROFILL] 型： 正常大小(双精密)浮点数字类型</div><div class="line"></div><div class="line"><span class="number">3.</span>DATE 日期类型：支持的范围是 <span class="number">1000</span><span class="number">-01</span><span class="number">-01</span> 到 <span class="number">9999</span><span class="number">-12</span><span class="number">-31</span>。MySQL 以 YYYY-MM-DD格式来显示 DATE 值，但是允许你使用字符串或数字把值赋给 DATE 列</div><div class="line"></div><div class="line"><span class="number">4.</span>CHAR(M) 型：定长字符串类型，当存储时，总是是用空格填满右边到指定的长度</div><div class="line"></div><div class="line"><span class="number">5.</span>BLOB TEXT 类型，最大长度为 <span class="number">65535</span>(<span class="number">2</span>^<span class="number">16</span><span class="number">-1</span>)个字符。</div><div class="line"></div><div class="line"><span class="number">6.</span>VARCHAR 型：变长字符串类型</div></pre></td></tr></table></figure></p>
+<p>2.删除表<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">drop table tablename;</div></pre></td></tr></table></figure></p>
+<p>3.删除表中数据<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">delete 是逻辑删除表中的数据，一列一列的删除表中数据，速度比较慢</div><div class="line">mysql&gt; delete from suixin;</div><div class="line">truncate 是物理删除表中的数据，一次性全部都给清空表中数据，速度很快</div><div class="line">mysql&gt; truncate table suixin;</div></pre></td></tr></table></figure></p>
+<p>4.插入数据<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">insert into suixin values(1,<span class="string">'Tom'</span>,),(2,<span class="string">'Joan'</span>);</div></pre></td></tr></table></figure></p>
+<p>5.重命名表<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alter table t1 rename t2;</div></pre></td></tr></table></figure></p>
+<p>6.更改表类型<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alter table table_name engine innodb|myisam|memory;</div></pre></td></tr></table></figure></p>
+<p>7.修改表中数据<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">update suixin <span class="built_in">set</span> name=’xiaoluo’<span class="built_in">where</span> id=1;</div></pre></td></tr></table></figure></p>
+<p>8.删除表 suixin 中编号为 1 的记录<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">delete from suixin <span class="built_in">where</span> id=1;</div></pre></td></tr></table></figure></p>
+<p>9.改变表的编码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Alter TABLE suixin CHARACTER SET gb2312;</div><div class="line">或者</div><div class="line">alter table 表名 convert to character <span class="built_in">set</span> gbk; 修改表的字符集</div></pre></td></tr></table></figure></p>
+<p>10.把 id 列设置为主键<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alter table suixin add primary key(id);</div></pre></td></tr></table></figure></p>
+<p>11.为表添加字段，同时添加相应的约束<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alter table test5 <span class="builtin-name">add</span> age int <span class="keyword">not</span> <span class="literal">null</span><span class="built_in"> default </span>0;</div></pre></td></tr></table></figure></p>
+<p>12.删除字段<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> test5 <span class="keyword">drop</span> age;</div></pre></td></tr></table></figure></p>
+<p>13.修改字段名<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> test5 <span class="keyword">change</span> <span class="keyword">id</span> ido <span class="built_in">int</span>(<span class="number">11</span>);</div></pre></td></tr></table></figure></p>
+<p>14.修改字段类型<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">alter table testtable modify age <span class="keyword">int</span>;    #这种方法，如果这个字段上面有索引，索引使用了字段的前<span class="number">10</span>个字符，则这个字段的数据类型长度不能修改（缩短）到<span class="number">10</span>一下</div><div class="line">或</div><div class="line"><span class="function">alter table testtable change  age age <span class="title">char</span><span class="params">(<span class="number">10</span>)</span></span>;  #这种方法不能用于<span class="keyword">char</span>类型改为<span class="keyword">int</span>类型</div></pre></td></tr></table></figure></p>
+<p>15.设置表字段为非空约束<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> test5 <span class="keyword">modify</span> <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">100</span>) <span class="keyword">not</span> <span class="literal">null</span>;</div></pre></td></tr></table></figure></p>
+<p>16.删除非空约束<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> test5 <span class="keyword">modify</span> <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">100</span>) <span class="literal">null</span>;</div></pre></td></tr></table></figure></p>
+<p>17.设置表字段为自动增长<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> test5 <span class="keyword">modify</span> <span class="keyword">id</span> <span class="built_in">int</span> auto_increment;</div></pre></td></tr></table></figure></p>
+<p>18.删除自动增长<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> test5 <span class="keyword">modify</span> <span class="keyword">id</span> <span class="built_in">int</span>;</div></pre></td></tr></table></figure></p>
+<p>19.主键约束<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> testtb <span class="keyword">add</span> primary <span class="keyword">key</span>(<span class="keyword">id</span>);</div></pre></td></tr></table></figure></p>
+<p>20.删除主键约束<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> testtb <span class="keyword">drop</span> primary <span class="keyword">key</span>;</div></pre></td></tr></table></figure></p>
+<p>21.唯一键约束<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> testtb <span class="keyword">add</span> <span class="keyword">unique</span> <span class="keyword">key</span>(uid);</div></pre></td></tr></table></figure></p>
+<p>22.创建唯一键，设置唯一键的约束为uni_test<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> testtb <span class="keyword">add</span> <span class="keyword">unique</span> <span class="keyword">key</span> uni_test(<span class="keyword">test</span>);</div></pre></td></tr></table></figure></p>
+<p>23.删除唯一键uni_test<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> testtb <span class="keyword">drop</span> <span class="keyword">index</span> uni_test;</div></pre></td></tr></table></figure></p>
+<p>24.添加一个索引，索引名字为ind_name<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">第一种：<span class="keyword">alter</span> <span class="keyword">table</span> testtb <span class="keyword">add</span> <span class="keyword">index</span> ind_name(<span class="keyword">name</span>);</div><div class="line">第二种：<span class="keyword">create</span> <span class="keyword">index</span> ind_name <span class="keyword">on</span> testtb(<span class="keyword">name</span>(<span class="number">20</span>));</div></pre></td></tr></table></figure></p>
+<p>25.重建索引–mariadb中的innode存储引擎不支持重建索引<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">repair</span> <span class="keyword">table</span> table_name <span class="keyword">quick</span>;</div></pre></td></tr></table></figure></p>
+<p>26.删除索引<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> test2 <span class="keyword">drop</span> <span class="keyword">index</span> uu_ttt;</div></pre></td></tr></table></figure></p>
+<h5 id="表的查询"><a href="#表的查询" class="headerlink" title="表的查询"></a>表的查询</h5><p>1.查看索引<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">index</span> <span class="keyword">from</span> testtb;</div></pre></td></tr></table></figure></p>
+<p>2.查看库中的表<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">show tables;</div></pre></td></tr></table></figure></p>
+<p>3.查看表中所有数据<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from suixin;</div></pre></td></tr></table></figure></p>
+<p>4.查看表 suixin 中前两行数据<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from suixin <span class="built_in">limit</span> 0,2;</div></pre></td></tr></table></figure></p>
+<p>5.指定条件查询语句<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> <span class="keyword">name</span>,age <span class="keyword">from</span> test5 <span class="keyword">where</span> age = <span class="number">25</span>;</div></pre></td></tr></table></figure></p>
+<p>6.在范围内查询<br><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> tb1 <span class="keyword">where</span> age &gt; <span class="number">25</span> <span class="keyword">or</span> age &lt; <span class="number">28</span>;</div></pre></td></tr></table></figure></p>
+<p>7.模糊查询<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> tb1 <span class="keyword">where</span> <span class="keyword">name</span> <span class="keyword">like</span> <span class="string">'j%'</span>;</div></pre></td></tr></table></figure></p>
+<p>8.支持正则表达式查询<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> tb1 <span class="keyword">where</span> <span class="keyword">name</span> <span class="keyword">rlike</span> <span class="string">'^t.*'</span>;</div></pre></td></tr></table></figure></p>
+<p>9.in指定关键字查询(也可以使用not in)<br><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> tb1 <span class="keyword">where</span> age <span class="keyword">in</span> (<span class="number">21</span>,<span class="number">23</span>,<span class="number">24</span>,<span class="number">25</span>);</div></pre></td></tr></table></figure></p>
+<p>10.对数据库进行排序(asc表示升序，可省略)<br><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">升序</div><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> tb1 <span class="keyword">order</span> <span class="keyword">by</span> age <span class="keyword">asc</span>;</div><div class="line">倒序</div><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> tb1 <span class="keyword">order</span> <span class="keyword">by</span> age <span class="keyword">desc</span>;</div></pre></td></tr></table></figure></p>
+<p>11.对tb1表中所有数据按照age从大到小降序排列，如果多行之间age字段相同，这些行根据name字段进行升序排序<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> tb1 <span class="keyword">order</span> <span class="keyword">by</span> age <span class="keyword">desc</span>,<span class="keyword">name</span> <span class="keyword">asc</span>;</div></pre></td></tr></table></figure></p>
+<p>12.去重查询<br><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> age <span class="keyword">from</span> tb1;</div></pre></td></tr></table></figure></p>
+<p>13.查询时给字段添加别名，以便显示为我们指定的列名<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> <span class="keyword">name</span> <span class="keyword">as</span> StuName,age <span class="keyword">from</span> tb1;</div></pre></td></tr></table></figure></p>
+<p>14..显示具体的表结构，查看字段<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">desc(describe) tablename;</div><div class="line">或</div><div class="line">show columns from <span class="built_in">test</span>;</div></pre></td></tr></table></figure></p>
+<p>15.显示建表语句<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">show create table table_name;</div></pre></td></tr></table></figure></p>
+<p>16.显示详细信息，包括字符集编码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">show full columns from tablename;</div></pre></td></tr></table></figure></p>
+<p>17．查看表 suixin 的字符集<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">show table status from databasename like <span class="string">'%suixin%'</span>\G;</div></pre></td></tr></table></figure></p>
+<p>18.查看约束<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> information_schema.key_column_usage <span class="keyword">where</span> table_name=<span class="string">'test5'</span>\G;</div></pre></td></tr></table></figure></p>
+<p>19.查看test1表有哪些的外键<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> TABLE_NAME,COLUMN_NAME,CONSTRAINT_NAME,REFERENCED_TABLE_NAME,REFERENCED_COLUMN_NAME \</div><div class="line"><span class="keyword">from</span> information_schema.KEY_COLUMN_USAGE \</div><div class="line"><span class="keyword">where</span> TABLE_NAME = <span class="string">'test1'</span> <span class="keyword">and</span> REFERENCED_TABLE_NAME <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span>;</div></pre></td></tr></table></figure></p>
+<p>20.查看test2被哪些表引用成外键<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> REFERENCED_TABLE_NAME,REFERENCED_COLUMN_NAME,CONSTRAINT_NAME,TABLE_NAME,COLUMN_NAME \</div><div class="line"><span class="keyword">from</span> information_schema.KEY_COLUMN_USAGE \</div><div class="line"><span class="keyword">where</span> REFERENCED_TABLE_NAME = <span class="string">'test5'</span>;</div></pre></td></tr></table></figure></p>
+<p>21.添加外键约束<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">在testtb表创建一个新的字段，tid，并添加一个外键，外键名叫testtb_tid_fk，外键中，testtb表中的tid字段引用了表testtb2表中的id字段</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> testtb <span class="keyword">add</span> <span class="keyword">column</span> tid <span class="built_in">int</span> <span class="keyword">default</span> <span class="number">0</span> <span class="keyword">not</span> <span class="literal">null</span>;</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> testtb <span class="keyword">add</span> <span class="keyword">constraint</span> testtb_tid_fk foregin <span class="keyword">key</span>(tid) <span class="keyword">references</span> testtb2(<span class="keyword">id</span>);</div></pre></td></tr></table></figure></p>
+<p>22.删除外键约束<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">查出test4有哪些外键，然后进行删除</div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> test4 <span class="keyword">drop</span> foreign <span class="keyword">key</span> test_tid_fk;</div></pre></td></tr></table></figure></p>
+<p>23.查看事件、函数、存储过程<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">show enevts； 查看事件</div><div class="line"></div><div class="line">show <span class="keyword">function</span> status\G  查看函数</div><div class="line"></div><div class="line">show procedure stauts\G 查看存储过程</div></pre></td></tr></table></figure></p>
+<h5 id="特殊查询"><a href="#特殊查询" class="headerlink" title="特殊查询"></a>特殊查询</h5><p><strong>利用group by对表进行分组查询</strong></p>
+<p>已经存在的student表如下</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select <span class="symbol">*</span> from student;</div><div class="line">+----+---------+------+--------+---------+-----------+</div><div class="line">|<span class="string"> id </span>|<span class="string"> name    </span>|<span class="string"> age  </span>|<span class="string"> gender </span>|<span class="string"> classid </span>|<span class="string"> teacherid </span>|</div><div class="line">+----+---------+------+--------+---------+-----------+</div><div class="line">|<span class="string">  2 </span>|<span class="string"> luobinn </span>|<span class="string">   22 </span>|<span class="string"> M      </span>|<span class="string">    NULL </span>|<span class="string">      NULL </span>|</div><div class="line">|<span class="string">  3 </span>|<span class="string"> baby    </span>|<span class="string">   44 </span>|<span class="string"> M      </span>|<span class="string">    NULL </span>|<span class="string">      NULL </span>|</div><div class="line">|<span class="string">  4 </span>|<span class="string"> aydy    </span>|<span class="string">   30 </span>|<span class="string"> M      </span>|<span class="string">    NULL </span>|<span class="string">      NULL </span>|</div><div class="line">|<span class="string">  5 </span>|<span class="string"> bingy   </span>|<span class="string">   30 </span>|<span class="string"> M      </span>|<span class="string">    NULL </span>|<span class="string">      NULL </span>|</div><div class="line">|<span class="string">  6 </span>|<span class="string"> ding    </span>|<span class="string">  100 </span>|<span class="string"> F      </span>|<span class="string">    NULL </span>|<span class="string">      NULL </span>|</div><div class="line">|<span class="string">  7 </span>|<span class="string"> ading   </span>|<span class="string">   18 </span>|<span class="string"> F      </span>|<span class="string">    NULL </span>|<span class="string">      NULL </span>|</div><div class="line">|<span class="string">  8 </span>|<span class="string"> lading  </span>|<span class="string">   28 </span>|<span class="string"> F      </span>|<span class="string">    NULL </span>|<span class="string">      NULL </span>|</div><div class="line">+----+---------+------+--------+---------+-----------+</div></pre></td></tr></table></figure>
+<p>1.根据性别进行分组，默认显示该性别的第一个人</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select * from student group by gender;</div><div class="line"><span class="code">+----+</span>---------<span class="code">+------+</span>--------<span class="code">+---------+</span>-----------+</div><div class="line">| id | name    | age  | gender | classid | teacherid |</div><div class="line"><span class="code">+----+</span>---------<span class="code">+------+</span>--------<span class="code">+---------+</span>-----------+</div><div class="line">|  6 | ding    |  100 | F      |    NULL |      NULL |</div><div class="line">|  2 | luobinn |   22 | M      |    NULL |      NULL |</div><div class="line"><span class="code">+----+</span>---------<span class="code">+------+</span>--------<span class="code">+---------+</span>-----------+</div></pre></td></tr></table></figure>
+<p>2.查出男性和女性分别有多少人<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select count(id),gender from student group by gender;</div><div class="line"><span class="code">+-----------+</span>--------+</div><div class="line">| count(id) | gender |</div><div class="line"><span class="code">+-----------+</span>--------+</div><div class="line">|         3 | F      |</div><div class="line">|         4 | M      |</div><div class="line"><span class="code">+-----------+</span>--------+</div><div class="line"></div><div class="line">count是一种聚合函数</div></pre></td></tr></table></figure></p>
+<p>3.算出男生女生的平均年龄<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select avg(age),gender from student group by gender;</div><div class="line"><span class="code">+----------+</span>--------+</div><div class="line">| avg(age) | gender |</div><div class="line"><span class="code">+----------+</span>--------+</div><div class="line">|  48.6667 | F      |</div><div class="line">|  31.5000 | M      |</div><div class="line"><span class="code">+----------+</span>--------+</div></pre></td></tr></table></figure></p>
+<p>mysql常用聚合函数有：</p>
+<p>min(col) 返回指定列的最小值</p>
+<p>max(col) 返回指定列的最大值</p>
+<p>avg(col) 返回指定列的平均值</p>
+<p>count(col) 返回指定列中非null值的个数</p>
+<p>sum(col) 返回指定列的所有值之和</p>
+<p>group_concat(col) 返回指定列的值，但会分组显示</p>
+<p>4.根据性别对每个人进行分组<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select gender,group<span class="emphasis">_concat(name) from student group by gender;</span></div><div class="line"><span class="emphasis">+--------+-------------------------+</span></div><div class="line"><span class="emphasis">| gender | group_</span>concat(name)      |</div><div class="line"><span class="code">+--------+</span>-------------------------+</div><div class="line">| F      | ding,ading,lading       |</div><div class="line">| M      | luobinn,baby,aydy,bingy |</div><div class="line"><span class="code">+--------+</span>-------------------------+</div><div class="line"></div><div class="line">对分组后的信息再次过滤</div><div class="line"></div><div class="line">mysql&gt; select avg(age) as avgage,gender from student group by gender having avgage &gt; 33;</div><div class="line"><span class="code">+---------+</span>--------+</div><div class="line">| avgage  | gender |</div><div class="line"><span class="code">+---------+</span>--------+</div><div class="line">| 48.6667 | F      |</div><div class="line"><span class="code">+---------+</span>--------+</div><div class="line"></div><div class="line">如果对分组后的信息再次过滤，可使用having关键字</div></pre></td></tr></table></figure></p>
+<p>5.查询student表，以性别字段gender分组，显示各组中年龄大于19的学员的年龄的总和<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select sum(age),gender from student where age &gt; 19 group by gender;</div><div class="line"><span class="code">+----------+</span>--------+</div><div class="line">| sum(age) | gender |</div><div class="line"><span class="code">+----------+</span>--------+</div><div class="line">|      128 | F      |</div><div class="line">|      126 | M      |</div><div class="line"><span class="code">+----------+</span>--------+</div></pre></td></tr></table></figure></p>
+<p><strong>mysql多表查询</strong></p>
+<p>有下面两张表<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select * from t2;</div><div class="line"><span class="code">+------+</span>-------+</div><div class="line">| t2id | t2str |</div><div class="line"><span class="code">+------+</span>-------+</div><div class="line">|    2 | a     |</div><div class="line">|    3 | b     |</div><div class="line"><span class="code">+------+</span>-------+</div><div class="line">2 rows in set (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; select * from t1;</div><div class="line"><span class="code">+------+</span>-------+</div><div class="line">| t1id | t1str |</div><div class="line"><span class="code">+------+</span>-------+</div><div class="line">|    1 |     1 |</div><div class="line">|    2 |     2 |</div><div class="line">|    3 |     3 |</div><div class="line"><span class="code">+------+</span>-------+</div></pre></td></tr></table></figure></p>
+<p>1.交叉链接</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from <span class="built_in">t1</span>,<span class="built_in">t2</span>   &lt;--查询结果显示<span class="built_in">t1</span>的每一项分别对应<span class="built_in">t2</span>的每一项，重复太多，没有太大实用意义</div></pre></td></tr></table></figure>
+<p>官方推荐语句<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select <span class="symbol">*</span> from t1 cross join t2;</div><div class="line">+------+-------+------+-------+</div><div class="line">|<span class="string"> t1id </span>|<span class="string"> t1str </span>|<span class="string"> t2id </span>|<span class="string"> t2str </span>|</div><div class="line">+------+-------+------+-------+</div><div class="line">|<span class="string">    1 </span>|<span class="string">     1 </span>|<span class="string">    2 </span>|<span class="string"> a     </span>|</div><div class="line">|<span class="string">    1 </span>|<span class="string">     1 </span>|<span class="string">    3 </span>|<span class="string"> b     </span>|</div><div class="line">|<span class="string">    2 </span>|<span class="string">     2 </span>|<span class="string">    2 </span>|<span class="string"> a     </span>|</div><div class="line">|<span class="string">    2 </span>|<span class="string">     2 </span>|<span class="string">    3 </span>|<span class="string"> b     </span>|</div><div class="line">|<span class="string">    3 </span>|<span class="string">     3 </span>|<span class="string">    2 </span>|<span class="string"> a     </span>|</div><div class="line">|<span class="string">    3 </span>|<span class="string">     3 </span>|<span class="string">    3 </span>|<span class="string"> b     </span>|</div><div class="line">+------+-------+------+-------+</div></pre></td></tr></table></figure></p>
+<p>2.内链接</p>
+<p>查询t1和t2表中id号相同的记录<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select * from t1,t2 where t1.t1id=t2.t2id;</div><div class="line"><span class="code">+------+</span>-------<span class="code">+------+</span>-------+</div><div class="line">| t1id | t1str | t2id | t2str |</div><div class="line"><span class="code">+------+</span>-------<span class="code">+------+</span>-------+</div><div class="line">|    2 |     2 |    2 | a     |</div><div class="line">|    3 |     3 |    3 | b     |</div><div class="line"><span class="code">+------+</span>-------<span class="code">+------+</span>-------+</div><div class="line"></div><div class="line">查询结果和上面一样，但官方推荐语句写法</div><div class="line">mysql&gt; select * from t1 inner join t2 on t1.t1id=t2.t2id;</div></pre></td></tr></table></figure></p>
+<p>此时交叉链接查询语句也可以达到上述结果<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select * from t1 cross join t2 on t1.t1id=t2.t2id;</div><div class="line"><span class="code">+------+</span>-------<span class="code">+------+</span>-------+</div><div class="line">| t1id | t1str | t2id | t2str |</div><div class="line"><span class="code">+------+</span>-------<span class="code">+------+</span>-------+</div><div class="line">|    2 |     2 |    2 | a     |</div><div class="line">|    3 |     3 |    3 | b     |</div><div class="line"><span class="code">+------+</span>-------<span class="code">+------+</span>-------+</div></pre></td></tr></table></figure></p>
+<p>3.联合查询，默认union会去掉重复的，可使用union all即可<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select * from t1 union select * from t2;</div><div class="line"><span class="code">+------+</span>-------+</div><div class="line">| t1id | t1str |</div><div class="line"><span class="code">+------+</span>-------+</div><div class="line">|    1 | 1     |</div><div class="line">|    2 | 2     |</div><div class="line">|    3 | 3     |</div><div class="line">|    2 | a     |</div><div class="line">|    3 | b     |</div><div class="line"><span class="code">+------+</span>-------+</div></pre></td></tr></table></figure></p>
+<p>4.由于mysql中没有全连接，可使用左链接和右链接和union搭配实现全连接<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select * from t1 left join t2 on t1id=t2id</div><div class="line"><span class="code">    -&gt; union</span></div><div class="line"><span class="code">    -&gt; select * from t2 left join t1 on t1id=t2id;</span></div><div class="line"><span class="code">+------+</span>-------<span class="code">+------+</span>-------+</div><div class="line">| t1id | t1str | t2id | t2str |</div><div class="line"><span class="code">+------+</span>-------<span class="code">+------+</span>-------+</div><div class="line">|    1 | 1     | NULL | NULL  |</div><div class="line">|    2 | 2     |    2 | a     |</div><div class="line">|    3 | 3     |    3 | b     |</div><div class="line">|    2 | a     |    2 | 2     |</div><div class="line">|    3 | b     |    3 | 3     |</div><div class="line"><span class="code">+------+</span>-------<span class="code">+------+</span>-------+</div></pre></td></tr></table></figure></p>
+<p><strong>查询缓存</strong></p>
+<p>将查询的结果缓存下载，如果查询的语句完全相同，则直接返回缓存中的结果</p>
+<p>查看当前服务是否开启查询缓存的功能<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">mysql&gt; show variables like <span class="emphasis">'%query_cache%'</span>;</div><div class="line"><span class="code">+------------------------------+</span>---------+</div><div class="line">| Variable<span class="emphasis">_name                | Value   |</span></div><div class="line"><span class="emphasis">+------------------------------+---------+</span></div><div class="line"><span class="emphasis">| have_</span>query<span class="emphasis">_cache             | YES     |&lt;--表示数据库支持缓存功能</span></div><div class="line"><span class="emphasis">| query_</span>cache<span class="emphasis">_limit            | 1048576 |&lt;--表示单条查询缓存的最大值</span></div><div class="line"><span class="emphasis">| query_</span>cache<span class="emphasis">_min_</span>res<span class="emphasis">_unit     | 4096    |&lt;--缓存存储于内存的最小单元</span></div><div class="line"><span class="emphasis">| query_</span>cache<span class="emphasis">_size             | 0       |&lt;--查询缓存的总大小</span></div><div class="line"><span class="emphasis">| query_</span>cache<span class="emphasis">_type             | ON      |&lt;--表示开启了查询缓存功能，ON(开启),OFF(j禁用)，DEMAND(按需缓存)，设置在my.cnf</span></div><div class="line"><span class="emphasis">| query_</span>cache<span class="emphasis">_wlock_</span>invalidate | OFF     |&lt;--OFF表示即使有写锁，查询也可以获取到缓存的结果，如果为ON，写锁期间，查询语句命中了查询缓存，也不能从缓存获取结果</div><div class="line"><span class="code">+------------------------------+</span>---------+</div></pre></td></tr></table></figure></p>
+<p>注意：</p>
+<pre><code>所谓的查询语句一样才可以缓存，区分大小写，相同的语句大小写不一样，不能从查询缓存返回结果
+
+如果某张表数据变化频繁，在查询这张表的内容时有使用了缓存，那么缓存失效的频率会非常高，我们往往在数据变化不频繁、且又需要重复执行相同查询的场景中使用缓存
+</code></pre><p>1.在开启缓存的时候，指定对应的查询语句不使用缓存<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> sql_no_cache <span class="keyword">name</span> <span class="keyword">from</span> stu;</div></pre></td></tr></table></figure></p>
+<p>2.也可以按需使用缓存时，指定对应的查询语句使用缓存<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> <span class="keyword">sql_cache</span> <span class="keyword">name</span> <span class="keyword">from</span> stu;</div></pre></td></tr></table></figure></p>
+<p>3.在配置文件设置缓存空间大小为100M<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attr">query_cache_type</span>=DEMAND</div><div class="line"><span class="attr">query_cache_type</span>=<span class="number">100</span>M</div></pre></td></tr></table></figure></p>
+<p>4.使用如下查询语句时，明确指定当前语句的查询结果需要缓存<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> <span class="keyword">sql_cache</span> * <span class="keyword">from</span> students <span class="keyword">where</span> teacherid <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span>;</div></pre></td></tr></table></figure></p>
+<p>5.查看缓存命中情况<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">mysql&gt; show status like 'Qcache%';</div><div class="line">+-------------------------+----------+</div><div class="line">|<span class="string"> Variable_name           </span>|<span class="string"> Value    </span>|</div><div class="line">+-------------------------+----------+</div><div class="line">|<span class="string"> Qcache_free_blocks      </span>|<span class="string"> 1        </span>|<span class="string"> &lt;--表示已分配的内存块中空闲块的数量</span></div><div class="line">|<span class="string"> Qcache_free_memory      </span>|<span class="string">104838200 </span>|<span class="string"> &lt;--表示查询缓存的空闲总量大小</span></div><div class="line">|<span class="string"> Qcache_hits             </span>|<span class="string"> 2        </span>|<span class="string"> &lt;--被缓存条目的命中次数</span></div><div class="line">|<span class="string"> Qcache_inserts          </span>|<span class="string"> 1        </span>|<span class="string"> &lt;--表示在未命中缓存，将查询结果写入缓存的次数</span></div><div class="line">|<span class="string"> Qcache_lowmem_prunes    </span>|<span class="string"> 0        </span>|<span class="string"> </span></div><div class="line">|<span class="string"> Qcache_not_cached       </span>|<span class="string"> 0        </span>|<span class="string"> &lt;--没有被缓存的 查询语句数量</span></div><div class="line">|<span class="string"> Qcache_queries_in_cache </span>|<span class="string"> 1        </span>|<span class="string"> &lt;--表示已缓存的SQL语句数量</span></div><div class="line">|<span class="string"> Qcache_total_blocks     </span>|<span class="string"> 4        </span>|<span class="string"> &lt;--当前查询缓存占用的内存block数量</span></div><div class="line"><span class="string">+-------------------------+----------+</span></div></pre></td></tr></table></figure></p>
+<p>清理缓存：flush query cache;<br>清除查询缓存中已经存在的缓存：reset query cache;</p>
+<p>这里的可以通过上述统计信息的数值以及缓存设置的相关值，计算出查询缓存的相关指标，从而判断查询缓存是否对我们有帮助<br>参考：<a href="http://www.zsythink.net/archives/1111" target="_blank" rel="external">http://www.zsythink.net/archives/1111</a></p>
+<h5 id="存储引擎操作"><a href="#存储引擎操作" class="headerlink" title="存储引擎操作"></a>存储引擎操作</h5><p>MYISAM：支持表级锁，不支持行级锁，不支持事务，不支持外键约束，支持全文索引，表空间文件相对小<br>INNODB：支持表级锁，支持行级锁，支持事务，支持外键约束，不支持全文索引，表空间文件相对较大</p>
+<p>1.查看默认的存储引擎<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">mysql&gt; show engines;</div><div class="line">+--------------------+---------+------------------------------------------------------------+--------------+------+------------+</div><div class="line">|<span class="string"> Engine             </span>|<span class="string"> Support </span>|<span class="string"> Comment                                                    </span>|<span class="string"> Transactions </span>|<span class="string"> XA   </span>|<span class="string"> Savepoints </span>|</div><div class="line">+--------------------+---------+------------------------------------------------------------+--------------+------+------------+</div><div class="line">|<span class="string"> CSV                </span>|<span class="string"> YES     </span>|<span class="string"> CSV storage engine                                         </span>|<span class="string"> NO           </span>|<span class="string"> NO   </span>|<span class="string"> NO         </span>|</div><div class="line">|<span class="string"> InnoDB             </span>|<span class="string"> DEFAULT </span>|<span class="string"> Supports transactions, row-level locking, and foreign keys </span>|<span class="string"> YES          </span>|<span class="string"> YES  </span>|<span class="string"> YES        </span>|</div><div class="line">|<span class="string"> MRG_MYISAM         </span>|<span class="string"> YES     </span>|<span class="string"> Collection of identical MyISAM tables                      </span>|<span class="string"> NO           </span>|<span class="string"> NO   </span>|<span class="string"> NO         </span>|</div><div class="line">|<span class="string"> PERFORMANCE_SCHEMA </span>|<span class="string"> YES     </span>|<span class="string"> Performance Schema                                         </span>|<span class="string"> NO           </span>|<span class="string"> NO   </span>|<span class="string"> NO         </span>|</div><div class="line">|<span class="string"> MyISAM             </span>|<span class="string"> YES     </span>|<span class="string"> MyISAM storage engine                                      </span>|<span class="string"> NO           </span>|<span class="string"> NO   </span>|<span class="string"> NO         </span>|</div><div class="line">|<span class="string"> MEMORY             </span>|<span class="string"> YES     </span>|<span class="string"> Hash based, stored in memory, useful for temporary tables  </span>|<span class="string"> NO           </span>|<span class="string"> NO   </span>|<span class="string"> NO         </span>|</div><div class="line">+--------------------+---------+------------------------------------------------------------+--------------+------+------------+</div></pre></td></tr></table></figure></p>
+<p>2.查看数据库的所有表存储引擎<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line"><span class="string">mysql&gt;</span> <span class="string">show</span> <span class="string">table</span> <span class="string">status\G;</span></div><div class="line"><span class="string">***************************</span> <span class="number">1.</span> <span class="string">row</span> <span class="string">***************************</span></div><div class="line"><span class="attr">           Name:</span> <span class="string">student</span></div><div class="line"><span class="attr">         Engine:</span> <span class="string">InnoDB</span></div><div class="line"><span class="attr">        Version:</span> <span class="number">10</span></div><div class="line"><span class="attr">     Row_format:</span> <span class="string">Compact</span></div><div class="line"><span class="attr">           Rows:</span> <span class="number">7</span></div><div class="line"><span class="attr"> Avg_row_length:</span> <span class="number">2340</span></div><div class="line"><span class="attr">    Data_length:</span> <span class="number">16384</span></div><div class="line"><span class="attr">Max_data_length:</span> <span class="number">0</span></div><div class="line"><span class="attr">   Index_length:</span> <span class="number">0</span></div><div class="line"><span class="attr">      Data_free:</span> <span class="number">8388608</span></div><div class="line"><span class="attr"> Auto_increment:</span> <span class="literal">NULL</span></div><div class="line"><span class="attr">    Create_time:</span> <span class="number">2018</span><span class="bullet">-01</span><span class="bullet">-02</span> <span class="number">09</span><span class="string">:26:29</span></div><div class="line"><span class="attr">    Update_time:</span> <span class="literal">NULL</span></div><div class="line"><span class="attr">     Check_time:</span> <span class="literal">NULL</span></div><div class="line"><span class="attr">      Collation:</span> <span class="string">utf8_general_ci</span></div><div class="line"><span class="attr">       Checksum:</span> <span class="literal">NULL</span></div><div class="line"><span class="attr"> Create_options:</span> </div><div class="line"><span class="attr">        Comment:</span> </div><div class="line"><span class="string">***************************</span> <span class="number">2.</span> <span class="string">row</span> <span class="string">***************************</span></div><div class="line"><span class="attr">           Name:</span> <span class="string">t1</span></div><div class="line"><span class="attr">         Engine:</span> <span class="string">InnoDB</span></div><div class="line"><span class="attr">        Version:</span> <span class="number">10</span></div><div class="line"><span class="attr">     Row_format:</span> <span class="string">Compact</span></div><div class="line"><span class="attr">           Rows:</span> <span class="number">3</span></div><div class="line"><span class="attr"> Avg_row_length:</span> <span class="number">5461</span></div><div class="line"><span class="attr">    Data_length:</span> <span class="number">16384</span></div><div class="line"><span class="attr">Max_data_length:</span> <span class="number">0</span></div><div class="line"><span class="attr">   Index_length:</span> <span class="number">0</span></div><div class="line"><span class="attr">      Data_free:</span> <span class="number">8388608</span></div><div class="line"><span class="attr"> Auto_increment:</span> <span class="literal">NULL</span></div><div class="line"><span class="attr">    Create_time:</span> <span class="number">2018</span><span class="bullet">-01</span><span class="bullet">-02</span> <span class="number">10</span><span class="string">:25:04</span></div><div class="line"><span class="attr">    Update_time:</span> <span class="literal">NULL</span></div><div class="line"><span class="attr">     Check_time:</span> <span class="literal">NULL</span></div><div class="line"><span class="attr">      Collation:</span> <span class="string">utf8_general_ci</span></div><div class="line"><span class="attr">       Checksum:</span> <span class="literal">NULL</span></div><div class="line"><span class="attr"> Create_options:</span> </div><div class="line"><span class="attr">        Comment:</span> </div><div class="line"><span class="string">***************************</span> <span class="number">3.</span> <span class="string">row</span> <span class="string">***************************</span></div><div class="line"><span class="attr">           Name:</span> <span class="string">t2</span></div><div class="line"><span class="attr">         Engine:</span> <span class="string">InnoDB</span></div><div class="line"><span class="attr">        Version:</span> <span class="number">10</span></div><div class="line"><span class="attr">     Row_format:</span> <span class="string">Compact</span></div><div class="line"><span class="attr">           Rows:</span> <span class="number">2</span></div><div class="line"><span class="attr"> Avg_row_length:</span> <span class="number">8192</span></div><div class="line"><span class="attr">    Data_length:</span> <span class="number">16384</span></div><div class="line"><span class="attr">Max_data_length:</span> <span class="number">0</span></div><div class="line"><span class="attr">   Index_length:</span> <span class="number">0</span></div><div class="line"><span class="attr">      Data_free:</span> <span class="number">8388608</span></div><div class="line"><span class="attr"> Auto_increment:</span> <span class="literal">NULL</span></div><div class="line"><span class="attr">    Create_time:</span> <span class="number">2018</span><span class="bullet">-01</span><span class="bullet">-02</span> <span class="number">10</span><span class="string">:29:45</span></div><div class="line"><span class="attr">    Update_time:</span> <span class="literal">NULL</span></div><div class="line"><span class="attr">     Check_time:</span> <span class="literal">NULL</span></div><div class="line"><span class="attr">      Collation:</span> <span class="string">utf8_general_ci</span></div><div class="line"><span class="attr">       Checksum:</span> <span class="literal">NULL</span></div><div class="line"><span class="attr"> Create_options:</span> </div><div class="line"><span class="attr">        Comment:</span> </div><div class="line"><span class="number">3</span> <span class="string">rows</span> <span class="string">in</span> <span class="string">set</span> <span class="string">(0.00</span> <span class="string">sec)</span></div></pre></td></tr></table></figure></p>
+<p>3.查看单一表的存储引擎<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="string">mysql&gt;</span> <span class="string">show</span> <span class="string">table</span> <span class="string">status</span> <span class="string">like</span> <span class="string">'%student%'</span><span class="string">\G;</span></div><div class="line"><span class="string">***************************</span> <span class="number">1.</span> <span class="string">row</span> <span class="string">***************************</span></div><div class="line"><span class="attr">           Name:</span> <span class="string">student</span></div><div class="line"><span class="attr">         Engine:</span> <span class="string">InnoDB</span></div><div class="line"><span class="attr">        Version:</span> <span class="number">10</span></div><div class="line"><span class="attr">     Row_format:</span> <span class="string">Compact</span></div><div class="line"><span class="attr">           Rows:</span> <span class="number">7</span></div><div class="line"><span class="attr"> Avg_row_length:</span> <span class="number">2340</span></div><div class="line"><span class="attr">    Data_length:</span> <span class="number">16384</span></div><div class="line"><span class="attr">Max_data_length:</span> <span class="number">0</span></div><div class="line"><span class="attr">   Index_length:</span> <span class="number">0</span></div><div class="line"><span class="attr">      Data_free:</span> <span class="number">8388608</span></div><div class="line"><span class="attr"> Auto_increment:</span> <span class="literal">NULL</span></div><div class="line"><span class="attr">    Create_time:</span> <span class="number">2018</span><span class="bullet">-01</span><span class="bullet">-02</span> <span class="number">09</span><span class="string">:26:29</span></div><div class="line"><span class="attr">    Update_time:</span> <span class="literal">NULL</span></div><div class="line"><span class="attr">     Check_time:</span> <span class="literal">NULL</span></div><div class="line"><span class="attr">      Collation:</span> <span class="string">utf8_general_ci</span></div><div class="line"><span class="attr">       Checksum:</span> <span class="literal">NULL</span></div><div class="line"><span class="attr"> Create_options:</span> </div><div class="line"><span class="attr">        Comment:</span> </div><div class="line"><span class="number">1</span> <span class="string">row</span> <span class="string">in</span> <span class="string">set</span> <span class="string">(0.00</span> <span class="string">sec)</span></div></pre></td></tr></table></figure></p>
+<p>4.修改表的存储引擎<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t1 <span class="keyword">engine</span>=myisam;</div></pre></td></tr></table></figure></p>
+<p>5.修改数据库的默认存储引擎<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">a. <span class="keyword">stop</span>数据库，修改配置文件</div><div class="line">b. <span class="keyword">default</span>-<span class="keyword">storage</span>-<span class="keyword">engine</span>=<span class="keyword">innodb</span>   设置默认存储引擎</div><div class="line">c. innodb_file_per_table=<span class="keyword">on</span>    每个表使用单独的表空间</div><div class="line">d. <span class="keyword">start</span>数据库即可</div></pre></td></tr></table></figure></p>
+<p>6.innodb和myisam的数据文件</p>
+<p>从配置文件看出，表空间数据文件存放路径如下<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">datadir</span>=/<span class="meta">opt</span>/mysql/<span class="meta">data</span></div></pre></td></tr></table></figure></p>
+<p>innodb的数据文件默认存在/opt/mysql/data/ibdata1  文件里面</p>
+<p>所有innodb的共享表空间数据文件，表的数据信息与索引信息都存储在ibdata1中。</p>
+<p>但是如果配置文件中打开了 innodb_file_per_table=on  此时，每个innodb表使用单独的表空间数据文件</p>
+<p>查看数据库目录下的表<br><figure class="highlight tap"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[root@test zhudb]<span class="comment"># ll /opt/mysql/data/zhudb</span></div><div class="line">total 40</div><div class="line">-rw-rw----<span class="number"> 1 </span>mysql mysql<span class="number"> 8724 </span>Jan <span class="number"> 2 </span>09:26 student.frm</div><div class="line">-rw-rw----<span class="number"> 1 </span>mysql mysql<span class="number"> 8724 </span>Jan <span class="number"> 2 </span>09:26 student.idb</div><div class="line">-rw-rw----<span class="number"> 1 </span>mysql mysql<span class="number"> 8592 </span>Jan <span class="number"> 2 </span>10:25 t1.frm</div><div class="line">-rw-rw----<span class="number"> 1 </span>mysql mysql<span class="number"> 8592 </span>Jan <span class="number"> 2 </span>10:25 t1.ibd</div></pre></td></tr></table></figure></p>
+<p>总结：</p>
+<p>Inoodb表类型的存储引擎：<br>    from后缀的文件存储表结构信息<br>    ibd后缀的文件存放表的数据信息与索引信息<br>    如果没有开启innodb_file_per_table，则不会有ibd结尾的文件，而是共用ibdata1</p>
+<p>myisam表类型的存储引擎，每张表都有三种后缀名的文件，分别是.frm后缀、.MYD后缀、.MYI后缀。<br>    .frm后缀的文件中存放表结构信息<br>    .MYD后缀的文件中存放数据信息<br>    .MYI后缀的文件存放索引信息</p>
+<h5 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h5><p>1.事务相关概念</p>
+<p>事务可以理解成一组sql语句，要么全部执行成功，要么全部执行失败，事务内的sql语句被当做一个整体。</p>
+<p>redo log 事务中的sql语句涉及到所有数据操作先记录到redo log中，然后再同步到对应数据文件中</p>
+<p>redo log由两部分组成：redo log buffer(重做日志缓冲) 和redo log file(重做日志文件)</p>
+<p>redo log buffer存在内存中，容易丢失，redo log file是持久的，存在磁盘上</p>
+<p>undo log 修改前的备份，如果事务中有一条sql没有执行成功，数据库可以根据undo log进行撤销</p>
+<p>log group 重做日志组，一个重做日志组中有多个重做日志文件(redo log file),当日志组中第一个logfile被写满，则开始将redo log写入日志组中下一个重做日志文件。全备写满后，会覆盖第一个日志文件</p>
+<p>1.当使用innodb引擎时，使用如下语句查询日志相关配置参数<br><figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">mysql&gt; show <span class="keyword">global</span> variables like <span class="string">'%innodb%log%'</span>;</div><div class="line">+--------------------------------+---------+</div><div class="line">| Variable_name                  | Value   |</div><div class="line">+--------------------------------+---------+</div><div class="line">| innodb_flush_log_at_trx_commit | <span class="number">1</span>       |</div><div class="line">| innodb_locks_unsafe_for_binlog | OFF     |</div><div class="line">| innodb_log_buffer_size         | <span class="number">8388608</span> |</div><div class="line">| innodb_log_file_size           | <span class="number">5242880</span> | &lt;--<span class="keyword">redo</span> <span class="keyword">log</span> <span class="keyword">file</span>的大小</div><div class="line">| innodb_log_files_in_group      | <span class="number">2</span>       | &lt;--表示每个重做日志组中有几个<span class="keyword">redo</span> <span class="keyword">log</span> <span class="keyword">file</span></div><div class="line">| innodb_log_group_home_dir      | ./      | &lt;--重做日志组的路径</div><div class="line">| innodb_mirrored_log_groups     | <span class="number">1</span>       | &lt;--表示一共几组日志组</div><div class="line">+--------------------------------+---------+</div><div class="line"></div><div class="line">innodb_flush_log_at_trx_commit表示当事务提交后，是否立即将<span class="keyword">redo</span> <span class="keyword">log</span>从内存刷写到<span class="keyword">redo</span> <span class="keyword">log</span> <span class="keyword">file</span>中</div><div class="line">值可以设置为<span class="number">0</span>、<span class="number">1</span>、<span class="number">2</span></div><div class="line"></div><div class="line">设置<span class="number">0</span>，事务提交时不会将<span class="keyword">redo</span> <span class="keyword">log</span>从<span class="keyword">log</span> buffer刷写到<span class="keyword">redo</span> <span class="keyword">log</span> <span class="keyword">file</span>，但会每秒自动刷写一次，如果数据库崩溃，会丢失一秒钟的<span class="keyword">redo</span> <span class="keyword">log</span></div><div class="line"></div><div class="line">设置<span class="number">1</span> 表示事务提交时必须将<span class="keyword">redo</span> <span class="keyword">log</span>从<span class="keyword">log</span> buffer中刷写到<span class="keyword">redo</span> <span class="keyword">log</span> <span class="keyword">file</span>中</div><div class="line"></div><div class="line">设置为<span class="number">2</span> 表示事务提交时，只会将<span class="keyword">redo</span> <span class="keyword">log</span>写入文件系统内存中，但不会立即写入到<span class="keyword">redo</span> <span class="keyword">log</span> <span class="keyword">file</span>中，而是每秒钟从文件系统缓存中将数据刷写到<span class="keyword">redo</span> <span class="keyword">log</span> <span class="keyword">file</span>中一次，此种情况mysql宕了，操作系统没有宕机，则数据不会丢失，如果操作系统宕机，重启数据库后，则会丢失为从文件系统内存刷写到<span class="keyword">redo</span> <span class="keyword">log</span> <span class="keyword">file</span>中的那部分事务。</div><div class="line"></div><div class="line">理论上说，此值设置为<span class="number">1</span>，安全性最高，性能最低，设置为<span class="number">0</span>，性能最高，安全性最低，设置为<span class="number">2</span>，性能较高，安全性较低</div></pre></td></tr></table></figure></p>
+<p>2.事务控制语句</p>
+<p>首先查看是否开启了自动提交<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">global</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'autocommit'</span>;</div><div class="line"><span class="keyword">show</span> <span class="keyword">session</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'autocommit'</span>;</div></pre></td></tr></table></figure></p>
+<p>有如下一张表<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select * from t3;</div><div class="line"><span class="code">+------+</span>------+</div><div class="line">| id   | str  |</div><div class="line"><span class="code">+------+</span>------+</div><div class="line">|    1 |    1 |</div><div class="line">|    2 |    2 |</div><div class="line">|    3 |    3 |</div><div class="line"><span class="code">+------+</span>------+</div></pre></td></tr></table></figure></p>
+<p>2.1 最简单的事务<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">mysql&gt; begin;</div><div class="line">Query OK, 0 rows affected (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; insert into t3 values(5,5);</div><div class="line">Query OK, 1 row affected (0.01 sec)</div><div class="line"></div><div class="line">mysql&gt; commit;</div><div class="line">Query OK, 0 rows affected (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; select * from t3;</div><div class="line"><span class="code">+------+</span>------+</div><div class="line">| id   | str  |</div><div class="line"><span class="code">+------+</span>------+</div><div class="line">|    1 |    1 |</div><div class="line">|    2 |    2 |</div><div class="line">|    3 |    3 |</div><div class="line">|    5 |    5 |</div><div class="line"><span class="code">+------+</span>------+</div></pre></td></tr></table></figure></p>
+<p>2.2 事务回滚操作</p>
+<p>rollback对未做提交的操作进行了撤销<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">mysql&gt; start transaction;</div><div class="line">Query OK, 0 rows affected (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; delete from t3 where id = 1;</div><div class="line">Query OK, 1 row affected (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; select * from t3;</div><div class="line"><span class="code">+------+</span>------+</div><div class="line">| id   | str  |</div><div class="line"><span class="code">+------+</span>------+</div><div class="line">|    2 |    2 |</div><div class="line">|    3 |    3 |</div><div class="line">|    5 |    5 |</div><div class="line"><span class="code">+------+</span>------+</div><div class="line">3 rows in set (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; rollback;</div><div class="line">Query OK, 0 rows affected (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; select * from t3;</div><div class="line"><span class="code">+------+</span>------+</div><div class="line">| id   | str  |</div><div class="line"><span class="code">+------+</span>------+</div><div class="line">|    1 |    1 |</div><div class="line">|    2 |    2 |</div><div class="line">|    3 |    3 |</div><div class="line">|    5 |    5 |</div><div class="line"><span class="code">+------+</span>------+</div><div class="line">4 rows in set (0.00 sec)</div></pre></td></tr></table></figure></p>
+<p>2.3 事务保存点<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div></pre></td><td class="code"><pre><div class="line">mysql&gt; begin;</div><div class="line">Query OK, 0 rows affected (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; delete from t3 where id = 1;</div><div class="line">Query OK, 1 row affected (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; select * from t3;</div><div class="line"><span class="code">+------+</span>------+</div><div class="line">| id   | str  |</div><div class="line"><span class="code">+------+</span>------+</div><div class="line">|    2 |    2 |</div><div class="line">|    3 |    3 |</div><div class="line">|    5 |    5 |</div><div class="line"><span class="code">+------+</span>------+</div><div class="line">3 rows in set (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; savepoint del1;</div><div class="line">Query OK, 0 rows affected (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; insert into t3 values(7,7);</div><div class="line">Query OK, 1 row affected (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; select * from t3;</div><div class="line"><span class="code">+------+</span>------+</div><div class="line">| id   | str  |</div><div class="line"><span class="code">+------+</span>------+</div><div class="line">|    2 |    2 |</div><div class="line">|    3 |    3 |</div><div class="line">|    5 |    5 |</div><div class="line">|    7 |    7 |</div><div class="line"><span class="code">+------+</span>------+</div><div class="line">4 rows in set (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; savepoint add7;</div><div class="line">Query OK, 0 rows affected (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; delete from t3 where id = 7;</div><div class="line">Query OK, 1 row affected (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; select * from t3;</div><div class="line"><span class="code">+------+</span>------+</div><div class="line">| id   | str  |</div><div class="line"><span class="code">+------+</span>------+</div><div class="line">|    2 |    2 |</div><div class="line">|    3 |    3 |</div><div class="line">|    5 |    5 |</div><div class="line"><span class="code">+------+</span>------+</div><div class="line">3 rows in set (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; rollback to savepoint add7;</div><div class="line">Query OK, 0 rows affected (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; select * from t3;</div><div class="line"><span class="code">+------+</span>------+</div><div class="line">| id   | str  |</div><div class="line"><span class="code">+------+</span>------+</div><div class="line">|    2 |    2 |</div><div class="line">|    3 |    3 |</div><div class="line">|    5 |    5 |</div><div class="line">|    7 |    7 |</div><div class="line"><span class="code">+------+</span>------+</div><div class="line">4 rows in set (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; commit;</div><div class="line">Query OK, 0 rows affected (0.00 sec)</div></pre></td></tr></table></figure></p>
+<p>我们也可以关闭自动提交功能，在mysql命令行中可以直接敲命令，但是最后要commit才可以提交<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql&gt; <span class="builtin-name">set</span> @@session.<span class="attribute">autocommit</span>=0</div></pre></td></tr></table></figure></p>
+<p>3.事务隔离级别</p>
+<p>3.1查看链接当前数据库的线程<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mysql&gt; show processlist;</div><div class="line"><span class="code">+----+</span>------<span class="code">+-----------+</span>-------<span class="code">+---------+</span>------<span class="code">+-------+</span>------------------+</div><div class="line">| Id | User | Host      | db    | Command | Time | State | Info             |</div><div class="line"><span class="code">+----+</span>------<span class="code">+-----------+</span>-------<span class="code">+---------+</span>------<span class="code">+-------+</span>------------------+</div><div class="line">|  5 | root | localhost | zhudb | Sleep   |  445 |       | NULL             |</div><div class="line">|  6 | root | localhost | NULL  | Query   |    0 | NULL  | show processlist |</div><div class="line"><span class="code">+----+</span>------<span class="code">+-----------+</span>-------<span class="code">+---------+</span>------<span class="code">+-------+</span>------------------+</div></pre></td></tr></table></figure></p>
+<p>两个窗口分别链接数据库，分别开始自己的事务操作</p>
+<p>窗口1对表进行了修改，窗口2查询时看不到窗口1修改后的数据的，查看到的还是修改前的数据</p>
+<p>窗口1提交修改操作，窗口2查看还是之前的数据</p>
+<p>当窗口2提交数据后，再次查看，可看到窗口1对表的修改后的数据</p>
+<p>这是因为mysql的隔离级别影响的<br><figure class="highlight cos"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">READ</span>-UNCOMMITTED:读未提交</div><div class="line"><span class="keyword">READ</span>-COMMITTED：读已提交或读提交</div><div class="line">REPEATABLE-<span class="keyword">READ</span>：可重复读或可重读</div><div class="line">SERIALIZABLE：串行化</div></pre></td></tr></table></figure></p>
+<p>3.1 查看mysql的隔离级别<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'tx_isolation'</span>;</div></pre></td></tr></table></figure></p>
+<p>3.2 如果要修改配置文件，可通过如下参数配置mysql的事务隔离级别<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">transaction_isolation</span>=REPEATABLE-READ</div></pre></td></tr></table></figure></p>
+<h5 id="mysql日志"><a href="#mysql日志" class="headerlink" title="mysql日志"></a>mysql日志</h5><p>1.错误日志</p>
+<p>执行过程中的错误日志会记录以下信息：</p>
+<pre><code>mysql执行过程中的错误信息
+mysql执行过程中的警告信息
+event scheduler运行时所产生的信息
+mysql启动和停止过程中输出信息，未必是错误信息
+主从复制结构中，从服务器IO复制线程的启动信息
+</code></pre><p>mysql中，错误日志使用log_error以及log_warnings等参数定义</p>
+<pre><code>log_warnings用于标识警告信息是否一并记录到错误日志中
+log_warnings值为0，表示不记录警告信息
+log_warnings值为1，表示警告信息一并记录到错误日志中
+log_warnings值大于1，表示&apos;失败的链接&apos;的信息和创建新链接时&apos;拒绝访问&apos;类的错误信息也会被记录到错误日志中
+</code></pre><p>查看mysql的错误日志的路径<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">global</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'%log_error%'</span>;</div></pre></td></tr></table></figure></p>
+<p>查看警告标识信息<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">global</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'%log_warnings%'</span>;</div><div class="line">或写到配置文件中</div><div class="line">log_warnings=2</div></pre></td></tr></table></figure></p>
+<p>2.查询日志</p>
+<p>查看查询日志是否开启<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">mysql&gt; show variables where variable<span class="emphasis">_name like "%general_</span>log%" or variable<span class="emphasis">_name="log_</span>output";</div><div class="line"><span class="code">+------------------+</span>--------------------------+</div><div class="line">| Variable<span class="emphasis">_name    | Value                    |</span></div><div class="line"><span class="emphasis">+------------------+--------------------------+</span></div><div class="line"><span class="emphasis">| general_</span>log      | OFF                      | &lt;--表示查询日志是否开启</div><div class="line">| general<span class="emphasis">_log_</span>file | /opt/mysql/data/test.log | &lt;--查询日志以文件的方式保存路径</div><div class="line">| log<span class="emphasis">_output       | FILE                     | &lt;--表示以何种方式保存</span></div><div class="line"><span class="emphasis">+------------------+--------------------------+</span></div><div class="line"><span class="emphasis"></span></div><div class="line"><span class="emphasis">log_</span>output 有四种值：TABLE\FILE\FILE,TABLE\NONE</div><div class="line">以表方式存放存放在mysql库的general<span class="emphasis">_log表中</span></div></pre></td></tr></table></figure></p>
+<p>3.慢查询日志</p>
+<p>某些sql语句执行完毕所花费时间特别长，我们将这种响应比较慢的语句记录在慢查询日志</p>
+<p>log_slow_queries: 表示是否开启慢查询日志，5.6以后的版本使用slow_query_log取代此参数</p>
+<p>log_output: 慢查询日志开启后，以哪种方式存放，可以设4种值，TABLE\FILE\FILE,TABLE\NONE</p>
+<p>slow_query_log: 5.6以后的版本使用此参数代替log_slow_queries</p>
+<p>slow_query_log_file: 表示慢查询日志保存到哪个日志文件中</p>
+<p>long_query_time: 表示’多长时间的查询’被认定为’慢查询’，此值默认10s</p>
+<p>log_queries_not_using_indexes: 表示如果运行的sql语句没有使用到索引，是否也被当作慢查询语句记录到慢查询日志中</p>
+<p>log_throttle_queries_not_using_indexes:5.6.5版本新引入的参数，设置为ON时，没有使用索引的查询语句也会被当做慢查询语句记录到慢查询日志中</p>
+<p>3.1 开启慢查询日志<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">mysql&gt; set global slow<span class="emphasis">_query_</span>log=ON;</div><div class="line">Query OK, 0 rows affected (0.05 sec)</div><div class="line"></div><div class="line">mysql&gt; show variables where variable<span class="emphasis">_name like "%low_</span>query%" or variable<span class="emphasis">_name="log_</span>output";</div><div class="line"><span class="code">+---------------------+</span>-------------------------------+</div><div class="line">| Variable<span class="emphasis">_name       | Value                         |</span></div><div class="line"><span class="emphasis">+---------------------+-------------------------------+</span></div><div class="line"><span class="emphasis">| log_</span>output          | FILE                          |</div><div class="line">| slow<span class="emphasis">_query_</span>log      | ON                            |</div><div class="line">| slow<span class="emphasis">_query_</span>log<span class="emphasis">_file | /opt/mysql/data/test-slow.log |</span></div><div class="line"><span class="emphasis">+---------------------+-------------------------------+</span></div></pre></td></tr></table></figure></p>
+<p>3.2 设置慢查询的时间界限为3s<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="builtin-name">set</span> global <span class="attribute">long_query_time</span>=3</div></pre></td></tr></table></figure></p>
+<p>3.3 查看慢查询的时间界限<br><figure class="highlight mel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">slect @@<span class="keyword">global</span>.long_query_time</div><div class="line"></div><div class="line">全局设置后，当前会话的变量仍然没有被改变</div><div class="line"></div><div class="line">slect @@<span class="keyword">global</span>.long_query_time  &lt;--查看当前会话的慢查询时间界限，发现还是<span class="number">10</span>s</div><div class="line"></div><div class="line">当打开一个新的数据库链接，已经全部时<span class="number">3</span>s了</div></pre></td></tr></table></figure></p>
+<p>3.4 查看mysql记录多少慢查询语句<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">global</span> <span class="keyword">status</span> <span class="keyword">like</span> <span class="string">'%slow_queries%'</span>;</div></pre></td></tr></table></figure></p>
+<p>mysqldumpslow可对慢查询日志进行分析，具体参考：<a href="http://www.zsythink.net/archives/1260" target="_blank" rel="external">http://www.zsythink.net/archives/1260</a></p>
+<h5 id="二进制日志的查询"><a href="#二进制日志的查询" class="headerlink" title="二进制日志的查询"></a>二进制日志的查询</h5><p>1.查看binlog日志是否开启<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">show</span> <span class="keyword">global</span> <span class="keyword">variables</span> <span class="keyword">like</span> <span class="string">'%log_bin%'</span>;</div><div class="line">没打开要再配置文件中配置</div></pre></td></tr></table></figure></p>
+<p>2.查看二进制文件列表<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">mysql&gt; show master logs;</div><div class="line"><span class="code">+------------------+</span>-----------+</div><div class="line">| Log<span class="emphasis">_name         | File_</span>size |</div><div class="line"><span class="code">+------------------+</span>-----------+</div><div class="line">| mysql-bin.000001 |       107 |</div><div class="line">| mysql-bin.000002 |       107 |</div><div class="line">| mysql-bin.000003 |       107 |</div><div class="line">| mysql-bin.000004 |       126 |</div><div class="line">| mysql-bin.000005 |       126 |</div><div class="line"><span class="code">+------------------+</span>-----------+</div></pre></td></tr></table></figure></p>
+<p>3.查看当前使用的二进制文件<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">show <span class="keyword">master</span> <span class="title">status</span>\G</div></pre></td></tr></table></figure></p>
+<p>4.查看binlog日志的内容<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">mysql&gt;</span><span class="bash"> show binlog events <span class="keyword">in</span> <span class="string">'mysql-bin.000005'</span>;</span></div></pre></td></tr></table></figure></p>
+<p>5.指定位置点查看<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">mysql&gt;</span><span class="bash"> show binlog events <span class="keyword">in</span> <span class="string">'mysql-bin.000005'</span> from 317;</span></div></pre></td></tr></table></figure></p>
+<p>6.查看binlog日志的前三行<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">mysql&gt;</span><span class="bash"> show binlog events <span class="keyword">in</span> <span class="string">'mysql-bin.000005'</span> <span class="built_in">limit</span> 3;</span></div></pre></td></tr></table></figure></p>
+<p>7.查看binlog日志指定位置点的前三行内容<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">mysql&gt;</span><span class="bash"> show binlog events <span class="keyword">in</span> <span class="string">'mysql-bin.000005'</span> from 956 <span class="built_in">limit</span> 3;</span></div></pre></td></tr></table></figure></p>
+<p>8.使用mysqlbinlog直接查看binlog文件<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mysqlbinlog --start-<span class="built_in">position</span> <span class="number">956</span> --<span class="built_in">stop</span>-<span class="built_in">position</span> <span class="number">1025</span> mysql-bin<span class="number">.000005</span></div><div class="line"></div><div class="line">mysqlbinlog --start-datetime <span class="string">"2017-12-31 10:40:00"</span> --<span class="built_in">stop</span>-datetime <span class="string">"2017-12-31 11:40:00"</span> mysql-bin<span class="number">.000005</span></div></pre></td></tr></table></figure></p>
+<h5 id="备份数据库"><a href="#备份数据库" class="headerlink" title="备份数据库"></a>备份数据库</h5><p><strong>常用参数</strong></p>
+<p>--routines：表示备份，存储过程和存储函数也会备份</p>
+<p>--triggers：表示备份时，触发器会被备份</p>
+<p>--events：表示备份，事件表会被备份</p>
+<p>1.表使用innodb存储引擎常用的备份语句</p>
+<p>1.1 如果未开启二进制日志，备份指定的zsythink数据库，可使用如下语句<br><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">mysqldump </span><span class="literal">-</span><span class="comment">uroot </span><span class="literal">-</span><span class="comment">h192</span><span class="string">.</span><span class="comment">168</span><span class="string">.</span><span class="comment">1</span><span class="string">.</span><span class="comment">146 </span><span class="literal">-</span><span class="literal">-</span><span class="comment">single</span><span class="literal">-</span><span class="comment">transaction </span><span class="literal">-</span><span class="literal">-</span><span class="comment">routines </span><span class="literal">-</span><span class="literal">-</span><span class="comment">triggers </span><span class="literal">-</span><span class="literal">-</span><span class="comment">events </span><span class="literal">-</span><span class="literal">-</span><span class="comment">databases zsythink </span><span class="literal">-</span><span class="comment">p </span>&gt;<span class="comment"> zsythink</span><span class="string">.</span><span class="comment">sql</span></div></pre></td></tr></table></figure></p>
+<p>1.2 对开启二进制日志，备份指定的zsythink数据库，可使用如下语句<br><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">mysqldump </span><span class="literal">-</span><span class="comment">uroot </span><span class="literal">-</span><span class="comment">h192</span><span class="string">.</span><span class="comment">168</span><span class="string">.</span><span class="comment">1</span><span class="string">.</span><span class="comment">146 </span><span class="literal">-</span><span class="literal">-</span><span class="comment">flush</span><span class="literal">-</span><span class="comment">logs </span><span class="literal">-</span><span class="literal">-</span><span class="comment">master</span><span class="literal">-</span><span class="comment">data=2 </span><span class="literal">-</span><span class="literal">-</span><span class="comment">single</span><span class="literal">-</span><span class="comment">transaction </span><span class="literal">-</span><span class="literal">-</span><span class="comment">routines </span><span class="literal">-</span><span class="literal">-</span><span class="comment">triggers </span><span class="literal">-</span><span class="literal">-</span><span class="comment">events </span><span class="literal">-</span><span class="literal">-</span><span class="comment">databases zsythink </span><span class="literal">-</span><span class="comment">p </span>&gt;<span class="comment"> zsythink</span><span class="string">.</span><span class="comment">sql</span></div></pre></td></tr></table></figure></p>
+<p>1.3 对开启二进制日志，备份全部数据库语句如下<br><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">mysqldump </span><span class="literal">-</span><span class="comment">uroot </span><span class="literal">-</span><span class="comment">h192</span><span class="string">.</span><span class="comment">168</span><span class="string">.</span><span class="comment">1</span><span class="string">.</span><span class="comment">146 </span><span class="literal">-</span><span class="literal">-</span><span class="comment">flush</span><span class="literal">-</span><span class="comment">logs </span><span class="literal">-</span><span class="literal">-</span><span class="comment">master</span><span class="literal">-</span><span class="comment">data=2 </span><span class="literal">-</span><span class="literal">-</span><span class="comment">single</span><span class="literal">-</span><span class="comment">transaction </span><span class="literal">-</span><span class="literal">-</span><span class="comment">routines </span><span class="literal">-</span><span class="literal">-</span><span class="comment">triggers </span><span class="literal">-</span><span class="literal">-</span><span class="comment">events </span><span class="literal">-</span><span class="literal">-</span><span class="comment">all</span><span class="literal">-</span><span class="comment">databases </span><span class="literal">-</span><span class="comment">p </span>&gt;<span class="comment"> dbbackup</span><span class="string">.</span><span class="comment">sql</span></div></pre></td></tr></table></figure></p>
+<p>2.表使用myisam存储引擎常用的备份语句</p>
+<p>--lock-tables 对数据库加锁，该选项不能与--single-transaction同时使用</p>
+<p>2.1 如果未开启二进制日志，备份指定的zsythink数据库，可使用如下语句<br><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">mysqldump </span><span class="literal">-</span><span class="comment">uroot </span><span class="literal">-</span><span class="comment">h192</span><span class="string">.</span><span class="comment">168</span><span class="string">.</span><span class="comment">1</span><span class="string">.</span><span class="comment">146 </span><span class="literal">-</span><span class="literal">-</span><span class="comment">routines </span><span class="literal">-</span><span class="literal">-</span><span class="comment">triggers </span><span class="literal">-</span><span class="literal">-</span><span class="comment">events </span><span class="literal">-</span><span class="literal">-</span><span class="comment">lock</span><span class="literal">-</span><span class="comment">tables </span><span class="literal">-</span><span class="literal">-</span><span class="comment">databases zsythink </span><span class="literal">-</span><span class="comment">p </span>&gt;<span class="comment"> zsythink</span><span class="string">.</span><span class="comment">sql</span></div></pre></td></tr></table></figure></p>
+<p>2.2 对开启二进制日志，备份指定的zsythink数据库，可使用如下语句<br><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">mysqldump </span><span class="literal">-</span><span class="comment">uroot </span><span class="literal">-</span><span class="comment">h192</span><span class="string">.</span><span class="comment">168</span><span class="string">.</span><span class="comment">1</span><span class="string">.</span><span class="comment">146 </span><span class="literal">-</span><span class="literal">-</span><span class="comment">flush</span><span class="literal">-</span><span class="comment">logs </span><span class="literal">-</span><span class="literal">-</span><span class="comment">master</span><span class="literal">-</span><span class="comment">data=2 </span><span class="literal">-</span><span class="literal">-</span><span class="comment">routines </span><span class="literal">-</span><span class="literal">-</span><span class="comment">triggers </span><span class="literal">-</span><span class="literal">-</span><span class="comment">events </span><span class="literal">-</span><span class="literal">-</span><span class="comment">lock</span><span class="literal">-</span><span class="comment">tables </span><span class="literal">-</span><span class="literal">-</span><span class="comment">databases zsythink </span><span class="literal">-</span><span class="comment">p </span>&gt;<span class="comment"> zsythink</span><span class="string">.</span><span class="comment">sql</span></div></pre></td></tr></table></figure></p>
+<p>2.3 对开启二进制日志，备份全部数据库语句如下<br><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">mysqldump </span><span class="literal">-</span><span class="comment">uroot </span><span class="literal">-</span><span class="comment">h192</span><span class="string">.</span><span class="comment">168</span><span class="string">.</span><span class="comment">1</span><span class="string">.</span><span class="comment">146 </span><span class="literal">-</span><span class="literal">-</span><span class="comment">flush</span><span class="literal">-</span><span class="comment">logs </span><span class="literal">-</span><span class="literal">-</span><span class="comment">master</span><span class="literal">-</span><span class="comment">data=2 </span><span class="literal">-</span><span class="literal">-</span><span class="comment">routines </span><span class="literal">-</span><span class="literal">-</span><span class="comment">triggers </span><span class="literal">-</span><span class="literal">-</span><span class="comment">events </span><span class="literal">-</span><span class="literal">-</span><span class="comment">lock</span><span class="literal">-</span><span class="comment">all</span><span class="literal">-</span><span class="comment">tables </span><span class="literal">-</span><span class="literal">-</span><span class="comment">all</span><span class="literal">-</span><span class="comment">databases </span><span class="literal">-</span><span class="comment">p </span>&gt;<span class="comment"> dbbackup</span><span class="string">.</span><span class="comment">sql</span></div></pre></td></tr></table></figure></p>
+<p><strong>mysqldump 部分参数</strong>：</p>
+<p>--add-drop--database：在每个 CREATE DATABASE 语句前添加 DROP DATABASE 语句。</p>
+<p>--all--database，-A： 备份所有数据库中的所有表。与使用—database 选项相同，在命令行中命名所有数据库。</p>
+<p>--database，-B： 转储几个数据库。通常情况，mysqldump 将命令行中的第 1 个名字参量看作数据库名，后面的名看作表名。使用该项，它将所有名字参量看作数据库名。CREATE DATABASE IF NOT EXISTS db_name 和 USE db_name 语句包含在每个新数据库前的输出中。</p>
+<p>--flush-logs，-F： 刷新 binlog 日志</p>
+<p>--lock-all-tables，-x： 所有数据库中的所有表加锁。在整体备份过程中通过全局读锁定来实现。</p>
+<p>--master-data： 启用二进制日志。如果该选项值等于 1，位置和文件名被写入 CHANGE MASTER 语句形式的转储输出; 如果选项值等于 2，CHANGE MASTER 语句被写成 SQL 注释。</p>
+<p>--no-create-db,-n： 禁止生成创建数据库语句；</p>
+<p>--no-data，-d： 备份表结构</p>
+<p>--no-create-info，-t： 不写重新创建每个转储表的CREATE TABLE语句。</p>
+<p>3.实际场景：</p>
+<p>a.全备<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqldump –uroot –p123456 –c –R --master-data=2 –-add-drop-database –-single-transaction -–all-databases |gzip –qc &gt; /tmp/all.zip</div></pre></td></tr></table></figure></p>
+<p>b.导出数据库结构<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@linux mysql]<span class="comment"># mysqldump -uroot -p -n -d --database test &gt;/tmp/db.sql</span></div></pre></td></tr></table></figure></p>
+<p>c.导出函数<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@linux mysql]<span class="comment"># mysqldump -uroot -p -n -t -d -R --database test &gt;/tmp/p.sql</span></div></pre></td></tr></table></figure></p>
+<p>d.导出事件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@linux mysql]<span class="comment"># mysqldump -uroot -p -n -t -d --events --databases test &gt;1.sql</span></div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/mysql命令/" rel="tag"># mysql命令</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赞赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-img.png" alt="随心 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-img.png" alt="随心 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+         
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2017/09/linux故障解决.html" rel="next" title="linux故障解决">
+                <i class="fa fa-chevron-left"></i> linux故障解决
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2017/12/mysql错误案例.html" rel="prev" title="mysql错误案例">
+                mysql错误案例 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="随心" />
+          <p class="site-author-name" itemprop="name">随心</p>
+          <p class="site-description motion-element" itemprop="description">面对攻击你的人，the best revenge is massive success!</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/suixin7888" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://weibo.com/3935189017" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.suixin7888.top" target="_blank" title="Gitbook">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Gitbook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://shenzekun.cn/" title="Morrez" target="_blank">Morrez</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ezlippi.com" title="EZLippi" target="_blank">EZLippi</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.zhihu.com/people/sui-xin-78-59" title="友链出租" target="_blank">友链出租</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#权限操作"><span class="nav-number">1.</span> <span class="nav-text">权限操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-系统命令"><span class="nav-number">2.</span> <span class="nav-text">mysql 系统命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#库操作"><span class="nav-number">3.</span> <span class="nav-text">库操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表操作"><span class="nav-number">4.</span> <span class="nav-text">表操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#表的修改"><span class="nav-number">4.0.1.</span> <span class="nav-text">表的修改</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#表的查询"><span class="nav-number">4.0.2.</span> <span class="nav-text">表的查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#特殊查询"><span class="nav-number">4.0.3.</span> <span class="nav-text">特殊查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#存储引擎操作"><span class="nav-number">4.0.4.</span> <span class="nav-text">存储引擎操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#事务"><span class="nav-number">4.0.5.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#mysql日志"><span class="nav-number">4.0.6.</span> <span class="nav-text">mysql日志</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二进制日志的查询"><span class="nav-number">4.0.7.</span> <span class="nav-text">二进制日志的查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#备份数据库"><span class="nav-number">4.0.8.</span> <span class="nav-text">备份数据库</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+<div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">随心</span>
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+
+<div class="powered-by">
+  Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+
+</div>
+
+
+<!--div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+-->
+
+
+
+
+
+
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+</body>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</html>
